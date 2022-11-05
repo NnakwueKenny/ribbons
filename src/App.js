@@ -8,7 +8,6 @@ function App() {
       <Routes>
         {/* Home Route */}
         <Route path="/" element={<Dashboard />} />
-
       </Routes>
     </div>
   );
