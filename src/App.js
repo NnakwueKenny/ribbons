@@ -7,7 +7,7 @@ function App() {
     <div id='wrapper' className="App homepage font-black font-sans text-purple-900 h-screen py-2 flex flex-col items-center">
       <Routes>
         {/* Home Route */}
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/" element={<Dashboard />} />
 
       </Routes>
     </div>
