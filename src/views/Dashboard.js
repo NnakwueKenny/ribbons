@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import Chatbot from '../components/Chatbot';
 import Loader from '../components/Loader';
 import logo from '../images/logo.png';
 
@@ -16,15 +17,23 @@ const Dashboard = () => {
     setShowOptions(prevValue => !prevValue)
   }
 
+  const [ showChatbot, setShowChatbot ] = useState(false);
+  const toggleShowChatbot = () => {
+    setShowChatbot(prevValue => !prevValue)
+  }
+
   useEffect(() => {
     toggleLoader()
   }, [])
 
   return (
     <div className='h-full overflow-auto w-full py-4'>
-      <button className='absolute animate-pulse flex justify-center items-center bottom-8 right-10 w-12 h-12 bg-white text-violet-900 rounded-full shadow-xl pt-3'>
-        <span className='animate-bounce'><i className='fa fa-message'></i></span>
-      </button>
+      {showChatbot && <Chatbot toggleShowChatbot={toggleShowChatbot}/>}
+      { !showChatbot &&
+        <button onClick={toggleShowChatbot} className='z-50 absolute animate-pulse flex justify-center items-center bottom-8 right-10 w-12 h-12 bg-white text-violet-900 rounded-full shadow-xl pt-3'>
+          <span className='animate-bounce'><i className='fa fa-message'></i></span>
+        </button>
+      }
       {
         isLoading ?
         <Loader />:
@@ -115,7 +124,7 @@ const Dashboard = () => {
           {/* Main Section starts here */}
           <div className='flex flex-col gap-4 w-full items-center px-1'>
             <p style={{fontFamily: `'Lato', sans-serif`}} className='text-gray-600 text-xl italic font-bold'>
-              Find GBV with us today, take a stand against injustice, make the world safe and better  for everyone to coexist.
+              Fight GBV with us today, take a stand against injustice, make the world safe and better  for everyone to coexist.
             </p>
             <div className='w-full'>
               <div className=''>
