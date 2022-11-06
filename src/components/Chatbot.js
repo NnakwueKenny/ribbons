@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import logo from '../images/logo.png';
 
+// <script src="//code.tidio.co/8gqimlvow6hqsvqgtvr5vlaohfynjbyg.js" async></script>
+
 const Chatbot = ({toggleShowChatbot}) => {
     const [ isOnline, setIsOnline ] = useState(true);
     const [ isTyping, setIsTyping ] = useState(false);
