@@ -21,11 +21,15 @@ const Dashboard = () => {
   }, [])
 
   return (
-    <div className='h-full overflow-auto w-full max-w-md py-6 font-medium md:border-2 rounded-3xl'>
+    <div className='h-full overflow-auto w-full py-4'>
+      <button className='absolute animate-pulse flex justify-center items-center bottom-8 right-10 w-12 h-12 bg-white text-violet-900 rounded-full shadow-xl pt-3'>
+        <span className='animate-bounce'><i className='fa fa-message'></i></span>
+      </button>
       {
         isLoading ?
         <Loader />:
         <div className='flex flex-col gap-4 w-full items-center px-3'>
+          {/* Navbar starts here */}
           <div className='w-full flex items-center justify-between'>
             <div className='w-32 max-h-[50px] flex items-center'><img className='h-full w-full' src={logo} alt='ribbons logo'/></div>
             <div className='relative text-2xl px-2'>
@@ -46,10 +50,12 @@ const Dashboard = () => {
               </div>
             </div>
           </div>
+          {/* Navbar ends here */}
+
+          {/* Carousel starts here */}
           <div>
-                
-            <div className='w-full relative my-4 md:my-8'>
-              <div id="carouselExampleCaptions" className="carousel slide relative" data-bs-ride="carousel">
+            <div className='w-full relative py-3 px-1'>
+              <div id="carouselExampleCaptions" className="carousel slide relative rounded-2xl overflow-auto shadow" data-bs-ride="carousel">
                   <div className="carousel-indicators absolute right-0 bottom-0 left-0 flex justify-center p-0 mb-4">
                       <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" className="active" aria-label="Slide 1" ></button>
                       <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" className="active" aria-label="Slide 2" ></button>
@@ -102,38 +108,51 @@ const Dashboard = () => {
                       <span className="visually-hidden">Next</span>
                   </button>
               </div>
-          </div>
-          </div>
-          <div className='w-full'>
-            <div className='flex justify-center items-center gap-3 w-full rounded-2xl bg-violet-900 text-violet-100 py-3'>
-              <span className='text-2xl w-1/5 px-5 flex py-2'><i className='fa fa-message'></i></span>
-              <span className='w-full flex text-2xl font-normal'>Chat</span>
             </div>
           </div>
-          <div className='w-full'>
-            <div className='flex justify-center items-center gap-3 w-full rounded-2xl bg-violet-900 text-violet-100 py-3'>
-              <span className='text-2xl px-5 flex py-2'><i className="fa-solid fa-truck-medical"></i></span>
-              <span className='w-full flex text-2xl font-normal'>Medical Assistance</span>
+          {/* Carousel ends here */}
+
+          {/* Main Section starts here */}
+          <div className='flex flex-col gap-4 w-full items-center px-1'>
+            <p style={{fontFamily: `'Lato', sans-serif`}} className='text-gray-600 text-xl italic font-bold'>
+              Find GBV with us today, take a stand against injustice, make the world safe and better  for everyone to coexist.
+            </p>
+            <div className='w-full'>
+              <div className=''>
+              </div>
+            </div>
+            <div className='w-full'>
+              <div className='flex justify-center items-center gap-3 w-full rounded-2xl bg-violet-900 text-violet-100 py-3'>
+                <span className='text-2xl w-1/5 px-5 flex py-2'><i className='fa fa-message'></i></span>
+                <span className='w-full flex text-2xl font-normal'>Chat</span>
+              </div>
+            </div>
+            <div className='w-full'>
+              <div className='flex justify-center items-center gap-3 w-full rounded-2xl bg-violet-900 text-violet-100 py-3'>
+                <span className='text-2xl px-5 flex py-2'><i className="fa-solid fa-truck-medical"></i></span>
+                <span className='w-full flex text-2xl font-normal'>Medical Assistance</span>
+              </div>
+            </div>
+            <div className='w-full'>
+              <div className='flex justify-center items-center gap-3 w-full rounded-2xl bg-violet-900 text-violet-100 py-3'>
+                <span className='text-2xl px-5 flex py-2'><i className="fa fa-comment"></i></span>
+                <span className='w-full flex text-2xl font-normal'>Support</span>
+              </div>
+            </div>
+            <div className='w-full'>
+              <div className='flex justify-center items-center gap-3 w-full rounded-2xl bg-violet-900 text-violet-100 py-3'>
+                <span className='text-2xl px-5 flex py-2'><i className="fa-solid fa-location-dot"></i></span>
+                <span className='w-full flex text-2xl font-normal'>Locate a Doctor</span>
+              </div>
+            </div>
+            <div className='w-full'>
+              <div className='flex justify-center items-center gap-3 w-full rounded-2xl bg-violet-900 text-violet-100 py-3'>
+                <span className='text-2xl px-5 flex py-2'><i className="fa-solid fa-circle-check"></i></span>
+                <span className='w-full flex text-2xl font-normal'>SARC</span>
+              </div>
             </div>
           </div>
-          <div className='w-full'>
-            <div className='flex justify-center items-center gap-3 w-full rounded-2xl bg-violet-900 text-violet-100 py-3'>
-              <span className='text-2xl px-5 flex py-2'><i className="fa fa-comment"></i></span>
-              <span className='w-full flex text-2xl font-normal'>Support</span>
-            </div>
-          </div>
-          <div className='w-full'>
-            <div className='flex justify-center items-center gap-3 w-full rounded-2xl bg-violet-900 text-violet-100 py-3'>
-              <span className='text-2xl px-5 flex py-2'><i className="fa-solid fa-location-dot"></i></span>
-              <span className='w-full flex text-2xl font-normal'>Locate a Doctor</span>
-            </div>
-          </div>
-          <div className='w-full'>
-            <div className='flex justify-center items-center gap-3 w-full rounded-2xl bg-violet-900 text-violet-100 py-3'>
-              <span className='text-2xl px-5 flex py-2'><i className="fa-solid fa-circle-check"></i></span>
-              <span className='w-full flex text-2xl font-normal'>SARC</span>
-            </div>
-          </div>
+          {/* Main Section ends here */}
         </div>
       }
     </div>
