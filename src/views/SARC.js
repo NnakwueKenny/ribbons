@@ -28,7 +28,6 @@ const SARC = () => {
         toggleLoader();
         console.log(SARCData)
     }, []);
-
     
     const [ searchQuery, setSearchQuery ] = useState('');
     const [ foundLocation, setFoundLocation ] = useState('');
@@ -37,7 +36,7 @@ const SARC = () => {
         setIsSearching(true);
         setTimeout(() => {
             setIsSearching(false);
-            setFoundLocation(searchQuery)
+            setFoundLocation(searchQuery);
         }, 2000)
     }
 
@@ -68,12 +67,13 @@ const SARC = () => {
                     <div className='w-full'>
                         <select onChange={(e) => setSearchQuery(e.target.value)} className='border outline-none focus:ring-1 focus:ring-violet-900 focus:outline-none p-2.5 rounded-l-lg w-full text-gray-600'>
                             <option disabled value=''>Select</option>
-                            <option>Abuja</option>
-                            <option>Anambra</option>
-                            <option>Kano</option>
-                            <option>Lagos</option>
-                            <option>Plateau</option>
-                            <option>Rivers</option>
+                            {
+                                SARCData.map(dataItem => {
+                                    return (
+                                        <option>{dataItem.state}</option>
+                                    )
+                                })
+                            }
                         </select>
                     </div>
                     <button onClick={getSARCLoc} type='button' className='flex items-center justify-center px-2 border border-gray-500 rounded-r-lg focus:ring-1 ring-violet-600'>Search</button>
