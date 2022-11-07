@@ -6,8 +6,18 @@ import logo from '../images/logo.png';
 const Chatbot = ({toggleShowChatbot}) => {
     const [ isOnline, setIsOnline ] = useState(true);
     const [ isTyping, setIsTyping ] = useState(false);
+    const [ userResponses, setUserResponses ] = useState([`1`]);
+    const [ botResponses, setBotResponses ] = useState([``]);
+    const [ conversation, setConversation ] = useState([]);
+    const [ typedMessage, setTypedMessage ] = useState('');
+    const [ clickedMessage, setClickedMessage ] = useState('');
+
+    const updateConversation = () => {
+
+    }
+
   return (
-    <div className='absolute h-full overflow-hidden top-0 left-0 z-40 w-full flex pt-5 px-2 pb-2'>
+    <div className='hidden absolute h-full overflow-hidden top-0 left-0 z-40 w-full flex pt-5 px-2 pb-2'>
         <div className='relative flex flex-col bg-gray-100 w-full h-full shadow-xl rounded-t-2xl rounde overflow-hidden' data-aos="fade-up-left" data-aos-anchor-placement="center-bottom" >
             <button className='absolute right-7 top-3 text-violet-900' onClick={toggleShowChatbot}><i className='fa fa-times'></i></button>
             <div className='flex flex-col shadow'>
@@ -29,11 +39,15 @@ const Chatbot = ({toggleShowChatbot}) => {
             <div className='flex flex-col justify-end px-2 h-full bg-white overflow-auto'>
                 <div style={{fontFamily: `'Lato', sans-serif`}} className='flex flex-col py-2 w-full h-full gap-2 rounded-lg'>
                     <div className='mb-auto'></div>
-                    <div className='flex justify-end px-2 mb-1'>
-                        <div  className='max-w-xs text-start bg-violet-900 text-white px-2.5 py-1 rounded-2xl rounded-tr-none'>Hello</div>
+                    <div className='relative flex justify-center py-1'>
+                        <div className='absolute w-full border top-[50%] z-20'></div>
+                        <span className='bg-violet-900 px-3 py-1 rounded-lg text-white z-30'>Today</span>
                     </div>
                     <div className='flex justify-start px-2 mb-1'>
                         <div  className='max-w-xs text-start bg-violet-900 text-white px-2.5 py-1 rounded-2xl rounded-tl-none'>Hi! Welcome to Ribbons...</div>
+                    </div>
+                    <div className='flex justify-end px-2 mb-1'>
+                        <div  className='max-w-xs text-start bg-violet-900 text-white px-2.5 py-1 rounded-2xl rounded-tr-none'>Hello</div>
                     </div>
                 </div>
             </div>
@@ -46,6 +60,7 @@ const Chatbot = ({toggleShowChatbot}) => {
                 </div>
             </form>
         </div>
+        <script src="//code.tidio.co/8gqimlvow6hqsvqgtvr5vlaohfynjbyg.js" async></script>
     </div>
   )
 }
