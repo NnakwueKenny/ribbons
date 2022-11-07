@@ -26,12 +26,14 @@ const SARC = () => {
     }, []);
 
     
-    const [ searchQuery, setSearchQuery ] = useState('')
+    const [ searchQuery, setSearchQuery ] = useState('');
+    const [ foundLocation, setFoundLocation ] = useState('');
     const [ isSearching, setIsSearching ] = useState(false);
     const getSARCLoc = () => {
         setIsSearching(true);
         setTimeout(() => {
-            setIsSearching(false)
+            setIsSearching(false);
+            setFoundLocation(searchQuery)
         }, 2000)
     }
 
@@ -78,7 +80,7 @@ const SARC = () => {
                         <SearchLoader />
                         :
                         <div className='w-full'>
-                            <h2 style={{fontFamily: `'Lato', sans-serif`}} className='text-gray-500 py-2'>SARC Locations found in {searchQuery}</h2>
+                            <h2 style={{fontFamily: `'Lato', sans-serif`}} className='text-gray-500 py-2'>SARC Locations found in {foundLocation}</h2>
                             <div className='flex flex-col gap-4'>
                                 <div className='w-full shadow rounded-lg'>
                                     <div className='w-full px-2 py-3'>
