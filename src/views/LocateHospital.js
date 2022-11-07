@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Chatbot from '../components/Chatbot';
 import ChatbotBtn from '../components/ChatbotBtn';
@@ -6,10 +6,7 @@ import Loader from '../components/Loader';
 import Navbar from '../components/Navbar';
 import SearchLoader from '../components/SearchLoader';
 
-// Sexual Assault Report Center Data
-import SARCData from '../data/sarcData';
-
-const SARC = () => {
+const LocateHospital = () => {
     const [ isLoading, setIsLoading ] = useState(true);
     const [ isTyping, setIsTyping ] = useState(false);
   
@@ -25,8 +22,7 @@ const SARC = () => {
     }
     
     useEffect(() => {
-        toggleLoader();
-        console.log(SARCData)
+        toggleLoader()
     }, []);
 
     
@@ -120,4 +116,4 @@ const SARC = () => {
   )
 }
 
-export default SARC
+export default LocateHospital

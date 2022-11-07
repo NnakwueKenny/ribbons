@@ -3,6 +3,7 @@ import { Link, Route, Routes, useParams } from 'react-router-dom';
 import Dashboard from './views/Dashboard';import AOS from 'aos';
 import 'aos/dist/aos.css'; // You can also use <link> for styles
 import SARC from './views/SARC';
+import LocateHospital from './views/LocateHospital';
 // ..
 AOS.init();
 
@@ -16,6 +17,9 @@ function App() {
 
           {/* SARC Route */}
           <Route path="/sarc" element={<SARC />} />
+
+          {/* LocateHospital Route */}
+          <Route path="/locate-hospital" element={<LocateHospital />} />
         </Routes>
       </div>
     </div>
