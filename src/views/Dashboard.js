@@ -125,7 +125,6 @@ const Dashboard = () => {
                 <span className='flex text-lg font-normal'>Locate a Doctor</span>
               </div>
             </div>
-            <a href="#" onclick="tidioChatApi.open()">Open chat!</a>
           </div>
           {/* Main Section ends here */}
         </div>
