@@ -65,15 +65,15 @@ const SARC = () => {
             <div className='flex flex-col gap-4 w-full h-full items-center px-1'>
                 <div className='flex w-full text-gray-600 text'>
                     <Link to='/'><i className='fa fa-arrow-left'></i></Link>
-                    <div style={{fontFamily: `'Lato', sans-serif`}} className='w-full text-xl font-semibold text-violet-900'>SARC</div>
+                    <div style={{fontFamily: `'Lato', sans-serif`}} className='w-full text-xl font-semibold text-purple-900'>SARC</div>
                 </div>
                 <p style={{fontFamily: `'Lato', sans-serif`}} className='text-gray-500 text-md italic max-w-sm'>
                     Select your state/province to see SARC locations closest to you...
                 </p>
                 <form className='w-full max-w-sm flex gap-1'>
                     <div className='w-full'>
-                        <select onChange={(e) => setSearchQuery(e.target.value)} className='capitalize border outline-none focus:ring-1 focus:ring-violet-900 focus:outline-none p-2.5 rounded-l-lg w-full text-gray-600'>
-                            <option disabled value=''></option>
+                        <select onChange={(e) => setSearchQuery(e.target.value)} className='capitalize border outline-none focus:ring-1 focus:ring-purple-900 focus:outline-none p-2.5 rounded-l-lg w-full text-gray-600'>
+                            <option disabled selected value=''></option>
                             {
                                 SARCData.map(dataItem => {
                                     return (
@@ -83,7 +83,7 @@ const SARC = () => {
                             }
                         </select>
                     </div>
-                    <button onClick={getSARCLoc} type='button' className='flex items-center justify-center px-2 border border-gray-500 rounded-r-lg focus:ring-1 ring-violet-600'>Search</button>
+                    <button onClick={getSARCLoc} type='button' className='flex items-center justify-center px-2 border border-gray-500 rounded-r-lg focus:ring-1 ring-purple-600'>Search</button>
                 </form>
                 {
                     isSearched &&
@@ -93,7 +93,7 @@ const SARC = () => {
                         <SearchLoader />
                         :
                         <div className='w-full'>
-                            <h2 style={{fontFamily: `'Lato', sans-serif`}} className='text-gray-500 py-2'>SARC Locations found in <span className='capitalize'>{foundLocation}</span></h2>
+                            <h2 style={{fontFamily: `'Lato', sans-serif`}} className='text-gray-600 py-2 font-semibold'>SARC Locations found in <span className='capitalize'>{foundLocation}</span></h2>
                             { locationDetails.length > 0?
                                 <div className='flex flex-col gap-4'>
                                     {
@@ -101,9 +101,9 @@ const SARC = () => {
                                             return (
                                                 <div className='w-full shadow rounded-lg'>
                                                     <div className='w-full px-2 py-3'>
-                                                        <p style={{fontFamily: `'Lato', sans-serif`}} className='font-semibold text-violet-900 uppercase text-md pb-2'>{location.name}</p>
+                                                        <p style={{fontFamily: `'Lato', sans-serif`}} className='font-semibold text-purple-900 uppercase text-md pb-2'>{location.name}</p>
                                                         <p className='text-sm'><span className='font-semibold'>Address: </span>{location.address}</p>
-                                                        <p className='text-sm'><span className='font-semibold'>Phone: </span> <a href={`tel:${location.phone}`}>{location.phone}</a></p>
+                                                        <p className='text-sm'><span className='font-semibold'>Phone: </span> <a className='underline text-purple-800' href={`tel:${location.phone}`}>{location.phone}</a></p>
                                                     </div>
                                                 </div>
                                             )

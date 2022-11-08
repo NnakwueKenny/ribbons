@@ -108,18 +108,18 @@ const Dashboard = () => {
               </div>
             </div>
             <div className='grid grid-cols-2 gap-3 w-full'>
-              <Link to='/sarc' className='flex flex-col justify-center items-center gap-1 w-full rounded-2xl bg-violet-900 text-violet-100 py-3'>
+              <Link to='/sarc' className='flex flex-col justify-center items-center gap-1 w-full rounded-2xl bg-purple-900 text-purple-100 py-3'>
                 <span className='text-2xl px-5 flex py-2'><i className="fa-solid fa-circle-check"></i></span>
                 <span className='flex text-lg font-normal'>SARC</span>
               </Link>
-              <Link to='/locate-hospital' className='flex flex-col justify-center items-center gap-1 w-full rounded-2xl bg-violet-900 text-violet-100 py-3'>
+              <Link to='/locate-hospital' className='flex flex-col justify-center items-center gap-1 w-full rounded-2xl bg-purple-900 text-purple-100 py-3'>
                 <span className='text-2xl px-2 flex py-2'><i className="fa-solid fa-hospital"></i></span>
                 <span className='flex text-lg font-normal'>Locate a Hospital</span>
               </Link>
-              <div className='flex flex-col justify-center items-center gap-1 w-full rounded-2xl bg-violet-900 text-violet-100 py-3 col-span-2'>
+              <Link to='/faqs'  className='flex flex-col justify-center items-center gap-1 w-full rounded-2xl bg-purple-900 text-purple-100 py-3 col-span-2'>
                 <span className='text-2xl px-5 flex py-2'><i className="fa-solid fa-question-circle"></i></span>
                 <span className='flex text-lg font-normal'>Help / FAQS</span>
-              </div>
+              </Link>
             </div>
           </div>
           {/* Main Section ends here */}

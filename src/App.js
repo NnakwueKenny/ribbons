@@ -4,6 +4,7 @@ import Dashboard from './views/Dashboard';import AOS from 'aos';
 import 'aos/dist/aos.css'; // You can also use <link> for styles
 import SARC from './views/SARC';
 import LocateHospital from './views/LocateHospital';
+import Faqs from './views/Faqs';
 // ..
 AOS.init();
 
@@ -20,6 +21,10 @@ function App() {
 
           {/* LocateHospital Route */}
           <Route path="/locate-hospital" element={<LocateHospital />} />
+
+          {/* Faqs Route */}
+          <Route path="/faqs" element={<Faqs />} />
+
         </Routes>
       </div>
     </div>
