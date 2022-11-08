@@ -26,14 +26,21 @@ const SARC = () => {
     
     useEffect(() => {
         toggleLoader();
-        console.log(SARCData)
     }, []);
     
     const [ searchQuery, setSearchQuery ] = useState('');
     const [ foundLocation, setFoundLocation ] = useState('');
+    const [ locationDetails, setLocationDetails ] = useState(['']);
     const [ isSearching, setIsSearching ] = useState(false);
+    const [ isSearched, setIsSearched ] = useState(false);
+
     const getSARCLoc = () => {
+        console.log(searchQuery.length)
         setIsSearching(true);
+        const targetData = SARCData.filter(item => item.state === searchQuery);
+        console.log(targetData);
+        setLocationDetails(targetData.length > 0? targetData[0].sarcCenters: [] );
+        setIsSearched(true)
         setTimeout(() => {
             setIsSearching(false);
             setFoundLocation(searchQuery);
@@ -65,12 +72,12 @@ const SARC = () => {
                 </p>
                 <form className='w-full max-w-sm flex gap-1'>
                     <div className='w-full'>
-                        <select onChange={(e) => setSearchQuery(e.target.value)} className='border outline-none focus:ring-1 focus:ring-violet-900 focus:outline-none p-2.5 rounded-l-lg w-full text-gray-600'>
-                            <option disabled value=''>Select</option>
+                        <select onChange={(e) => setSearchQuery(e.target.value)} className='capitalize border outline-none focus:ring-1 focus:ring-violet-900 focus:outline-none p-2.5 rounded-l-lg w-full text-gray-600'>
+                            <option disabled value=''></option>
                             {
                                 SARCData.map(dataItem => {
                                     return (
-                                        <option>{dataItem.state}</option>
+                                        <option className='capitalize'>{dataItem.state}</option>
                                     )
                                 })
                             }
@@ -78,39 +85,40 @@ const SARC = () => {
                     </div>
                     <button onClick={getSARCLoc} type='button' className='flex items-center justify-center px-2 border border-gray-500 rounded-r-lg focus:ring-1 ring-violet-600'>Search</button>
                 </form>
-                <div className='w-full h-full border-t mt-4 py-2 font-normal'>
+                {
+                    isSearched &&
+                    <div className='w-full h-full border-t mt-4 py-2 font-normal'>
                     {
                         isSearching?
                         <SearchLoader />
                         :
                         <div className='w-full'>
-                            <h2 style={{fontFamily: `'Lato', sans-serif`}} className='text-gray-500 py-2'>SARC Locations found in {foundLocation}</h2>
-                            <div className='flex flex-col gap-4'>
-                                <div className='w-full shadow rounded-lg'>
-                                    <div className='w-full px-2 py-3'>
-                                        <p style={{fontFamily: `'Lato', sans-serif`}} className='font-semibold text-violet-900 uppercase text-md pb-2'>Aminu Kano Teaching Hospital, Kano</p>
-                                        <p className='text-sm'><span className='font-semibold'>Address: </span>No. 5 New Hospital Road, Gyadi-Gayadi, Tarauni LGA, Kano</p>
-                                        <p className='text-sm'><span className='font-semibold'>Phone: </span> +2348137926904</p>
-                                    </div>
+                            <h2 style={{fontFamily: `'Lato', sans-serif`}} className='text-gray-500 py-2'>SARC Locations found in <span className='capitalize'>{foundLocation}</span></h2>
+                            { locationDetails.length > 0?
+                                <div className='flex flex-col gap-4'>
+                                    {
+                                        locationDetails.map(location => {
+                                            return (
+                                                <div className='w-full shadow rounded-lg'>
+                                                    <div className='w-full px-2 py-3'>
+                                                        <p style={{fontFamily: `'Lato', sans-serif`}} className='font-semibold text-violet-900 uppercase text-md pb-2'>{location.name}</p>
+                                                        <p className='text-sm'><span className='font-semibold'>Address: </span>{location.address}</p>
+                                                        <p className='text-sm'><span className='font-semibold'>Phone: </span> <a href={`tel:${location.phone}`}>{location.phone}</a></p>
+                                                    </div>
+                                                </div>
+                                            )
+                                        })
+                                    }
                                 </div>
-                                <div className='w-full shadow rounded-lg'>
-                                    <div className='w-full px-2 py-3'>
-                                        <p style={{fontFamily: `'Lato', sans-serif`}} className='font-semibold text-violet-900 uppercase text-md pb-2'>Aminu Kano Teaching Hospital, Kano</p>
-                                        <p className='text-sm'><span className='font-semibold'>Address: </span>No. 5 New Hospital Road, Gyadi-Gayadi, Tarauni LGA, Kano</p>
-                                        <p className='text-sm'><span className='font-semibold'>Phone: </span> +2348137926904</p>
-                                    </div>
+                                :
+                                <div className='h-full flex justify-center items-center py-20 text-red-500 font-medium italic'>
+                                    <p className='max-w-sm'>No SAR center found in your location. Please, select a different location closer to you.</p>
                                 </div>
-                                <div className='w-full shadow rounded-lg'>
-                                    <div className='w-full px-2 py-3'>
-                                        <p style={{fontFamily: `'Lato', sans-serif`}} className='font-semibold text-violet-900 uppercase text-md pb-2'>Aminu Kano Teaching Hospital, Kano</p>
-                                        <p className='text-sm'><span className='font-semibold'>Address: </span>No. 5 New Hospital Road, Gyadi-Gayadi, Tarauni LGA, Kano</p>
-                                        <p className='text-sm'><span className='font-semibold'>Phone: </span> +2348137926904</p>
-                                    </div>
-                                </div>
-                            </div>
+                            }
                         </div>
                     }
-                </div>
+                    </div>
+                }
             </div>
             {/* Main Section ends here */}
 
