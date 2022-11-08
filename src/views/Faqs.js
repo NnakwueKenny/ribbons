@@ -73,8 +73,8 @@ const Faqs = () => {
                 </AccordionBody>
               </Accordion>
               <Accordion open={open === 2} animate={customAnimation}>
-                <AccordionHeader onClick={() => handleOpen(2)}>
-                  How to use Material Tailwind?
+                <AccordionHeader onClick={() => handleOpen(1)} className='text-md'>
+                  How can I locate the nearest SAR Center?
                 </AccordionHeader>
                 <AccordionBody>
                   We&apos;re not always in the position that we want to be at.
@@ -84,8 +84,8 @@ const Faqs = () => {
                 </AccordionBody>
               </Accordion>
               <Accordion open={open === 3} animate={customAnimation}>
-                <AccordionHeader onClick={() => handleOpen(3)}>
-                  What can I do with Material Tailwind?
+                <AccordionHeader onClick={() => handleOpen(1)} className='text-md'>
+                  How can I locate the nearest SAR Center?
                 </AccordionHeader>
                 <AccordionBody>
                   We&apos;re not always in the position that we want to be at.
