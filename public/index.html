@@ -30,7 +30,8 @@
           function onTidioChatApiReady() {
             window.tidioChatApi.open();
             alert(navigator.language);
-            document.tidioChatLang = navigator.language
+            console.log(navigator.language.slice(0,2));
+            document.tidioChatLang = navigator.language.slice(0,2);
           }
           if (window.tidioChatApi) {
             window.tidioChatApi.on('ready', onTidioChatApiReady);
