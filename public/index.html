@@ -29,6 +29,8 @@
       (function () {
           function onTidioChatApiReady() {
             window.tidioChatApi.open();
+            alert(navigator.language);
+            document.tidioChatLang = navigator.language
           }
           if (window.tidioChatApi) {
             window.tidioChatApi.on('ready', onTidioChatApiReady);
@@ -36,7 +38,6 @@
             document.addEventListener('tidioChat-ready', onTidioChatApiReady);
           }
         })();
-        alert(navigator.language)
         document.tidioChatLang = navigator.language
         alert(navigator.language)
         console.log(document.tidioChatLang)
