@@ -25,29 +25,29 @@
     <script src="https://unpkg.com/flowbite@1.5.3/dist/flowbite.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/index.min.js"></script>
     <script async>
-      // (function () {
-      //     function onTidioChatApiReady() {
-      //       window.tidioChatApi.open();
-      //       setTimeout(() => {
-      //         // const targetDocument = document.querySelector('html')
-      //         // const documentLang = targetDocument.getAttribute('lang');
-      //         // console.log(targetDocument);
-      //         // console.log(targetDocument.querySelector('#tidio-chat').querySelector('iframe'));
-      //         // alert(document.tidioChatLang);
-      //         // document.tidioChatLang = document.querySelector('html').getAttribute('lang');
-      //         // console.log(document.tidioChatLang);
-      //         // console.log(document.tidioChatApi)
-      //         // document.tidioChatLang = 'IT';
-      //         // console.log(tidioChatLang);
-      //         console.log('E don dey work!');
-      //       }, 500)
-      //     }
-      //     if (window.tidioChatApi) {
-      //       window.tidioChatApi.on('ready', onTidioChatApiReady);
-      //     } else {
-      //       document.addEventListener('tidioChat-ready', onTidioChatApiReady);
-      //     }
-      //   })();
+      (function () {
+          function onTidioChatApiReady() {
+            // window.tidioChatApi.open();
+            setTimeout(() => {
+              // const targetDocument = document.querySelector('html')
+              // const documentLang = targetDocument.getAttribute('lang');
+              // console.log(targetDocument);
+              // console.log(targetDocument.querySelector('#tidio-chat').querySelector('iframe'));
+              // alert(document.tidioChatLang);
+              // document.tidioChatLang = document.querySelector('html').getAttribute('lang');
+              // console.log(document.tidioChatLang);
+              // console.log(document.tidioChatApi)
+              // document.tidioChatLang = 'IT';
+              // console.log(tidioChatLang);
+              console.log('E don dey work!');
+            }, 500)
+          }
+          if (window.tidioChatApi) {
+            window.tidioChatApi.on('ready', onTidioChatApiReady);
+          } else {
+            document.addEventListener('tidioChat-ready', onTidioChatApiReady);
+          }
+        })();
         // document.tidioChatLang = navigator.language
         // alert(navigator.language)
         // console.log(document.tidioChatLang)
