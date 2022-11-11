@@ -26,7 +26,8 @@
     <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/index.min.js"></script>
     <script src="https://code.tidio.co/8gqimlvow6hqsvqgtvr5vlaohfynjbyg.js" async></script>
     <script>
-      document.tidioChatLang = document.querySelector('html').getAttribute('lang');
+      document.tidioChatLang = navigator.language
+      console.log(navigator.language)
     </script>
   </body>
 </html>
