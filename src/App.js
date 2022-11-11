@@ -9,8 +9,8 @@ import Faqs from './views/Faqs';
 AOS.init();
 
 function App() {
-  localStorage.clear();
-  console.log('LocalStorage cleared!');
+  // localStorage.clear();
+  // console.log('LocalStorage cleared!');
   return (
     <div id='wrapper' className="App homepage font-black font-sans h-screen py-2 flex flex-col items-center">
       <div className='w-full relative h-full max-w-lg font-medium md:border-2'>

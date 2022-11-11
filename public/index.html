@@ -29,9 +29,11 @@
       (function () {
           function onTidioChatApiReady() {
             window.tidioChatApi.open();
-            alert(navigator.language);
-            console.log(navigator.language.slice(0,2));
-            document.tidioChatLang = navigator.language.slice(0,2);
+            setTimeout(() => {
+              console.log(document.tidioChatLang);
+              document.tidioChatLang = document.querySelector('html').getAttribute('lang');
+              console.log('E don dey work!');
+            }, 5000)
           }
           if (window.tidioChatApi) {
             window.tidioChatApi.on('ready', onTidioChatApiReady);
@@ -39,9 +41,9 @@
             document.addEventListener('tidioChat-ready', onTidioChatApiReady);
           }
         })();
-        document.tidioChatLang = navigator.language
-        alert(navigator.language)
-        console.log(document.tidioChatLang)
+        // document.tidioChatLang = navigator.language
+        // alert(navigator.language)
+        // console.log(document.tidioChatLang)
     </script>
   </body>
 </html>
