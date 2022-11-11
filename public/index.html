@@ -24,7 +24,8 @@
     <div id="root"></div>
     <script src="https://unpkg.com/flowbite@1.5.3/dist/flowbite.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/index.min.js"></script>
-    <script>
+    <script src="https://code.tidio.co/8gqimlvow6hqsvqgtvr5vlaohfynjbyg.js" async></script>
+    <script async>
       (function () {
           function onTidioChatApiReady() {
             window.tidioChatApi.open();
@@ -37,8 +38,9 @@
               // document.tidioChatLang = document.querySelector('html').getAttribute('lang');
               // console.log(document.tidioChatLang);
               // console.log(document.tidioChatApi)
-              // console.log('E don dey work!');
-              document.tidioChatLang = 'es';
+              document.tidioChatLang = 'IT';
+              console.log(tidioChatLang);
+              console.log('E don dey work!');
             }, 500)
           }
           if (window.tidioChatApi) {
@@ -51,6 +53,12 @@
         // alert(navigator.language)
         // console.log(document.tidioChatLang)
     </script>
-    <script src="https://code.tidio.co/8gqimlvow6hqsvqgtvr5vlaohfynjbyg.js" async></script>
+    <script type="text/javascript">
+      function googleTranslateElementInit() {
+      new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+      }
+    </script>
+    
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
   </body>
 </html>
