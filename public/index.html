@@ -21,7 +21,7 @@
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="google_translate_element"></div>
+    <!-- <div id="google_translate_element"></div> -->
     <div id="root"></div>
     <script src="https://unpkg.com/flowbite@1.5.3/dist/flowbite.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/index.min.js"></script>
@@ -55,12 +55,12 @@
         // console.log(document.tidioChatLang)
     </script> -->
       
-    <script type="text/javascript">
+    <!-- <script type="text/javascript">
       function googleTranslateElementInit() {
       new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
       }
-    </script>
-    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    </script> -->
+    <!-- <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script> -->
     <!--Start of Tawk.to Script-->
     <script type="text/javascript">
       var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
@@ -73,6 +73,38 @@
       s0.parentNode.insertBefore(s1,s0);
       })();
     </script>
+
+<script type="text/javascript">
+  function getChatId() {
+      // function to retrieve the property/widget chat id;
+      // substitute 00000000000X to property id
+      var query = new URLSearchParams(window.location.search);
+      var lang = query.get('lang');
+   
+      switch (lang) {
+          case 'de':
+              return '000000000001/WIDGET_FOR_DE'
+          case 'ru':
+              return '000000000002/WIDGET_FOR_RU';
+          case 'en':
+              return '000000000003/WIDGET_FOR_EN';
+      }
+  }
+   
+  var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+  (function(){
+      var chatId = getChatId();
+      if (!chatId) {
+          return;
+      }
+      var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+      s1.async=true;
+      s1.src = 'https://embed.tawk.to/' + chatId;
+      s1.charset='UTF-8';
+      s1.setAttribute('crossorigin','*');
+      s0.parentNode.insertBefore(s1,s0);
+  })();
+  </script>
       <!--End of Tawk.to Script-->
       
     <!-- <script src="https://code.tidio.co/8gqimlvow6hqsvqgtvr5vlaohfynjbyg.js" async></script> -->
