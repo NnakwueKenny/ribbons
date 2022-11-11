@@ -26,8 +26,19 @@
     <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/index.min.js"></script>
     <script src="https://code.tidio.co/8gqimlvow6hqsvqgtvr5vlaohfynjbyg.js" async></script>
     <script>
+      (function () {
+          function onTidioChatApiReady() {
+            window.tidioChatApi.open();
+          }
+          if (window.tidioChatApi) {
+            window.tidioChatApi.on('ready', onTidioChatApiReady);
+          } else {
+            document.addEventListener('tidioChat-ready', onTidioChatApiReady);
+          }
+        })();
       document.tidioChatLang = navigator.language
-      console.log(navigator.language)
+        alert(navigator.language)
+        console.log(document.tidioChatLang)
     </script>
   </body>
 </html>
