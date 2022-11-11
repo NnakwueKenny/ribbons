@@ -86,8 +86,12 @@
               return '000000000001/WIDGET_FOR_DE'
           case 'ru':
               return '000000000002/WIDGET_FOR_RU';
+          case 'fr':
+              return '000000000003/WIDGET_FOR_FR';
           case 'en':
               return '000000000003/WIDGET_FOR_EN';
+          case 'es':
+              return '000000000003/WIDGET_FOR_ES';
       }
   }
    
@@ -95,9 +99,12 @@
   (function(){
       var chatId = getChatId();
       if (!chatId) {
+        console.log('Api loaded');
+        alert('Api actually loaded!')
           return;
       }
-      var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+      var s1 = document.createElement("script"),
+      s0 = document.getElementsByTagName("script")[0];
       s1.async=true;
       s1.src = 'https://embed.tawk.to/' + chatId;
       s1.charset='UTF-8';
