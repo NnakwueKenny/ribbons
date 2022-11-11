@@ -73,7 +73,7 @@ const Faqs = () => {
                 </AccordionBody>
               </Accordion>
               <Accordion open={open === 2} animate={customAnimation}>
-                <AccordionHeader onClick={() => handleOpen(1)} className='text-md'>
+                <AccordionHeader onClick={() => handleOpen(2)} className='text-md'>
                   How can I locate the nearest SAR Center?
                 </AccordionHeader>
                 <AccordionBody>
@@ -84,7 +84,29 @@ const Faqs = () => {
                 </AccordionBody>
               </Accordion>
               <Accordion open={open === 3} animate={customAnimation}>
-                <AccordionHeader onClick={() => handleOpen(1)} className='text-md'>
+                <AccordionHeader onClick={() => handleOpen(3)} className='text-md'>
+                  How can I locate the nearest SAR Center?
+                </AccordionHeader>
+                <AccordionBody>
+                  We&apos;re not always in the position that we want to be at.
+                  We&apos;re constantly growing. We&apos;re constantly making mistakes.
+                  We&apos;re constantly trying to express ourselves and actualize our
+                  dreams.
+                </AccordionBody>
+              </Accordion>
+              <Accordion open={open === 4} animate={customAnimation}>
+                <AccordionHeader onClick={() => handleOpen(4)} className='text-md'>
+                  How can I locate the nearest SAR Center?
+                </AccordionHeader>
+                <AccordionBody>
+                  We&apos;re not always in the position that we want to be at.
+                  We&apos;re constantly growing. We&apos;re constantly making mistakes.
+                  We&apos;re constantly trying to express ourselves and actualize our
+                  dreams.
+                </AccordionBody>
+              </Accordion>
+              <Accordion open={open === 5} animate={customAnimation}>
+                <AccordionHeader onClick={() => handleOpen(5)} className='text-md'>
                   How can I locate the nearest SAR Center?
                 </AccordionHeader>
                 <AccordionBody>
