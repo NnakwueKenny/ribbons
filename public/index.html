@@ -78,7 +78,9 @@
   function getChatId() {
       // function to retrieve the property/widget chat id;
       // substitute 00000000000X to property id
-      var query = new URLSearchParams(window.location.search);
+      var query = document.documentElement.lang;
+      alert(query);
+      console.log(query);
       var lang = document.documentElement.lang;
    
       switch (lang) {
