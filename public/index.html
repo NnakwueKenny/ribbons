@@ -24,16 +24,22 @@
     <div id="root"></div>
     <script src="https://unpkg.com/flowbite@1.5.3/dist/flowbite.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/index.min.js"></script>
-    <script src="https://code.tidio.co/8gqimlvow6hqsvqgtvr5vlaohfynjbyg.js" async></script>
     <script>
       (function () {
           function onTidioChatApiReady() {
             window.tidioChatApi.open();
             setTimeout(() => {
-              console.log(document.tidioChatLang);
-              document.tidioChatLang = document.querySelector('html').getAttribute('lang');
-              console.log('E don dey work!');
-            }, 5000)
+              // const targetDocument = document.querySelector('html')
+              // const documentLang = targetDocument.getAttribute('lang');
+              // console.log(targetDocument);
+              // console.log(targetDocument.querySelector('#tidio-chat').querySelector('iframe'));
+              // alert(document.tidioChatLang);
+              // document.tidioChatLang = document.querySelector('html').getAttribute('lang');
+              // console.log(document.tidioChatLang);
+              // console.log(document.tidioChatApi)
+              // console.log('E don dey work!');
+              document.tidioChatLang = 'es';
+            }, 500)
           }
           if (window.tidioChatApi) {
             window.tidioChatApi.on('ready', onTidioChatApiReady);
@@ -45,5 +51,6 @@
         // alert(navigator.language)
         // console.log(document.tidioChatLang)
     </script>
+    <script src="https://code.tidio.co/8gqimlvow6hqsvqgtvr5vlaohfynjbyg.js" async></script>
   </body>
 </html>
