@@ -13,7 +13,7 @@ const ChatAdmin = (number) => {
             {"sender":"easetour","receiver":"08114528984","msg":"okay"}
             ]);
     const getMessages = () => {
-        fetch('http://ribbons.rf.gd/ribbonsapi/api/sms/read.php',
+        fetch('https://ribbons.rf.gd/ribbonsapi/api/sms/read.php',
             {
                 method: 'post',
                 headers: {
