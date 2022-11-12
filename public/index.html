@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html >
+<html lang=''>
   <head>
     <meta charset="utf-8" />
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
@@ -25,100 +25,75 @@
     <div id="root"></div>
     <script src="https://unpkg.com/flowbite@1.5.3/dist/flowbite.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/index.min.js"></script>
-
-    <!-- <script async>
-      (function () {
-          function onTidioChatApiReady() {
-            // window.tidioChatApi.open();
-            setTimeout(() => {
-              // const targetDocument = document.querySelector('html')
-              // const documentLang = targetDocument.getAttribute('lang');
-              // console.log(targetDocument);
-              // console.log(targetDocument.querySelector('#tidio-chat').querySelector('iframe'));
-              // alert(document.tidioChatLang);
-              // document.tidioChatLang = document.querySelector('html').getAttribute('lang');
-              // console.log(document.tidioChatLang);
-              // console.log(document.tidioChatApi);
-              // document.tidioChatLang = 'IT';
-              // console.log(tidioChatLang);
-              console.log('E don dey work!');
-            }, 500)
-          }
-          if (window.tidioChatApi) {
-            window.tidioChatApi.on('ready', onTidioChatApiReady);
-          } else {
-            document.addEventListener('tidioChat-ready', onTidioChatApiReady);
-          }
-        })();
-        // document.tidioChatLang = navigator.language
-        // alert(navigator.language)
-        // console.log(document.tidioChatLang)
-    </script> -->
-      
-    <!-- <script type="text/javascript">
-      function googleTranslateElementInit() {
-      new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
-      }
-    </script> -->
-    <!-- <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script> -->
-    <!--Start of Tawk.to Script-->
-
-    <script>
-    </script>
+    
+    
     <script type="text/javascript">
-      var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-      (function(){
-      var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-      s1.async=true;
-      s1.src='https://embed.tawk.to/636e93d9daff0e1306d6f89b/1ghjv32vb';
-      s1.charset='UTF-8';
-      s1.setAttribute('crossorigin','*');
-      s0.parentNode.insertBefore(s1,s0);
+
+      function getChatId() {
+      // function to retrieve the property/widget chat id;
+        // substitute 000000000001 to property id
+        document.documentElement.setAttribute("lang", navigator.language);
+        var lang = navigator.language || navigator.userLanguage;
+
+        // return the default language if the lang variable is empty
+        if (!lang) {
+          return '636e93d9daff0e1306d6f89b/DEFAULT_WIDGET';
+        }
+
+        if (lang.match(navigator.userLanguage)) {
+          console.log('en')
+          return '636e93d9daff0e1306d6f89b/1ghl25fmg/WIDGET_FOR_EN';
+        } else if (lang.match('de')) {
+          return '636e93d9daff0e1306d6f89b/1ghjv32vb/WIDGET_FOR_DE';
+        } else if (lang.match('ru')) {
+          return '636e93d9daff0e1306d6f89b/WIDGET_FOR_RU';
+        } else {
+          return '636e93d9daff0e1306d6f89b/DEFAULT_WIDGET';
+        }
+      }
+
+      var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+
+      (function () {
+        var chatId = getChatId();
+        if (!chatId) {
+          return;
+        } else {
+          console.log(chatId)
+        }
+        
+        var s1 = document.createElement("script");
+        var s0 = document.getElementsByTagName("script")[0];
+        s1.async = true;
+        s1.src = `https://embed.tawk.to/${chatId}`;
+        s1.charset = 'UTF-8';
+        s1.setAttribute('crossorigin', '*');
+        s0.parentNode.insertBefore(s1, s0);
       })();
     </script>
 
+    <!--Start of Tawk.to Script-->
 <script type="text/javascript">
-  function getChatId() {
-      // function to retrieve the property/widget chat id;
-      // substitute 00000000000X to property id
-      console.log(document.querySelector('html'))
-      document.querySelector('html').setAttribute('lang', navigator.language.slice(0,2));
-      var query = document.documentElement.lang;
-      alert(query);
-      console.log(query);
-      var lang = document.documentElement.lang;
-   
-      switch (lang) {
-          case 'de':
-              return '000000000001/WIDGET_FOR_DE'
-          case 'ru':
-              return '000000000002/WIDGET_FOR_RU';
-          case 'fr':
-              return '000000000003/WIDGET_FOR_FR';
-          case 'en':
-              return '000000000003/WIDGET_FOR_EN';
-          case 'es':
-              return '000000000003/WIDGET_FOR_ES';
-      }
-  }
-   
-  var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-  (function(){
-      var chatId = getChatId();
-      if (!chatId) {
-          return;
-      }
-      var s1 = document.createElement("script"),
-      s0 = document.getElementsByTagName("script")[0];
-      s1.async=true;
-      s1.src = 'https://embed.tawk.to/' + chatId;
-      s1.charset='UTF-8';
-      s1.setAttribute('crossorigin','*');
-      s0.parentNode.insertBefore(s1,s0);
-  })();
+    // var chatId = getChatId();
+    // if (!chatId) {
+    //   console.log(chatId);
+    // } else {
+    //   console.log(chatId)
+    // }
+    // var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+    // (function () {
+    //   var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+    //   s1.async = true;
+    //   s1.src = `https://embed.tawk.to/${chatId}`
+    //   // 'https://embed.tawk.to/636e93d9daff0e1306d6f89b/1ghjv32vb';
+    //   s1.charset = 'UTF-8';
+    //   s1.setAttribute('crossorigin', '*');
+    //   s0.parentNode.insertBefore(s1, s0);
+    // })();
   </script>
-      <!--End of Tawk.to Script-->
+  <!--End of Tawk.to Script-->
       
     <!-- <script src="https://code.tidio.co/8gqimlvow6hqsvqgtvr5vlaohfynjbyg.js" async></script> -->
   </body>
+  <!-- v3Jig65gsfswsTEjDMq4d9qT2pR0jjcqKRNyzCsQ -->
 </html>
