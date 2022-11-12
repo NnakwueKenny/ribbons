@@ -17,12 +17,12 @@ const Chatbot = ({toggleShowChatbot}) => {
     }
 
   return (
-    <div className='hidden absolute h-full overflow-hidden top-0 left-0 z-40 w-full flex pt-5 px-2 pb-2'>
+    <div className='absolute h-full overflow-hidden top-0 left-0 z-40 w-full flex pt-5 px-2 pb-2'>
         <div className='relative flex flex-col bg-gray-100 w-full h-full shadow-xl rounded-t-2xl rounde overflow-hidden' data-aos="fade-up-left" data-aos-anchor-placement="center-bottom" >
-            <button className='absolute right-7 top-3 text-violet-900' onClick={toggleShowChatbot}><i className='fa fa-times'></i></button>
+            <button className='absolute right-7 top-3 text-purple-900' onClick={toggleShowChatbot}><i className='fa fa-times'></i></button>
             <div className='flex flex-col shadow'>
                 <div className='flex items-center text-white p-2 gap-4'>
-                    <div className='relative flex justify-center items-center px-1 w-12 h-12 rounded-full shadow-lg border border-violet-700'>
+                    <div className='relative flex justify-center items-center px-1 w-12 h-12 rounded-full shadow-lg border border-purple-700'>
                         <div className='absolute top-0 -right-[-2px]'>
                             {
                                 isOnline?
@@ -33,7 +33,7 @@ const Chatbot = ({toggleShowChatbot}) => {
                         </div>
                         <img src={logo} alt='ribbons logo'/>
                     </div>
-                    <div style={{fontFamily: `'Lato', sans-serif`}} className='text-violet-900 font-semibold h-full'>Ribbons Chatbot</div>
+                    <div style={{fontFamily: `'Lato', sans-serif`}} className='text-purple-900 font-semibold h-full'>Ribbons Chatbot</div>
                 </div>
             </div>
             <div className='flex flex-col justify-end px-2 h-full bg-white overflow-auto'>
@@ -41,13 +41,13 @@ const Chatbot = ({toggleShowChatbot}) => {
                     <div className='mb-auto'></div>
                     <div className='relative flex justify-center py-1'>
                         <div className='absolute w-full border top-[50%] z-20'></div>
-                        <span className='bg-violet-900 px-3 py-1 rounded-lg text-white z-30'>Today</span>
+                        <span className='bg-gray-500 px-3 py-1 rounded-lg text-xs text-white z-30'>Today</span>
                     </div>
                     <div className='flex justify-start px-2 mb-1'>
-                        <div  className='max-w-xs text-start bg-violet-900 text-white px-2.5 py-1 rounded-2xl rounded-tl-none'>Hi! Welcome to Ribbons...</div>
+                        <div  className='max-w-xs text-start bg-purple-900 text-white px-2.5 py-1 rounded-2xl rounded-tl-none'>Hi! Welcome to Ribbons...</div>
                     </div>
                     <div className='flex justify-end px-2 mb-1'>
-                        <div  className='max-w-xs text-start bg-violet-900 text-white px-2.5 py-1 rounded-2xl rounded-tr-none'>Hello</div>
+                        <div  className='max-w-xs text-start bg-purple-900 text-white px-2.5 py-1 rounded-2xl rounded-tr-none'>Hello</div>
                     </div>
                 </div>
             </div>
@@ -56,7 +56,7 @@ const Chatbot = ({toggleShowChatbot}) => {
                 <div className='relative flex w-full rounded-xl overflow-hidden'>
                     <label className='sr-only'></label>
                     <input onChange={(e) => setIsTyping(e.target.value.length>0? true: false)} type='text' placeholder='Send a message...' className='w-full border-none ring-0 outline-0 focus:ring-0 text-gray-600' />
-                    <button type='button' className={`absolute top-0 right-0 h-full flex justify-center items-center px-3 ${isTyping? 'text-violet-700': 'text-gray-400'} bg-white`}><i className='fa fa-paper-plane'></i></button>
+                    <button type='button' className={`absolute top-0 right-0 h-full flex justify-center items-center px-3 ${isTyping? 'text-purple-700': 'text-gray-400'} bg-white`}><i className='fa fa-paper-plane'></i></button>
                 </div>
             </form>
         </div>

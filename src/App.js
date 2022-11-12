@@ -5,6 +5,8 @@ import 'aos/dist/aos.css'; // You can also use <link> for styles
 import SARC from './views/SARC';
 import LocateHospital from './views/LocateHospital';
 import Faqs from './views/Faqs';
+import ChatAdmin from './ChatAdmin';
+import ChatAdminMsg from './ChatAdminMsg';
 // ..
 AOS.init();
 
@@ -26,6 +28,12 @@ function App() {
 
           {/* Faqs Route */}
           <Route path="/faqs" element={<Faqs />} />
+
+          {/* ChatAdmin Route */}
+          <Route path="/chat-admin" element={<ChatAdmin />} />
+
+          {/* ChatAdminMsg Route */}
+          <Route path="/chat-admin-msg" element={<ChatAdminMsg />} />
 
         </Routes>
       </div>
