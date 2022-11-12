@@ -33,7 +33,7 @@ function App() {
           <Route path="/chat-admin" element={<ChatAdmin />} />
 
           {/* ChatAdminMsg Route */}
-          <Route path="/chat-admin-msg" element={<ChatAdminMsg />} />
+          <Route path="/chat-admin-msg/:number" element={<ChatAdminMsg />} />
 
         </Routes>
       </div>
