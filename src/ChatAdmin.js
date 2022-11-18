@@ -28,7 +28,7 @@ const ChatAdmin = () => {
     
   return (
     <div className='w-full h-full flex flex-col'>
-        <div className='text-xl font-bold shadow-lg py-3 text-gray-500 border-y'>Ease Tour Chat Admin</div>
+        <div className='text-xl font-bold shadow-lg py-3 text-gray-500 border-y'>Ribbons Chat Admin</div>
         <div className='w-full mb-auto flex flex-col divide-y border-y pt-4 h-full overflow-auto px-3'>
             {
                 users.map((user, index) => {
