@@ -7,7 +7,7 @@ const ChatAdminMsg = () => {
     const [ typedMessage, setTypedMessage ] = useState('')
 
     const sendMessage = (message) => {
-        fetch('http://timmyedibo.pythonanywhere.com/api/chats/', {
+        fetch('https://timmyedibo.pythonanywhere.com/api/chats/', {
             method: 'post',
             headers: {
                 Accept: 'application/json',
