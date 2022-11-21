@@ -48,10 +48,9 @@ const Faqs = () => {
           isLoading ?
           <Loader />:
           <div className="flex flex-col gap-4 w-full h-full items-center px-3">
-          
-              {/* Navbar starts here */}
+            {/* Navbar starts here */}
               <NavBar />
-              {/* Navbar ends here */}
+            {/* Navbar ends here */}
             
             {/* Main Section starts here */}
             <div className='w-full max-w-md'>

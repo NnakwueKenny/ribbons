@@ -15,6 +15,7 @@ function App() {
   // console.log('LocalStorage cleared!');
   return (
     <div id='wrapper' className="App homepage font-black font-sans h-screen py-2 flex flex-col items-center">
+      <div id="google_translate_element" className='w-full'></div>
       <div className='w-full relative flex flex-col h-full max-w-lg font-medium md:border-2'>
         <Routes>
           {/* Home Route */}
