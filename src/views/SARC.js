@@ -50,9 +50,6 @@ const SARC = () => {
   return (
     <div className='h-full overflow-auto w-full py-4'>
       {showChatbot && <Chatbot toggleShowChatbot={toggleShowChatbot}/>}
-      { !showChatbot &&
-        <ChatbotBtn toggleShowChatbot={toggleShowChatbot}/>
-      }
       {
         isLoading ?
         <Loader />:
@@ -65,7 +62,7 @@ const SARC = () => {
             <div className='flex flex-col gap-4 w-full h-full items-center px-1'>
                 <div className='flex w-full text-gray-600 text'>
                     <Link to='/'><i className='fa fa-arrow-left'></i></Link>
-                    <div style={{fontFamily: `'Lato', sans-serif`}} className='w-full text-xl font-semibold text-purple-900'>SARC</div>
+                    <div style={{fontFamily: `'Lato', sans-serif`}} className='w-full text-xl font-semibold text-purple-900'>One-stop Center</div>
                 </div>
                 <p style={{fontFamily: `'Lato', sans-serif`}} className='text-gray-500 text-md italic max-w-sm'>
                     Select your state/province to see SARC locations closest to you...

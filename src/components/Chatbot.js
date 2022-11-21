@@ -18,13 +18,13 @@ const Chatbot = ({toggleShowChatbot}) => {
     const checkNumber = () => {
         const userNumber = JSON.parse(localStorage.getItem('phoneNumber'));
         setPhoneNumber(userNumber === null? '': userNumber);
-        setIsFirstTime(userNumber? false: true)
+        setIsFirstTime(userNumber? false: true);
         setIsValidNumber(userNumber === null? false: true);
         setIsPhoneNumber(userNumber === null? false: true);
     }
 
     const addNumber = async () => {
-        console.log('Sending phone')
+        console.log('Sending phone');
         await fetch('https://timmyedibo.pythonanywhere.com/api/users/',
             {
                 method: 'post',

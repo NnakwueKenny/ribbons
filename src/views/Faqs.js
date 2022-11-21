@@ -44,9 +44,6 @@ const Faqs = () => {
     <Fragment>
       <div className='h-full overflow-auto w-full py-4'>
         {showChatbot && <Chatbot toggleShowChatbot={toggleShowChatbot}/>}
-        { !showChatbot &&
-          <ChatbotBtn toggleShowChatbot={toggleShowChatbot}/>
-        }
         {
           isLoading ?
           <Loader />:

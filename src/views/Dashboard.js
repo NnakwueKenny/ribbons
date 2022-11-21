@@ -27,9 +27,6 @@ const Dashboard = () => {
   return (
     <div className='h-full overflow-auto w-full py-4'>
       {showChatbot && <Chatbot toggleShowChatbot={toggleShowChatbot}/>}
-      { !showChatbot &&
-        <ChatbotBtn toggleShowChatbot={toggleShowChatbot}/>
-      }
       {
         isLoading ?
         <Loader />:
@@ -107,19 +104,23 @@ const Dashboard = () => {
               <div className=''>
               </div>
             </div>
-            <div className='grid grid-cols-2 gap-3 w-full'>
-              <Link to='/sarc' className='flex flex-col justify-center items-center gap-1 w-full rounded-2xl bg-purple-900 text-purple-100 py-3'>
+            <div className='grid grid-cols-1 gap-4 w-full'>
+              <Link to='/sarc' className='flex flex-col justify-center items-center gap-1 w-full rounded-2xl bg-purple-900 text-white py-4'>
                 <span className='text-2xl px-5 flex py-2'><i className="fa-solid fa-circle-check"></i></span>
-                <span className='flex text-lg font-normal'>SARC</span>
+                <span className='flex text-lg font-normal'>One-stop Centers</span>
               </Link>
-              <Link to='/locate-hospital' className='flex flex-col justify-center items-center gap-1 w-full rounded-2xl bg-purple-900 text-purple-100 py-3'>
+              <Link to='/locate-hospital' className='flex flex-col justify-center items-center gap-1 w-full rounded-2xl bg-purple-900 text-white py-4'>
                 <span className='text-2xl px-2 flex py-2'><i className="fa-solid fa-hospital"></i></span>
                 <span className='flex text-lg font-normal'>Locate a Hospital</span>
               </Link>
-              <Link to='/faqs'  className='flex flex-col justify-center items-center gap-1 w-full rounded-2xl bg-purple-900 text-purple-100 py-3 col-span-2'>
+              <Link to='/faqs'  className='flex flex-col justify-center items-center gap-1 w-full rounded-2xl bg-purple-900 text-white py-4'>
                 <span className='text-2xl px-5 flex py-2'><i className="fa-solid fa-question-circle"></i></span>
                 <span className='flex text-lg font-normal'>Help / FAQS</span>
               </Link>
+              <button onClick={toggleShowChatbot}  className='flex flex-col justify-center items-center gap-1 w-full rounded-2xl bg-purple-900 text-white py-4'>
+                <span className='text-2xl px-5 flex py-2'><i className="fa-solid fa-phone"></i></span>
+                <span className='flex text-lg font-normal'>Anonymous Chat</span>
+              </button>
             </div>
           </div>
           {/* Main Section ends here */}
