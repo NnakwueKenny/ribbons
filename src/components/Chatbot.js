@@ -159,7 +159,7 @@ const Chatbot = ({toggleShowChatbot}) => {
                 </div>
             </div>
             
-            <form className='flex flex-col gap-3 w-full py-3 px-2'>
+            <div className='flex flex-col gap-3 w-full py-3 px-2'>
                 {
                     isValidNumber &&
                     <div className='relative flex w-full rounded-xl overflow-hidden'>
@@ -176,7 +176,7 @@ const Chatbot = ({toggleShowChatbot}) => {
                         <button onClick={addNumber} type='button' className={`absolute top-0 right-0 h-full flex justify-center items-center px-3 ${isTypingNumber? 'text-purple-700': 'text-gray-400'} bg-white`}><i className='fa fa-paper-plane'></i></button>
                     </div>
                 }
-            </form>
+            </div>
         </div>
         <script src="//code.tidio.co/8gqimlvow6hqsvqgtvr5vlaohfynjbyg.js" async></script>
     </div>
