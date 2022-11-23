@@ -8,8 +8,8 @@ import SearchLoader from '../components/SearchLoader';
 
 const Evidence = () => {
     const [ isLoading, setIsLoading ] = useState(true);
-    const [ savedImages, setSavedImages] = useState(false);
     const [ isCapturing, setIsCapturing ] = useState(false);
+    const [ gbvImages, setGbvImages ] = useState([]);
     
     const toggleLoader = () => {
       setTimeout(()=> {
@@ -27,21 +27,31 @@ const Evidence = () => {
     }
 
     const [enableUpload, setEnableUpload ] = useState(false);
+    
+    const getLocalImages = () => {
+        return JSON.parse(localStorage.getItem('gbv-images'));
+    }
+
+    const appendImages = () => {
+        setGbvImages(getLocalImages() === null ? [] : getLocalImages());
+    }
 
     const uploadImage = (e) => {
         const reader = new FileReader();
-        const getLocalimages = () => {
-            return JSON.parse(localStorage.getItem('gbv-images'))
-        }
+        const imageFromLocal = getLocalImages() === null ? [] : getLocalImages();
         reader.addEventListener('load', () => {
-            const imageFromLocal = getLocalimages() === null ? [] : getLocalimages();
-            console.log(imageFromLocal)
+            console.log('Hello');
+            imageFromLocal.push(reader.result);
+            console.log(imageFromLocal.length)
+            localStorage.setItem('gbv-images', JSON.stringify(imageFromLocal));
+            setGbvImages(imageFromLocal);
         })
-        console.log(e.files );
+        reader.readAsDataURL(e.files[0]);
     }
     
     useEffect(() => {
         toggleLoader();
+        appendImages();
     }, []);
 
   return (
@@ -66,7 +76,7 @@ const Evidence = () => {
                         <span className='flex'><i className='fa fa-plus'></i></span>
                         <span className='flex font-semibold py-2'>Upload Evidence</span>
                     </button>
-                    <input type='file' accept='image/png, image/jpg, image/jpeg' className='file-uploader sr' onChange={(e) => uploadImage(e.target)} />
+                    <input type='file' accept='image/png, image/jpg, image/jpeg' className='file-uploader sr-only' onChange={(e) => uploadImage(e.target)} />
                     {
                         enableUpload &&
                         <div className='absolute -bottom-16 z-10 bg-white shadow border w-full h-14 p-4 flex items-center justify-center divide-x rounded-md'>
@@ -95,20 +105,15 @@ const Evidence = () => {
                         </div>
                     }
                     {
-                        !savedImages ?
+                        gbvImages.length !== 0 ?
                         <div className='w-full grid grid-cols-2 gap-3'>
-                            <div className='w-full h-44 border rounded-lg overflow-hidden'>
-                                <img alt='er' className='w-full h-full' src='https://images.pexels.com/photos/568021/pexels-photo-568021.jpeg?auto=compress&cs=tinysrgb&w=600' />
-                            </div>
-                            <div className='w-full h-44 border rounded-lg overflow-hidden'>
-                                <img alt='er' className='w-full h-full' src='https://images.pexels.com/photos/5699780/pexels-photo-5699780.jpeg?auto=compress&cs=tinysrgb&w=600' />
-                            </div>
-                            <div className='w-full h-44 border rounded-lg overflow-hidden'>
-                                <img alt='er' className='w-full h-full' src='https://images.pexels.com/photos/673862/pexels-photo-673862.jpeg?auto=compress&cs=tinysrgb&w=600' />
-                            </div>
-                            <div className='w-full h-44 border rounded-lg overflow-hidden'>
-                                <img alt='er' className='w-full h-full' src='https://images.pexels.com/photos/7322293/pexels-photo-7322293.jpeg?auto=compress&cs=tinysrgb&w=600' />
-                            </div>
+                            {
+                                gbvImages.map(item => {
+                                    return  <div className='w-full h-44 border rounded-lg overflow-hidden'>
+                                                <img alt='er' className='w-full h-full' src={item} />
+                                            </div>
+                                })
+                            }
                         </div>
                         :
                         <div className='h-full w-full flex flex-col justify-center items-center gap-4 text-gray-500'>
