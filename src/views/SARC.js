@@ -65,7 +65,7 @@ const SARC = () => {
                     <div style={{fontFamily: `'Lato', sans-serif`}} className='w-full text-xl font-semibold text-purple-900'>One-stop Center</div>
                 </div>
                 <p style={{fontFamily: `'Lato', sans-serif`}} className='text-gray-500 text-md italic max-w-sm'>
-                    Select your state/province to see SARC locations closest to you...
+                    Select your state/province to see One Stop Centre locations closest to you...
                 </p>
                 <form className='w-full max-w-sm flex gap-1'>
                     <div className='w-full'>
@@ -90,7 +90,7 @@ const SARC = () => {
                         <SearchLoader />
                         :
                         <div className='w-full'>
-                            <h2 style={{fontFamily: `'Lato', sans-serif`}} className='text-gray-600 py-2 font-semibold'>SARC Locations found in <span className='capitalize'>{foundLocation}</span></h2>
+                            <h2 style={{fontFamily: `'Lato', sans-serif`}} className='text-gray-600 py-2 font-semibold'>One Stop Center Locations found in <span className='capitalize'>{foundLocation}</span></h2>
                             { locationDetails.length > 0?
                                 <div className='flex flex-col gap-4'>
                                     {
@@ -109,7 +109,7 @@ const SARC = () => {
                                 </div>
                                 :
                                 <div className='h-full flex justify-center items-center py-20 text-red-500 font-medium italic'>
-                                    <p className='max-w-sm'>No SAR center found in your location. Please, select a different location closer to you.</p>
+                                    <p className='max-w-sm'>No One Stop center found in your location. Please, select a different location closer to you.</p>
                                 </div>
                             }
                         </div>
