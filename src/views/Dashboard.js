@@ -104,7 +104,7 @@ const Dashboard = () => {
               <div className=''>
               </div>
             </div>
-            <div className='grid grid-cols-1 gap-4 w-full'>
+            <div className='grid grid-cols-2 gap-4 w-full'>
               <Link to='/sarc' className='flex flex-col justify-center items-center gap-1 w-full rounded-2xl bg-purple-900 text-white py-4'>
                 <span className='text-2xl px-5 flex py-2'><i className="fa-solid fa-circle-check"></i></span>
                 <span className='flex text-lg font-normal'>One-stop Centers</span>
@@ -113,14 +113,18 @@ const Dashboard = () => {
                 <span className='text-2xl px-2 flex py-2'><i className="fa-solid fa-hospital"></i></span>
                 <span className='flex text-lg font-normal'>Locate a Hospital</span>
               </Link>
-              <Link to='/faqs'  className='flex flex-col justify-center items-center gap-1 w-full rounded-2xl bg-purple-900 text-white py-4'>
-                <span className='text-2xl px-5 flex py-2'><i className="fa-solid fa-question-circle"></i></span>
-                <span className='flex text-lg font-normal'>Help / FAQS</span>
+              <Link to='/evidence'  className='flex flex-col justify-center items-center gap-1 w-full rounded-2xl bg-purple-900 text-white py-4'>
+                <span className='text-2xl px-5 flex py-2'><i className="fa-solid fa-image"></i></span>
+                <span className='flex text-lg font-normal'>Documents / Evidence</span>
               </Link>
               <button onClick={toggleShowChatbot}  className='flex flex-col justify-center items-center gap-1 w-full rounded-2xl bg-purple-900 text-white py-4'>
                 <span className='text-2xl px-5 flex py-2'><i className="fa-solid fa-phone"></i></span>
                 <span className='flex text-lg font-normal'>Anonymous Chat</span>
               </button>
+              <Link to='/faqs'  className='flex flex-col justify-center items-center gap-1 w-full rounded-2xl bg-purple-900 text-white py-4 col-span-2'>
+                <span className='text-2xl px-5 flex py-2'><i className="fa-solid fa-question-circle"></i></span>
+                <span className='flex text-lg font-normal'>Help / FAQS</span>
+              </Link>
             </div>
           </div>
           {/* Main Section ends here */}

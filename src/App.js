@@ -7,6 +7,7 @@ import LocateHospital from './views/LocateHospital';
 import Faqs from './views/Faqs';
 import ChatAdmin from './ChatAdmin';
 import ChatAdminMsg from './ChatAdminMsg';
+import Evidence from './components/Evidence';
 // ..
 AOS.init();
 
@@ -15,7 +16,7 @@ function App() {
   // console.log('LocalStorage cleared!');
   return (
     <div id='wrapper' className="App homepage font-black font-sans h-screen py-2 flex flex-col items-center">
-      <div id="google_translate_element" className='w-full'></div>
+      {/*<div id="google_translate_element" className='w-full'></div>*/}
       <div className='w-full relative flex flex-col h-full max-w-lg font-medium md:border-2'>
         <Routes>
           {/* Home Route */}
@@ -35,6 +36,9 @@ function App() {
 
           {/* ChatAdminMsg Route */}
           <Route path="/chat-admin-msg/:number" element={<ChatAdminMsg />} />
+
+          {/* Evidence Route */}
+          <Route path="/evidence" element={<Evidence />} />
 
         </Routes>
       </div>
