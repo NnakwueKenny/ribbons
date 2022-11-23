@@ -1,15 +1,36 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState, useRef, useCallback } from 'react'
 import { Link } from 'react-router-dom';
 import Chatbot from '../components/Chatbot';
 import ChatbotBtn from '../components/ChatbotBtn';
 import Loader from '../components/Loader';
 import Navbar from '../components/Navbar';
-import SearchLoader from '../components/SearchLoader';
+import Webcam from 'react-webcam';
+const WebcamComponent = () => <Webcam />;
 
 const Evidence = () => {
     const [ isLoading, setIsLoading ] = useState(true);
     const [ isCapturing, setIsCapturing ] = useState(false);
     const [ gbvImages, setGbvImages ] = useState([]);
+    const [ cameraFacingMode, setCameraFacingMode ] = useState('environment');
+    const [ videoSrc, setVideoSrc ] = useState('');
+    const video = document.querySelector('video');
+    const [picture, setPicture] = useState('')
+    const webcamRef = useRef(null);
+    const [enableUpload, setEnableUpload ] = useState(false);
+    
+    const videoConstraints = {
+        width: 400,
+        height: 400,
+        facingMode: 'user',
+    }
+    const capture = useCallback(() => {
+      const pictureSrc = webcamRef.current.getScreenshot()
+      setPicture(pictureSrc);
+      setTimeout(() => {
+        console.log('Hello');
+        uploadImage(pictureSrc);
+      }, 1000)
+    });
     
     const toggleLoader = () => {
       setTimeout(()=> {
@@ -25,8 +46,6 @@ const Evidence = () => {
     const uploadFromDevice = () => {
         document.querySelector('.file-uploader').click();
     }
-
-    const [enableUpload, setEnableUpload ] = useState(false);
     
     const getLocalImages = () => {
         return JSON.parse(localStorage.getItem('gbv-images'));
@@ -46,7 +65,9 @@ const Evidence = () => {
             localStorage.setItem('gbv-images', JSON.stringify(imageFromLocal));
             setGbvImages(imageFromLocal);
         })
-        reader.readAsDataURL(e.files[0]);
+        if (e.files) {
+            reader.readAsDataURL(e.files[0]);
+        }
     }
     
     useEffect(() => {
@@ -72,7 +93,7 @@ const Evidence = () => {
                         <Link to='/'><i className='fa fa-arrow-left'></i></Link>
                         <div style={{fontFamily: `'Lato', sans-serif`}} className='w-full text-xl font-semibold text-purple-900'>Evidence</div>
                     </div>
-                    <button onClick={() => setEnableUpload(true)} htmlFor='upload-image' className='shadow w-full flex justify-center items-center gap-2 py-2 text-gray-600 hover:text-purple-900 hover:shadow-md'>
+                    <button onClick={() => {setEnableUpload(prevValue => !prevValue)}} htmlFor='upload-image' className='shadow w-full flex justify-center items-center gap-2 py-2 text-gray-600 hover:text-purple-900 hover:shadow-md'>
                         <span className='flex'><i className='fa fa-plus'></i></span>
                         <span className='flex font-semibold py-2'>Upload Evidence</span>
                     </button>
@@ -91,10 +112,26 @@ const Evidence = () => {
                         <div className='absolute top-3 left-0 h-full w-full bg-white shadow'>
                             <div className='relative w-full h-full'>
                                 <div className='absolute w-full h-full rounded-lg overflow-hidden'>
-                                    <img alt='' className='w-full h-full' src='https://images.pexels.com/photos/5274935/pexels-photo-5274935.jpeg?auto=compress&cs=tinysrgb&w=600' />
+                                    <div className='h-full w-full'>
+                                        {picture == '' ? (
+                                            <Webcam
+                                                audio={false}
+                                                height={400}
+                                                ref={webcamRef}
+                                                className='w-full h-full'
+                                                screenshotFormat="image/jpeg"
+                                                videoConstraints={videoConstraints}
+                                            />
+                                        ) : (
+                                            <img src={picture} />
+                                        )}
+                                    </div>
                                 </div>
                                 <div className='absolute w-full bottom-8 flex justify-around'>
-                                    <button className='flex items-center justify-center text-3xl bg-gray-300 text-purple-900 border h-14 w-14 rounded-full'>
+                                    <button onClick={() => setCameraFacingMode(prevValue => !prevValue)} className='flex items-center justify-center text-3xl bg-gray-300 text-gray-900 border h-14 w-14 rounded-full'>
+                                        <span className='flex'><i className='fa fa-camera-rotate'></i></span>
+                                    </button>
+                                    <button onClick={(e) => { e.preventDefault(); capture() }} className='flex items-center justify-center text-3xl bg-gray-300 text-purple-900 border h-14 w-14 rounded-full'>
                                         <span className='flex'><i className='fa fa-camera'></i></span>
                                     </button>
                                     <button onClick={() => setIsCapturing(false)} className='flex items-center justify-center text-3xl bg-gray-300 text-red-600 border h-14 w-14 rounded-full'>
@@ -117,7 +154,7 @@ const Evidence = () => {
                         </div>
                         :
                         <div className='h-full w-full flex flex-col justify-center items-center gap-4 text-gray-500'>
-                            <button className='h-24 w-24 border-2 hover:text-purple-900 hover:border-purple-900 rounded-full flex justify-center items-center text-4xl'><i className='fa-regular fa-image'></i></button>
+                            <button onClick={() => setEnableUpload(prevValue => !prevValue)} className='h-24 w-24 border-2 hover:text-purple-900 hover:border-purple-900 rounded-full flex justify-center items-center text-4xl'><i className='fa-regular fa-image'></i></button>
                             <span className='text-lg text-purple-900 font-semibold'>No Evidence uploaded yet!</span>
                         </div>
                     }
