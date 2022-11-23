@@ -22,8 +22,22 @@ const Evidence = () => {
         setShowChatbot(prevValue => !prevValue)
     }
 
-    const getFileFromDevice = () => {
-        
+    const uploadFromDevice = () => {
+        document.querySelector('.file-uploader').click();
+    }
+
+    const [enableUpload, setEnableUpload ] = useState(false);
+
+    const uploadImage = (e) => {
+        const reader = new FileReader();
+        const getLocalimages = () => {
+            return JSON.parse(localStorage.getItem('gbv-images'))
+        }
+        reader.addEventListener('load', () => {
+            const imageFromLocal = getLocalimages() === null ? [] : getLocalimages();
+            console.log(imageFromLocal)
+        })
+        console.log(e.files );
     }
     
     useEffect(() => {
@@ -43,21 +57,25 @@ const Evidence = () => {
 
             {/* Main Section starts here */}
             <div className='flex flex-col gap-4 w-full h-full items-center px-1'>
-                <div className='w-full flex flex-col gap-2'>
+                <div className='relative w-full flex flex-col gap-2'>
                     <div className='flex w-full text-gray-600 text'>
                         <Link to='/'><i className='fa fa-arrow-left'></i></Link>
                         <div style={{fontFamily: `'Lato', sans-serif`}} className='w-full text-xl font-semibold text-purple-900'>Evidence</div>
                     </div>
-                    <button htmlFor='upload-image' className='shadow w-full flex justify-center items-center gap-2 py-2 text-gray-600 hover:text-purple-900 hover:shadow-md'>
+                    <button onClick={() => setEnableUpload(true)} htmlFor='upload-image' className='shadow w-full flex justify-center items-center gap-2 py-2 text-gray-600 hover:text-purple-900 hover:shadow-md'>
                         <span className='flex'><i className='fa fa-plus'></i></span>
                         <span className='flex font-semibold py-2'>Upload Evidence</span>
                     </button>
-                    <input name='upload-image' type='file' className='sr-only'/>
+                    <input type='file' accept='image/png, image/jpg, image/jpeg' className='file-uploader sr' onChange={(e) => uploadImage(e.target)} />
+                    {
+                        enableUpload &&
+                        <div className='absolute -bottom-16 z-10 bg-white shadow border w-full h-14 p-4 flex items-center justify-center divide-x rounded-md'>
+                            <button onClick={() => { setIsCapturing(true); setEnableUpload(false)}} className='flex w-full justify-center'>Camera</button>
+                            <button onClick={() => { uploadFromDevice(); setEnableUpload(false)}} className='flex w-full justify-center'>From Device</button>
+                        </div>
+                    }
                 </div>
                 <div className='relative w-full h-full py-4'>
-                    <div className='absolute'>
-
-                    </div>
                     {
                         isCapturing &&
                         <div className='absolute top-3 left-0 h-full w-full bg-white shadow'>
