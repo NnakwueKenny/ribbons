@@ -37,7 +37,7 @@ const Evidence = () => {
             const imageFromLocal = getLocalimages() === null ? [] : getLocalimages();
             console.log(imageFromLocal)
         })
-        console.log(e.files);
+        console.log(e.files );
     }
     
     useEffect(() => {
