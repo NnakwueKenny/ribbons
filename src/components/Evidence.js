@@ -8,7 +8,7 @@ import SearchLoader from '../components/SearchLoader';
 
 const Evidence = () => {
     const [ isLoading, setIsLoading ] = useState(true);
-
+    
     const toggleLoader = () => {
       setTimeout(()=> {
         setIsLoading(false);
@@ -36,7 +36,13 @@ const Evidence = () => {
 
             {/* Main Section starts here */}
             <div className='flex flex-col gap-4 w-full h-full items-center px-1'>
-                <div></div>
+                <div className='flex w-full text-gray-600 text'>
+                    <Link to='/'><i className='fa fa-arrow-left'></i></Link>
+                    <div style={{fontFamily: `'Lato', sans-serif`}} className='w-full text-xl font-semibold text-purple-900'>Evidence</div>
+                </div>
+                <div>
+                    
+                </div>
             </div>
             {/* Main Section ends here */}
 

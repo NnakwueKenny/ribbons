@@ -115,7 +115,7 @@ const Dashboard = () => {
               </Link>
               <Link to='/evidence'  className='flex flex-col justify-center items-center gap-1 w-full rounded-2xl bg-purple-900 text-white py-4'>
                 <span className='text-2xl px-5 flex py-2'><i className="fa-solid fa-image"></i></span>
-                <span className='flex text-lg font-normal'>Documents / Evidence</span>
+                <span className='flex text-lg font-normal px-2'>Document Evidence</span>
               </Link>
               <button onClick={toggleShowChatbot}  className='flex flex-col justify-center items-center gap-1 w-full rounded-2xl bg-purple-900 text-white py-4'>
                 <span className='text-2xl px-5 flex py-2'><i className="fa-solid fa-phone"></i></span>
