@@ -4,7 +4,6 @@ import Chatbot from '../components/Chatbot';
 import Loader from '../components/Loader';
 import Navbar from '../components/Navbar';
 import Webcam from 'react-webcam';
-const WebcamComponent = () => <Webcam />;
 
 const cameraView = ['user', 'environment'];
 
@@ -131,7 +130,7 @@ const Evidence = () => {
                                 <div className='absolute w-full h-full rounded-lg overflow-hidden'>
                                     <div className='h-full w-full'>
                                         {picture === '' ? (
-                                            <WebcamComponent
+                                            <Webcam
                                                 audio={false}
                                                 ref={webcamRef}
                                                 className='w-full h-full object-cover'
