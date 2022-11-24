@@ -6,11 +6,13 @@ import Navbar from '../components/Navbar';
 import Webcam from 'react-webcam';
 const WebcamComponent = () => <Webcam />;
 
+const cameraView = ['user', 'environment'];
+
 const Evidence = () => {
     const [ isLoading, setIsLoading ] = useState(true);
     const [ isCapturing, setIsCapturing ] = useState(false);
     const [ gbvImages, setGbvImages ] = useState([]);
-    const [ cameraFacingMode, setCameraFacingMode ] = useState(['user', 'environment']);
+    const [ cameraFacingMode, setCameraFacingMode ] = useState(cameraView[1]);
     const [picture, setPicture] = useState('')
     const webcamRef = useRef(null);
     const [enableUpload, setEnableUpload ] = useState(false);
@@ -28,7 +30,7 @@ const Evidence = () => {
               max: 1440
             },
         },
-        facingMode: cameraFacingMode[1],
+        facingMode: cameraFacingMode,
     }
     const capture = useCallback(() => {
       const pictureSrc = webcamRef.current.getScreenshot()
@@ -140,7 +142,7 @@ const Evidence = () => {
                                     </div>
                                 </div>
                                 <div className='absolute w-full bottom-8 flex justify-around'>
-                                    <button onClick={() => setCameraFacingMode(prevValue => !prevValue)} className='flex items-center justify-center text-3xl bg-gray-300 text-gray-900 border h-14 w-14 rounded-full'>
+                                    <button onClick={() => setCameraFacingMode(prevValue => prevValue === cameraView[0]? cameraView[1]: cameraView[0])} className='flex items-center justify-center text-3xl bg-gray-300 text-gray-900 border h-14 w-14 rounded-full'>
                                         <span className='flex'><i className='fa fa-camera-rotate'></i></span>
                                     </button>
                                     <button onClick={(e) => { e.preventDefault(); capture() }} className='flex items-center justify-center text-3xl bg-gray-300 text-purple-900 border h-14 w-14 rounded-full'>
