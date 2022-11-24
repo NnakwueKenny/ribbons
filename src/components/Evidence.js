@@ -131,7 +131,7 @@ const Evidence = () => {
                                 <div className='absolute w-full h-full rounded-lg overflow-hidden'>
                                     <div className='h-full w-full'>
                                         {picture === '' ? (
-                                            <Webcam
+                                            <WebcamComponent
                                                 audio={false}
                                                 ref={webcamRef}
                                                 className='w-full h-full object-cover'
