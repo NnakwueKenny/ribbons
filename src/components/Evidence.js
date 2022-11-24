@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react'
 import { Link } from 'react-router-dom';
 import Chatbot from '../components/Chatbot';
-import ChatbotBtn from '../components/ChatbotBtn';
 import Loader from '../components/Loader';
 import Navbar from '../components/Navbar';
 import Webcam from 'react-webcam';
@@ -11,7 +10,7 @@ const Evidence = () => {
     const [ isLoading, setIsLoading ] = useState(true);
     const [ isCapturing, setIsCapturing ] = useState(false);
     const [ gbvImages, setGbvImages ] = useState([]);
-    const [ cameraFacingMode, setCameraFacingMode ] = useState('user');
+    const [ cameraFacingMode, setCameraFacingMode ] = useState(['user', 'environment']);
     const [picture, setPicture] = useState('')
     const webcamRef = useRef(null);
     const [enableUpload, setEnableUpload ] = useState(false);
@@ -29,7 +28,7 @@ const Evidence = () => {
               max: 1440
             },
         },
-        facingMode: cameraFacingMode,
+        facingMode: cameraFacingMode[1],
     }
     const capture = useCallback(() => {
       const pictureSrc = webcamRef.current.getScreenshot()
