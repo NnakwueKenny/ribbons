@@ -108,11 +108,11 @@ const Evidence = () => {
                 <div className='relative w-full flex flex-col gap-2'>
                     <div className='flex w-full text-gray-600 text'>
                         <Link to='/'><i className='fa fa-arrow-left'></i></Link>
-                        <div style={{fontFamily: `'Lato', sans-serif`}} className='w-full text-xl font-semibold text-purple-900'>Evidence</div>
+                        <div style={{fontFamily: `'Lato', sans-serif`}} className='w-full text-xl font-semibold text-purple-900'>Document Evidence</div>
                     </div>
                     <button onClick={() => {setEnableUpload(prevValue => !prevValue)}} htmlFor='upload-image' className='shadow w-full flex justify-center items-center gap-2 py-2 text-gray-600 hover:text-purple-900 hover:shadow-md'>
                         <span className='flex'><i className='fa fa-plus'></i></span>
-                        <span className='flex font-semibold py-2'>Upload Evidence</span>
+                        <span className='flex font-semibold py-2'>Upload</span>
                     </button>
                     <input type='file' accept='image/png, image/jpg, image/jpeg' className='file-uploader sr-only' onChange={(e) => uploadImage(e.target)} />
                     {
