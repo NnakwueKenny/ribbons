@@ -11,27 +11,40 @@ const Evidence = () => {
     const [ isLoading, setIsLoading ] = useState(true);
     const [ isCapturing, setIsCapturing ] = useState(false);
     const [ gbvImages, setGbvImages ] = useState([]);
-    const [ cameraFacingMode, setCameraFacingMode ] = useState('environment');
-    const [ videoSrc, setVideoSrc ] = useState('');
-    const video = document.querySelector('video');
+    const [ cameraFacingMode, setCameraFacingMode ] = useState('user');
     const [picture, setPicture] = useState('')
     const webcamRef = useRef(null);
     const [enableUpload, setEnableUpload ] = useState(false);
     
     const videoConstraints = {
-        width: 400,
-        height: 400,
-        facingMode: 'user',
+        video: {
+            width: {
+              min: 640,
+              ideal: 1920,
+              max: 2560,
+            },
+            height: {
+              min: 1280,
+              ideal: 1080,
+              max: 1440
+            },
+        },
+        facingMode: cameraFacingMode,
     }
     const capture = useCallback(() => {
       const pictureSrc = webcamRef.current.getScreenshot()
       setPicture(pictureSrc);
       setTimeout(() => {
-        console.log('Hello');
         uploadImage(pictureSrc);
       }, 1000)
     });
-    
+
+    const clearCapture = () => {
+        setPicture('');
+        setIsCapturing(false);
+        console.log('Capture Stopped!')
+    }
+
     const toggleLoader = () => {
       setTimeout(()=> {
         setIsLoading(false);
@@ -58,18 +71,19 @@ const Evidence = () => {
     const uploadImage = (e) => {
         const reader = new FileReader();
         const imageFromLocal = getLocalImages() === null ? [] : getLocalImages();
-        reader.addEventListener('load', () => {
-            console.log('Hello');
-            imageFromLocal.push(reader.result);
-            console.log(imageFromLocal.length)
-            localStorage.setItem('gbv-images', JSON.stringify(imageFromLocal));
-            setGbvImages(imageFromLocal);
-        })
         if (e.files) {
             reader.readAsDataURL(e.files[0]);
+            reader.addEventListener('load', () => {
+                imageFromLocal.push(reader.result);
+                localStorage.setItem('gbv-images', JSON.stringify(imageFromLocal));
+                setGbvImages(imageFromLocal);
+            })
+        } else {
+            imageFromLocal.push(e);
+            localStorage.setItem('gbv-images', JSON.stringify(imageFromLocal));
+            setGbvImages(imageFromLocal);
         }
     }
-    
     useEffect(() => {
         toggleLoader();
         appendImages();
@@ -113,17 +127,16 @@ const Evidence = () => {
                             <div className='relative w-full h-full'>
                                 <div className='absolute w-full h-full rounded-lg overflow-hidden'>
                                     <div className='h-full w-full'>
-                                        {picture == '' ? (
+                                        {picture === '' ? (
                                             <Webcam
                                                 audio={false}
-                                                height={400}
                                                 ref={webcamRef}
-                                                className='w-full h-full'
+                                                className='w-full h-full object-cover'
                                                 screenshotFormat="image/jpeg"
                                                 videoConstraints={videoConstraints}
                                             />
                                         ) : (
-                                            <img src={picture} />
+                                            <img alt='' src={picture} className='w-full h-full object-cover'/>
                                         )}
                                     </div>
                                 </div>
@@ -134,7 +147,7 @@ const Evidence = () => {
                                     <button onClick={(e) => { e.preventDefault(); capture() }} className='flex items-center justify-center text-3xl bg-gray-300 text-purple-900 border h-14 w-14 rounded-full'>
                                         <span className='flex'><i className='fa fa-camera'></i></span>
                                     </button>
-                                    <button onClick={() => setIsCapturing(false)} className='flex items-center justify-center text-3xl bg-gray-300 text-red-600 border h-14 w-14 rounded-full'>
+                                    <button onClick={() => { clearCapture()}} className='flex items-center justify-center text-3xl bg-gray-300 text-red-600 border h-14 w-14 rounded-full'>
                                         <span className='flex'><i className='fa fa-times'></i></span>
                                     </button>
                                 </div>
