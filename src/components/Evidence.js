@@ -32,6 +32,7 @@ const Evidence = () => {
         },
         facingMode: cameraFacingMode,
     }
+
     const capture = useCallback(() => {
       const pictureSrc = webcamRef.current.getScreenshot()
       setPicture(pictureSrc);
@@ -88,6 +89,7 @@ const Evidence = () => {
     useEffect(() => {
         toggleLoader();
         appendImages();
+        localStorage.removeItem('gbv-images');  // To be removed before set for production
     }, []);
 
   return (
