@@ -14,7 +14,6 @@ const Chatbot = ({toggleShowChatbot}) => {
     const [ isTypingMessage, setIsTypingMessage ] = useState(false);
     const [ isTypingNumber, setIsTypingNumber ] = useState(false);
     const [ typedPhoneNumber, setTypedPhoneNumber] = useState('');
-    const [ location, setLocation ] = useState('');
 
     const getUserData = () => {
         const user = JSON.parse(localStorage.getItem('ribbonsUser')) == null? {
@@ -26,6 +25,9 @@ const Chatbot = ({toggleShowChatbot}) => {
     }
     
     const [ userData, setUserData ] = useState(() => getUserData());
+    const [ location, setLocation ] = useState('');
+    const [ dept, setDept ] = useState(() => getUserData().dept);
+    const [ isOnSession, setIsOnSession ] = useState(false);
 
     const updateUserData = () => {
         localStorage.setItem('ribbonsUser', JSON.stringify(userData));
@@ -95,13 +97,9 @@ const Chatbot = ({toggleShowChatbot}) => {
         let latitude = data.coords.latitude;
         let longitude = data.coords.longitude;
 
-        // setLocation(prevLoc => {
-        //     return {...prevLoc, latt: latitude, long: longitude}
-        // });
-
         console.log('Getting geolocation');
-        // fetch(`https://api.opencagedata.com/geocode/v1/json?q=19.076111+72.877500&key=3fc01ec0efd54fec9f12d22b658a4752`,
-        fetch(`https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=3fc01ec0efd54fec9f12d22b658a4752`,
+        fetch(`https://api.opencagedata.com/geocode/v1/json?q=19.076111+72.877500&key=3fc01ec0efd54fec9f12d22b658a4752`,
+        // fetch(`https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=3fc01ec0efd54fec9f12d22b658a4752`,
             {
                 method: 'get',
                 headers: {
@@ -115,27 +113,74 @@ const Chatbot = ({toggleShowChatbot}) => {
             console.log(data);
             const fetchedLocation = data.results[0].formatted.split(',').slice(-2);
             console.log(fetchedLocation);
+            setUserData(prevValue => {
+                return {
+                    ...prevValue,
+                    loc: `${fetchedLocation[0]}, ${fetchedLocation[1]}`
+                }
+            })
             setLocation(`${fetchedLocation[0]}, ${fetchedLocation[1]}`);
-
         })
         .catch(err => console.log(err));
     }
     
     const getUserLoc = () => {
-        console.log('Getting Location!');
-        if (navigator.geolocation) {
-            window.navigator.geolocation
-                .getCurrentPosition(getGeoLocation, console.error);
+        if (userData.loc !== '') {
+            setLocation(userData.loc)
         } else {
-            // alert('Location is required! Reload Page to activate');
-            // return false;
+            console.log('No location');
+            console.log('Getting Location!');
+            if (navigator.geolocation) {
+                window.navigator.geolocation
+                    .getCurrentPosition(getGeoLocation, console.error);
+            } else {
+                // alert('Location is required! Reload Page to activate');
+                // return false;
+            }
         }
     }
 
+    const getDept = () => {
+        if (userData.dept) {
+            console.log('Wow!!!!!!1')
+            setDept(userData.dept);
+        } else {
+            fetch('http://localhost:3500/all-chats/current-chat/',
+                {
+                    method: 'post',
+                    headers: {
+                        accept: 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        "phone": `${phoneNumber}`,
+                        "sessionEnded": false
+                      })
+                }
+            )
+            .then(response => response.json())
+            .then(data => {
+                if (data.noUser) {
+                    setDept('');
+                    setIsOnSession(false);
+                } else {
+                    console.log(data);
+                    setUserData(prevValue => {
+                        return {
+                            ...prevValue,
+                            dept: data.user.message.length < 1? '': data.user.message[data.user.message.length - 1].dept
+                        }
+                    })
+                    setDept(data.user.message.length < 1? '': data.user.message[data.user.message.length - 1].dept);
+                }
+            })
+        }
+    }
     useEffect(() => {
         checkNumber();
-        getMessages();
-        // getUserLoc();
+        getUserLoc();
+        getDept();
+        // getMessages();
     }, []);
 
     useEffect(() => {
@@ -181,19 +226,46 @@ const Chatbot = ({toggleShowChatbot}) => {
                             <div className='flex justify-end px-2 mb-1'>
                                 <div className='max-w-xs text-start border border-purple-900 bg-white text-purple-900 px-2.5 py-1 rounded-2xl rounded-tr-none'>{phoneNumber}</div>
                             </div>
-                            <div className='flex justify-start px-2 mb-1'>
-                                <div  className='max-w-xs text-start bg-purple-900 text-white px-2.5 py-1 rounded-2xl rounded-tl-none'>How may I help you?</div>
-                            </div>
+                            {
+                                !location?
+                                <div className='px-2 mb-1'>
+                                    <span className='flex justify-center text-center text-gray-700 font-semibold italic py-1'>Please, we need your location to be able to assist you.</span>
+                                    <button onClick={ () =>  getUserLoc()} className='border border-purple-900 rounded-xl text-purple-900 hover:text-white hover:bg-purple-900 w-full py-2'>Enable location</button>
+                                </div>
+                                :
+                                <>
+                                {
+                                    dept === ''?
+                                    <div className='flex justify-start px-2 mb-1'>
+                                        <div  className='max-w-xs text-start bg-purple-900 text-white px-2.5 py-1 rounded-2xl rounded-tl-none'>How may I help you?</div>
+                                    </div>
+                                    :
+                                    <>
+                                        {
+                                            isOnSession?
+                                            <div>
+                                                <button>Continue</button>
+                                                <button>Start a new</button>
+                                            </div>
+                                            :
+                                            <div></div>
+                                        }
+                                        <div className='flex justify-start px-2 mb-1'>
+                                            <div  className='max-w-xs text-start bg-purple-900 text-white px-2.5 py-1 rounded-2xl rounded-tl-none'>How may I help you?</div>
+                                        </div>
+                                    </>
+                                }</>
+                            }
                         </>
                     }
                     
-                    <div className='flex justify-start px-2 mb-1'>
+                    {/*<div className='flex justify-start px-2 mb-1'>
                         <div className='max-w-xs text-start bg-purple-900 text-white px-2.5 py-1 rounded-2xl rounded-tl-none'>message</div>
                     </div>
                     :
                     <div className='flex justify-end px-2 mb-1'>
                         <div className='max-w-xs text-start border border-purple-900 bg-white text-purple-900 px-2.5 py-1 rounded-2xl rounded-tr-none'>message</div>
-                    </div>
+                </div>*/}
                 </div>
             </div>
             
