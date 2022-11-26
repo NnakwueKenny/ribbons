@@ -9,7 +9,6 @@ const Chatbot = ({toggleShowChatbot}) => {
     const [isPhoneNumber, setIsPhoneNumber] = useState(false);
     const [ isValidNumber, setIsValidNumber ] = useState(false);
     const [ isFirstTime, setIsFirstTime ] = useState(false);
-    const [ chats, setChats ] = useState([]);
     const [ isOnline, setIsOnline ] = useState(true);
     const [ isTypingMessage, setIsTypingMessage ] = useState(false);
     const [ isTypingNumber, setIsTypingNumber ] = useState(false);
@@ -28,6 +27,9 @@ const Chatbot = ({toggleShowChatbot}) => {
     const [ location, setLocation ] = useState('');
     const [ dept, setDept ] = useState(() => getUserData().dept);
     const [ isOnSession, setIsOnSession ] = useState(false);
+    const [ isSelectDept, setIsSelectDept ] = useState(false);
+    const [ showSessionBtn, setShowSessionBtn ] = useState(true);
+    const [ chats, setChats ] = useState([]);
 
     const updateUserData = () => {
         localStorage.setItem('ribbonsUser', JSON.stringify(userData));
@@ -60,36 +62,6 @@ const Chatbot = ({toggleShowChatbot}) => {
             }
         })
         setIsValidNumber(true);
-    }
-
-    const sendMessage = (message) => {
-        fetch('https://timmyedibo.pythonanywhere.com/api/chats/', {
-            method: 'post',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                sent_by: `${phoneNumber}`,
-                sent_to: "+2347067272110",
-                message: message
-            })
-        })
-        .then(response => response.json())
-        .then(data => {
-            setTypedMessage('')
-            getMessages();
-        })
-        .catch(err => console.log(err))
-    }
-
-    const getMessages = () => {
-        // fetch(`https://timmyedibo.pythonanywhere.com/api/chats/${phoneNumber}`)
-        // .then(response => response.json())
-        // .then(data => {
-        //     setChats(data);
-        // })
-        // .catch(err => console.log(err))
     }
 
     const getGeoLocation = async (data) => {
@@ -140,11 +112,20 @@ const Chatbot = ({toggleShowChatbot}) => {
         }
     }
 
-    const getDept = () => {
-        if (userData.dept) {
-            console.log('Wow!!!!!!1')
-            setDept(userData.dept);
+    const updateDept = (dept) => {
+        if (dept) {
+            console.log(dept);
+            setUserData(prevValue => {
+                return {
+                    ...prevValue,
+                    dept: dept
+                }
+            })
+            setDept(dept);
+            setIsSelectDept(true);
+            setIsOnSession(false)
         } else {
+            console.log('Wow!!!!!!2')
             fetch('http://localhost:3500/all-chats/current-chat/',
                 {
                     method: 'post',
@@ -153,7 +134,7 @@ const Chatbot = ({toggleShowChatbot}) => {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        "phone": `${phoneNumber}`,
+                        "phone": `${phoneNumber}`,  //${phoneNumber} +2348064110208
                         "sessionEnded": false
                       })
                 }
@@ -163,6 +144,7 @@ const Chatbot = ({toggleShowChatbot}) => {
                 if (data.noUser) {
                     setDept('');
                     setIsOnSession(false);
+                    setIsSelectDept(false);
                 } else {
                     console.log(data);
                     setUserData(prevValue => {
@@ -172,10 +154,78 @@ const Chatbot = ({toggleShowChatbot}) => {
                         }
                     })
                     setDept(data.user.message.length < 1? '': data.user.message[data.user.message.length - 1].dept);
+                    setIsSelectDept(true);
+                    setIsOnSession(true);
                 }
             })
         }
     }
+
+    const getDept = () => {
+        if (userData.dept) {
+            console.log('Wow!!!!!!1')
+            setDept(userData.dept);
+            setIsSelectDept(true);
+            setIsOnSession(true);
+        } else {
+            updateDept()
+        }
+    }
+
+    const getSessionStatus = (status) => {
+        console.log('Getting session');
+        getMessages(status);
+    }
+
+    const getMessages = (sessionStatus) => {
+        fetch(`http://localhost:3500/all-chats/current-chat`,
+            {
+                method: 'post',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    phone: phoneNumber,
+                    sessionEnded: sessionStatus? sessionStatus: false
+                })
+            }
+        )
+        .then(response => response.json())
+        .then(data => {
+            console.log(data)
+            setChats(data.user? data.user.message: []);
+        })
+        .catch(err => console.log(err))
+    }
+
+    const sendMessage = (message) => {
+        console.log(phoneNumber)
+        fetch('http://localhost:3500/user/chat/', {
+            method: 'post',
+            headers: {
+                accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                sender: phoneNumber,
+                receiver: 'receiver',
+                msg: message,
+                dept: dept,
+                loc: location,
+                status: 1
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            setTypedMessage('');
+            // getMessages();
+            setChats(data.user? data.user.message: []);
+        })
+        .catch(err => console.log(err))
+    }
+
     useEffect(() => {
         checkNumber();
         getUserLoc();
@@ -236,16 +286,19 @@ const Chatbot = ({toggleShowChatbot}) => {
                                 <>
                                 {
                                     dept === ''?
-                                    <div className='flex justify-start px-2 mb-1'>
-                                        <div  className='max-w-xs text-start bg-purple-900 text-white px-2.5 py-1 rounded-2xl rounded-tl-none'>How may I help you?</div>
+                                    <div className='flex flex-col gap-3 px-2 mb-1'>
+                                        <div  className='max-w-xs text-start bg-purple-900 text-white px-2.5 py-1 rounded-2xl rounded-tl-none'>How may I help you today?</div>
+                                        <div className='grid grid-cols-2 gap-3 place-items-center'>
+                                            <button onClick={(e) => updateDept(e.target.textContent)} className='flex w-full max-w-[150px] justify-center text-center border border-purple-900 bg-white text-purple-900 px-2.5 py-1 rounded-2xl rounded-tr-none capitalize'>medical</button>
+                                        </div>
                                     </div>
                                     :
                                     <>
                                         {
-                                            isOnSession?
-                                            <div>
-                                                <button>Continue</button>
-                                                <button>Start a new</button>
+                                            isOnSession && showSessionBtn?
+                                            <div className='flex gap-4 justify-center'>
+                                                <button onClick={() => { setShowSessionBtn(false); getSessionStatus(false)}} className='border border-purple-900 rounded-xl text-purple-900 hover:text-white hover:bg-purple-900 w-full max-w-[150px] py-1 text-sm font-semibold'>Previous Session</button>
+                                                <button onClick={() => { setShowSessionBtn(false); getSessionStatus(true)}} className='border border-purple-900 rounded-xl text-purple-900 hover:text-white hover:bg-purple-900 w-full max-w-[150px] py-1 text-sm font-semibold'>Start new Session</button>
                                             </div>
                                             :
                                             <div></div>
@@ -259,13 +312,28 @@ const Chatbot = ({toggleShowChatbot}) => {
                         </>
                     }
                     
-                    {/*<div className='flex justify-start px-2 mb-1'>
-                        <div className='max-w-xs text-start bg-purple-900 text-white px-2.5 py-1 rounded-2xl rounded-tl-none'>message</div>
-                    </div>
-                    :
-                    <div className='flex justify-end px-2 mb-1'>
-                        <div className='max-w-xs text-start border border-purple-900 bg-white text-purple-900 px-2.5 py-1 rounded-2xl rounded-tr-none'>message</div>
-                </div>*/}
+                    {
+                        chats.map(item => {
+                            return  (item.status === 'sent'?
+                                    <div className='flex justify-end px-2 mb-1'>
+                                        <div className='max-w-xs text-start border border-purple-900 bg-white text-purple-900 px-2.5 py-1 rounded-2xl rounded-tr-none'>{item.content}</div>
+                                    </div>
+                                    :
+                                    <div className='flex justify-start px-2 mb-1'>
+                                        <div className='max-w-xs text-start bg-purple-900 text-white px-2.5 py-1 rounded-2xl rounded-tl-none'>{item.content}</div>
+                                    </div>)
+                        })
+
+                    /*
+                        <div className='flex justify-start px-2 mb-1'>
+                            <div className='max-w-xs text-start bg-purple-900 text-white px-2.5 py-1 rounded-2xl rounded-tl-none'>message</div>
+                        </div>
+                        :
+                        <div className='flex justify-end px-2 mb-1'>
+                            <div className='max-w-xs text-start border border-purple-900 bg-white text-purple-900 px-2.5 py-1 rounded-2xl rounded-tr-none'>message</div>
+                        </div>
+                    */
+                    }
                 </div>
             </div>
             
@@ -273,9 +341,14 @@ const Chatbot = ({toggleShowChatbot}) => {
                 {
                     isValidNumber &&
                     <div className='relative flex w-full rounded-xl overflow-hidden'>
-                        <label className='sr-only'></label>
-                        <input onChange={(e) => {setIsTypingMessage(e.target.value.length>0? true: false);  setTypedMessage(e.target.value)}} value={typedMessage} type='text' placeholder='Send a message...' className='w-full border-none ring-0 outline-0 focus:ring-0 text-gray-600' />
-                        <button onClick={() => typedMessage.length> 0? sendMessage(typedMessage): console.log('Please Type something')} type='button' className={`absolute top-0 right-0 h-full flex justify-center items-center px-3 ${isTypingMessage? 'text-purple-700': 'text-gray-400'} bg-white`}><i className='fa fa-paper-plane'></i></button>
+                        {
+                            (isSelectDept && !showSessionBtn) &&
+                            <>
+                                <label className='sr-only'></label>
+                                <input onChange={(e) => {setIsTypingMessage(e.target.value.length>0? true: false);  setTypedMessage(e.target.value)}} value={typedMessage} type='text' placeholder='Send a message...' className={`w-full border-none ring-0 outline-0 focus:ring-0 text-gray-600 `} />
+                                <button onClick={() => typedMessage.length> 0? sendMessage(typedMessage): console.log('Please Type something')} type='button' className={`absolute top-0 right-0 h-full flex justify-center items-center px-3 ${isTypingMessage? 'text-purple-700': 'text-gray-400'} bg-white`}><i className='fa fa-paper-plane'></i></button>
+                            </>
+                        }
                     </div>
                 }
                 {
