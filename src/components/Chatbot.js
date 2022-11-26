@@ -4,47 +4,60 @@ import logo from '../images/logo.png';
 // <script src="//code.tidio.co/8gqimlvow6hqsvqgtvr5vlaohfynjbyg.js" async></script>
 
 const Chatbot = ({toggleShowChatbot}) => {
-    const [ isOnline, setIsOnline ] = useState(true);
-    const [ isTypingMessage, setIsTypingMessage ] = useState(false);
-    const [ isTypingNumber, setIsTypingNumber ] = useState(false);
-    const [ typedPhoneNumber, setTypedPhoneNumber] = useState('');
     const [ typedMessage, setTypedMessage ] = useState('');
     const [ phoneNumber, setPhoneNumber] = useState('');
     const [isPhoneNumber, setIsPhoneNumber] = useState(false);
     const [ isValidNumber, setIsValidNumber ] = useState(false);
     const [ isFirstTime, setIsFirstTime ] = useState(false);
     const [ chats, setChats ] = useState([]);
+    const [ isOnline, setIsOnline ] = useState(true);
+    const [ isTypingMessage, setIsTypingMessage ] = useState(false);
+    const [ isTypingNumber, setIsTypingNumber ] = useState(false);
+    const [ typedPhoneNumber, setTypedPhoneNumber] = useState('');
+    const [ location, setLocation ] = useState('');
+
+    const getUserData = () => {
+        const user = JSON.parse(localStorage.getItem('ribbonsUser')) == null? {
+            phone: '',
+            loc: '',
+            dept: ''
+        }: JSON.parse(localStorage.getItem('ribbonsUser'));
+        return user;
+    }
+    
+    const [ userData, setUserData ] = useState(() => getUserData());
+
+    const updateUserData = () => {
+        localStorage.setItem('ribbonsUser', JSON.stringify(userData));
+    }
 
     const checkNumber = () => {
-        const userNumber = JSON.parse(localStorage.getItem('phoneNumber'));
-        setPhoneNumber(userNumber === null? '': userNumber);
-        setIsFirstTime(userNumber? false: true);
-        setIsValidNumber(userNumber === null? false: true);
-        setIsPhoneNumber(userNumber === null? false: true);
+        const data = getUserData();
+        setPhoneNumber(data.phone);
+        // setUserData(prevValue => {
+        //     return {
+        //         ...prevValue,
+        //         phone: data.phone
+        //     }
+        // })
+        setIsFirstTime(!data?.phone? false: true);
+        setIsValidNumber(!data?.phone? false: true);
+        setIsPhoneNumber(!data?.phone? false: true);
     }
 
     const addNumber = async () => {
-        console.log('Sending phone');
-        await fetch('https://timmyedibo.pythonanywhere.com/api/users/',
-            {
-                method: 'post',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ "phone_number": typedPhoneNumber })
+        console.log('Userdata before number is added!', userData);
+        setIsFirstTime(true);
+        setPhoneNumber(typedPhoneNumber);
+        setIsPhoneNumber(true);
+        // localStorage.setItem('phoneNumber', JSON.stringify(typedPhoneNumber));
+        setUserData(prevValue => {
+            return {
+                ...prevValue,
+                phone: typedPhoneNumber
             }
-        )
-        .then(response => response.json())
-        .then(data => {
-            console.log(data);
-            setIsFirstTime(true);
-            setPhoneNumber(typedPhoneNumber);
-            setIsPhoneNumber(true);
-            localStorage.setItem('phoneNumber', JSON.stringify(typedPhoneNumber));
-            setIsValidNumber(true);
         })
-        .catch(err => console.log(err))
+        setIsValidNumber(true);
     }
 
     const sendMessage = (message) => {
@@ -69,18 +82,65 @@ const Chatbot = ({toggleShowChatbot}) => {
     }
 
     const getMessages = () => {
-        fetch(`https://timmyedibo.pythonanywhere.com/api/chats/${phoneNumber}`)
+        // fetch(`https://timmyedibo.pythonanywhere.com/api/chats/${phoneNumber}`)
+        // .then(response => response.json())
+        // .then(data => {
+        //     setChats(data);
+        // })
+        // .catch(err => console.log(err))
+    }
+
+    const getGeoLocation = async (data) => {
+        // extracting the latitude and longitude from the data
+        let latitude = data.coords.latitude;
+        let longitude = data.coords.longitude;
+
+        // setLocation(prevLoc => {
+        //     return {...prevLoc, latt: latitude, long: longitude}
+        // });
+
+        console.log('Getting geolocation');
+        // fetch(`https://api.opencagedata.com/geocode/v1/json?q=19.076111+72.877500&key=3fc01ec0efd54fec9f12d22b658a4752`,
+        fetch(`https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=3fc01ec0efd54fec9f12d22b658a4752`,
+            {
+                method: 'get',
+                headers: {
+                    accept: 'application/json',
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            }
+        )
         .then(response => response.json())
         .then(data => {
-            setChats(data);
+            console.log(data);
+            const fetchedLocation = data.results[0].formatted.split(',').slice(-2);
+            console.log(fetchedLocation);
+            setLocation(`${fetchedLocation[0]}, ${fetchedLocation[1]}`);
+
         })
-        .catch(err => console.log(err))
+        .catch(err => console.log(err));
+    }
+    
+    const getUserLoc = () => {
+        console.log('Getting Location!');
+        if (navigator.geolocation) {
+            window.navigator.geolocation
+                .getCurrentPosition(getGeoLocation, console.error);
+        } else {
+            // alert('Location is required! Reload Page to activate');
+            // return false;
+        }
     }
 
     useEffect(() => {
         checkNumber();
         getMessages();
-    }, [])
+        // getUserLoc();
+    }, []);
+
+    useEffect(() => {
+        updateUserData();
+    }, [userData])
 
   return (
     <div className='absolute h-full overflow-hidden top-0 left-0 z-40 w-full flex pt-5 px-2 pb-2'>
@@ -126,36 +186,14 @@ const Chatbot = ({toggleShowChatbot}) => {
                             </div>
                         </>
                     }
-                    {/*
-                        !isFirstTime &&
-                        <>
-                            <div className='flex justify-start px-2 mb-1'>
-                                <div  className='max-w-xs text-start bg-purple-900 text-white px-2.5 py-1 rounded-2xl rounded-tl-none'>Welcome Back...</div>
-                            </div>
-                            <div className='flex justify-start px-2 mb-1'>
-                                <div  className='max-w-xs text-start bg-purple-900 text-white px-2.5 py-1 rounded-2xl rounded-tl-none'>How may I help you?</div>
-                            </div>
-                        </>
-                        */
-                    }
-                    {
-                        <div className='flex justify-end px-2 mb-1'>
-                            <div className='max-w-xs text-start border border-purple-900 bg-white text-purple-900 px-2.5 py-1 rounded-2xl rounded-tr-none'>Hello</div>
-                        </div>
-                    }
-                    {
-                        isValidNumber &&
-                        chats.filter(item => (item.sent_by === '+2347067272110' && item.sent_to === phoneNumber) || (item.sent_by === phoneNumber && item.sent_to === '+2347067272110')).map(data => 
-                                data.sent_by === '+2347067272110'?
-                                <div className='flex justify-start px-2 mb-1'>
-                                    <div  className='max-w-xs text-start bg-purple-900 text-white px-2.5 py-1 rounded-2xl rounded-tl-none'>{data.message.split('[')[0]}</div>
-                                </div>
-                                :
-                                <div className='flex justify-end px-2 mb-1'>
-                                    <div className='max-w-xs text-start border border-purple-900 bg-white text-purple-900 px-2.5 py-1 rounded-2xl rounded-tr-none'>{data.message.split('[')[0]}</div>
-                                </div>
-                        )
-                    }
+                    
+                    <div className='flex justify-start px-2 mb-1'>
+                        <div className='max-w-xs text-start bg-purple-900 text-white px-2.5 py-1 rounded-2xl rounded-tl-none'>message</div>
+                    </div>
+                    :
+                    <div className='flex justify-end px-2 mb-1'>
+                        <div className='max-w-xs text-start border border-purple-900 bg-white text-purple-900 px-2.5 py-1 rounded-2xl rounded-tr-none'>message</div>
+                    </div>
                 </div>
             </div>
             
@@ -173,7 +211,7 @@ const Chatbot = ({toggleShowChatbot}) => {
                     <div className='relative flex w-full rounded-xl overflow-hidden'>
                         <label className='sr-only'></label>
                         <input onChange={(e) => {setIsTypingNumber(e.target.value); setTypedPhoneNumber(e.target.value)}} type='text' placeholder='Phone Number...' className='w-full border-none ring-0 outline-0 focus:ring-0 text-gray-600' />
-                        <button onClick={addNumber} type='button' className={`absolute top-0 right-0 h-full flex justify-center items-center px-3 ${isTypingNumber? 'text-purple-700': 'text-gray-400'} bg-white`}><i className='fa fa-paper-plane'></i></button>
+                        <button onClick={() => addNumber()} type='button' className={`absolute top-0 right-0 h-full flex justify-center items-center px-3 ${isTypingNumber? 'text-purple-700': 'text-gray-400'} bg-white`}><i className='fa fa-paper-plane'></i></button>
                     </div>
                 }
             </div>

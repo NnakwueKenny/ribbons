@@ -5,9 +5,9 @@ import 'aos/dist/aos.css'; // You can also use <link> for styles
 import SARC from './views/SARC';
 import LocateHospital from './views/LocateHospital';
 import Faqs from './views/Faqs';
-import ChatAdmin from './ChatAdmin';
-import ChatAdminMsg from './ChatAdminMsg';
-import Evidence from './components/Evidence';
+import ChatAdmin from './views/ChatAdmin';
+import ChatAdminMsg from './views/ChatAdminMsg';
+import Evidence from './views/Evidence';
 // ..
 AOS.init();
 
