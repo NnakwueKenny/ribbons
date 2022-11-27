@@ -6,6 +6,8 @@ import SARC from './views/SARC';
 import LocateHospital from './views/LocateHospital';
 import Faqs from './views/Faqs';
 import AdminIndex from './views/adminSection/AdminIndex';
+import AdminLogin from './views/adminSection/AdminLogin';
+import AdminRegister from './views/adminSection/AdminRegister';
 import ChatAdmin from './views/adminSection/ChatAdmin';
 import ChatAdminMsg from './views/adminSection/ChatAdminMsg';
 import Evidence from './views/Evidence';
@@ -18,7 +20,7 @@ function App() {
   return (
     <div id='wrapper' className="App homepage font-black font-sans h-screen py-2 flex flex-col items-center">
       {/*<div id="google_translate_element" className='w-full'></div>*/}
-      <div className='w-full relative flex flex-col h-full max-w-lg font-medium md:border-2'>
+      <div className='w-full relative flex flex-col h-full font-medium '>
         <Routes>
           {/* Home Route */}
           <Route path="/" element={<Dashboard />} />
@@ -35,6 +37,8 @@ function App() {
           {/* All admin routes */}
           {/* ChatAdmin Route */}
           <Route path="/admin" element={<AdminIndex />} />
+          <Route path="/admin/register" element={<AdminRegister />} />
+          <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/chat-admin" element={<ChatAdmin />} />
 
           {/* ChatAdminMsg Route */}
