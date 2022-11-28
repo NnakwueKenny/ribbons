@@ -1,8 +1,9 @@
-const checkAdminLogin = (isLoggedIn, currentAdmin) => {
+const checkAdminLogin = (isLoggedIn, currentAdmin, navigateTo, isPageLoading) => {
+    // isPageLoading(true);
     const adminAccessToken = JSON.parse(localStorage.getItem('adminAccessToken'));
-    console.log(adminAccessToken);
     if (adminAccessToken === null) {
         isLoggedIn(false);
+        navigateTo('/admin/login');
     } else {
         fetch('http://localhost:3500/admin/current-admin',
             {
@@ -18,19 +19,20 @@ const checkAdminLogin = (isLoggedIn, currentAdmin) => {
         )
         .then(response => response.json())
         .then(data => {
-            if (data) {
+            if (data?.accessToken) {
                 isLoggedIn(true);
                 localStorage.setItem('adminAccessToken', JSON.stringify(data.accessToken));
                 currentAdmin(data);
-                console.log('Admin Logged In');
+                isPageLoading(false);
             } else {
                 isLoggedIn(false);
-                localStorage.removeItem('adminAccessToken')
+                localStorage.removeItem('adminAccessToken');
+                navigateTo('/admin/login');
             }
         })
-        // eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Imh1bWFuaXRhcmlhbnNlcnZjYW1wbWFoYXJhc2giLCJpYXQiOjE2Njk1NjEzMjAsImV4cCI6MTY3MDE2NjEyMH0.1flPPKkBNYbJHlOu4njWzzuiabA8rxhWW-rJ0MKgEqI
+        .catch(err => {
+            isPageLoading(false);
+        })
     }
-    return true
 }
-
 export default checkAdminLogin;
