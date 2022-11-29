@@ -5,10 +5,10 @@ import {
   AccordionBody,
   Navbar,
 } from "@material-tailwind/react";
-import Chatbot from "../components/Chatbot";
-import ChatbotBtn from "../components/ChatbotBtn";
-import Loader from "../components/Loader";
-import NavBar from '../components/Navbar';
+import Chatbot from "../../components/Chatbot";
+import ChatbotBtn from "../../components/ChatbotBtn";
+import Loader from "../../components/Loader";
+import NavBar from '../../components/Navbar';
  
 
 const Faqs = () => {

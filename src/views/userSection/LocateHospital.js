@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import Chatbot from '../components/Chatbot';
-import ChatbotBtn from '../components/ChatbotBtn';
-import Loader from '../components/Loader';
-import Navbar from '../components/Navbar';
-import SearchLoader from '../components/SearchLoader';
+import Chatbot from '../../components/Chatbot';
+import ChatbotBtn from '../../components/ChatbotBtn';
+import Loader from '../../components/Loader';
+import Navbar from '../../components/Navbar';
+import SearchLoader from '../../components/SearchLoader';
 
 // Sexual Assault Report Center Data
-import hospitalData from '../data/hospitalData';
+import hospitalData from './data/hospitalData';
 
 const LocateHospital = () => {
     const [ isLoading, setIsLoading ] = useState(true);

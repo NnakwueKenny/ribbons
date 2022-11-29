@@ -46,6 +46,7 @@ const AdminLogin = () => {
           setLoginStatus(true);
           localStorage.setItem('adminAccessToken', JSON.stringify(data.accessToken));
           localStorage.setItem('adminUsername', JSON.stringify(username));
+          localStorage.setItem('adminLocation', JSON.stringify(data.location));
           setTimeout(() => {
             setShowLoader(true);
           }, 2000);
@@ -59,6 +60,7 @@ const AdminLogin = () => {
       console.log(err)
       toggleMessageContent(setLoginMessage, 'Login failed');
       setLoginStatus(false);
+      setIsLoading(false);
     })
     // eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Imh1bWFuaXRhcmlhbnNlcnZjYW1wbWFoYXJhc2giLCJpYXQiOjE2Njk1NjEzMjAsImV4cCI6MTY3MDE2NjEyMH0.1flPPKkBNYbJHlOu4njWzzuiabA8rxhWW-rJ0MKgEqI
 }

@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import Loader from '../../../components/Loader';
 
-const AllComplaints = ({filter}) => {
+const CounsellingComplaint = () => {
     const [ isLoading, setIsLoading ] = useState(false);
     const [ complaints, setComplaints ] = useState([]);
     const [ previewComplaint, setPreviewComplaint ] = useState(false)
@@ -25,11 +24,7 @@ const AllComplaints = ({filter}) => {
         .then(response => response.json())
         .then(data =>{
             console.log(data);
-            if (filter === 'all') {
-                setComplaints(data);
-            } else {
-                setComplaints(data);
-            }
+            setComplaints(data.filter(item => item.cat === 'counselling'));
             setIsLoading(false)
         })
     }
@@ -96,4 +91,4 @@ const AllComplaints = ({filter}) => {
     )
 }
 
-export default AllComplaints
+export default CounsellingComplaint;

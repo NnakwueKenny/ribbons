@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react'
 import { Link } from 'react-router-dom';
-import Chatbot from '../components/Chatbot';
-import Loader from '../components/Loader';
-import Navbar from '../components/Navbar';
+import Chatbot from '../../components/Chatbot';
+import Loader from '../../components/Loader';
+import Navbar from '../../components/Navbar';
 import Webcam from 'react-webcam';
 
 const cameraView = ['user', 'environment'];
