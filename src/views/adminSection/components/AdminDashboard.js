@@ -2,8 +2,8 @@ import React from 'react'
 
 const AdminDashboard = () => {
   return (
-    <div>AdminDashboard</div>
+    <div className='px-8 py-4'>AdminDashboard</div>
   )
 }
 
-export default AdminDashboard
+export default AdminDashboard;

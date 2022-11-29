@@ -36,7 +36,6 @@ const AdminIndex = () => {
                 <Loader />
                 :
                 <>
-                
                 <aside className={`fixed h-full z-20`}>
                     <div className={`bg-white h-full ${showSidebar? 'w-64':'w-0 md:w-24'} overflow-hidden shadow flex flex-col divide-y`}>
                         <div className='flex justify-center'>
@@ -98,7 +97,7 @@ const AdminIndex = () => {
                     <header className='w-full h-auto flex justify-center shadow'>
                         <div className='w-full max-w-8xl flex justify-between items-center py-3 px-4'>
                             <div className='w-full max-w-[100px]'><img alt='' src={logo} /></div>
-                            <div className='text-3xl'>Admin Panel</div>
+                            <div className='text-3xl'>Help Desk</div>
                             <div className='hidden md:flex gap-4'>
                                 <button className='relative flex items-center justify-center text-gray-600 text-2xl w-12 h-12 border-2 border-gray-700 rounded-full shadow hover:shadow-md hover:border-purple-900 hover:text-purple-900'>
                                     <span className='absolute -top-[10px] right-0 w-5 h-5 rounded-full flex items-center justify-center text-white bg-red-400 text-sm'>1</span>
