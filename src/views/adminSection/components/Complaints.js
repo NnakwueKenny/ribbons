@@ -17,7 +17,8 @@ const Complaints = () => {
     const [ complaintCategory, setComplaintCategory ] = useState(complaintCategories.all);
     const [ currentCategory, setCurrentCategory ] = useState('all');
     const [ showCreateComplaint , setShowCreateComplain ] = useState(false);
-    const [ isSending, setIsSending ] = useState(false);
+    const [ isSubmitting, setIsSubmitting ] = useState(false);
+    const [ isSaving, setIsSaving ] = useState(false);
 
     const [ dept , setDept ] = useState('');
     const [ severity , setSeverity ] = useState('');
@@ -47,7 +48,7 @@ const Complaints = () => {
       }
 
     const sendComplaint = () => {
-        setIsSending(true);
+        setIsSubmitting(true);
         console.log(dept, severity, complainantName, complainantPhone, desc);
         fetch('http://localhost:3500/complaint/send-complaint',
             {
@@ -72,7 +73,7 @@ const Complaints = () => {
         .then(response => response.json())
         .then(data => {
             console.log(data);
-            setIsSending(false);
+            setIsSubmitting(false);
             if (data.errors) {
                 console.log(data.errors);
                 toggleMessageContent(setRequestMessage, 'Please fill all fields!', 'error');
@@ -82,7 +83,47 @@ const Complaints = () => {
         })
         .catch(err => {
             console.log(err);
-            setIsSending(false);
+            setIsSubmitting(false);
+            toggleMessageContent(setRequestMessage, err.message, err);
+        })
+
+    }
+
+    const saveComplaint = () => {
+        setIsSaving(true);
+        console.log(dept, severity, complainantName, complainantPhone, desc);
+        fetch('http://localhost:3500/draft/send-draft',
+            {
+                method: 'post',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    cat: dept,
+                    name: complainantName,
+                    desc: desc,
+                    medium: 'online',
+                    status: false,
+                    loc: JSON.parse(localStorage.getItem('adminLocation')),
+                    phone: complainantPhone,
+                  })
+            }
+        )
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            setIsSaving(false);
+            if (data.errors) {
+                console.log(data.errors);
+                toggleMessageContent(setRequestMessage, 'Please fill all fields!', 'error');
+            } else {
+                toggleMessageContent(setRequestMessage, data);
+            }
+        })
+        .catch(err => {
+            console.log(err);
+            setIsSaving(false);
             toggleMessageContent(setRequestMessage, err.message, err);
         })
 
@@ -129,17 +170,17 @@ const Complaints = () => {
                         </div>
                         <div className='mb-auto flex text-purple-800 font-semibold italic text-lg'>{requestMessage}</div>
                         <div className='flex flex-col md:flex-row w-full gap-4'>
-                            <button onClick={sendComplaint} type="button" disabled={isSending? true: '' } className={`w-full max-w-sm flex justify-center text-white bg-purple-800 hover:bg-purple-900 focus:ring-4 focus:outline-none focus:ring-purple-400 font-semibold rounded-lg text-base w-full px-5 py-3 text-center`}>
+                            <button onClick={saveComplaint} type="button" disabled={isSaving? true: '' } className={`w-full max-w-sm flex justify-center text-white bg-purple-800 hover:bg-purple-900 focus:ring-4 focus:outline-none focus:ring-purple-400 font-semibold rounded-lg text-base w-full px-5 py-3 text-center`}>
                                 {
-                                    isSending?
+                                    isSaving?
                                     <span className='flex h-8 w-8 border-4 border-b-purple-300 rounded-full animate-spin'></span>
                                     :
                                     <span>Save</span>
                                 }
                             </button>
-                            <button onClick={sendComplaint} type="button" disabled={isSending? true: '' } className={`w-full max-w-sm flex justify-center text-white bg-purple-800 hover:bg-purple-900 focus:ring-4 focus:outline-none focus:ring-purple-400 font-semibold rounded-lg text-base w-full px-5 py-3 text-center`}>
+                            <button onClick={sendComplaint} type="button" disabled={isSubmitting? true: '' } className={`w-full max-w-sm flex justify-center text-white bg-purple-800 hover:bg-purple-900 focus:ring-4 focus:outline-none focus:ring-purple-400 font-semibold rounded-lg text-base w-full px-5 py-3 text-center`}>
                                 {
-                                    isSending?
+                                    isSubmitting?
                                     <span className='flex h-8 w-8 border-4 border-b-purple-300 rounded-full animate-spin'></span>
                                     :
                                     <span>Submit</span>
