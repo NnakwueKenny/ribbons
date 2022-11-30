@@ -9,7 +9,7 @@ const AllComplaints = ({filter}) => {
 
     const getAllComplaints = () => {
         setIsLoading(true);
-        fetch('http://localhost:3500/complaint/get-all-complaints',
+        fetch('https://ribbons.onrender.com/complaint/get-all-complaints',
             {
                 method: 'post',
                 headers: {

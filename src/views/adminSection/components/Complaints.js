@@ -50,7 +50,7 @@ const Complaints = () => {
     const sendComplaint = () => {
         setIsSubmitting(true);
         console.log(dept, severity, complainantName, complainantPhone, desc);
-        fetch('http://localhost:3500/complaint/send-complaint',
+        fetch('https://ribbons.onrender.com/complaint/send-complaint',
             {
                 method: 'post',
                 headers: {
@@ -92,7 +92,7 @@ const Complaints = () => {
     const saveComplaint = () => {
         setIsSaving(true);
         console.log(dept, severity, complainantName, complainantPhone, desc);
-        fetch('http://localhost:3500/draft/send-draft',
+        fetch('https://ribbons.onrender.com/draft/send-draft',
             {
                 method: 'post',
                 headers: {
