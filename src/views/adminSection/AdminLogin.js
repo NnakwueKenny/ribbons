@@ -41,7 +41,6 @@ const theme = createTheme();
       password: data.get('password'),
     });
   };
-  ;
   const navigate = useNavigate();
 
   const [ username, setUsername ] = useState('');

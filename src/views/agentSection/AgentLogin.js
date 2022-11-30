@@ -58,7 +58,7 @@ const AgentLogin = () => {
 
     const login = () => {
         setIsLoading(true);
-        fetch('https://ribbons.onrender.com/admin/login',
+        fetch('https://ribbons.onrender.com/agent/login',
             {
                 method: 'post',
                 headers: {
@@ -80,14 +80,14 @@ const AgentLogin = () => {
             } else {
             toggleMessageContent(setLoginMessage, data.message);
             setLoginStatus(true);
-            localStorage.setItem('adminAccessToken', JSON.stringify(data.accessToken));
-            localStorage.setItem('adminUsername', JSON.stringify(username));
-            localStorage.setItem('adminLocation', JSON.stringify(data.location));
+            localStorage.setItem('agentAccessToken', JSON.stringify(data.accessToken));
+            localStorage.setItem('agentUsername', JSON.stringify(username));
+            localStorage.setItem('agentLocation', JSON.stringify(data.location));
             setTimeout(() => {
                 setShowLoader(true);
             }, 2000);
             setTimeout(() => {
-                navigate('/admin');
+                navigate('/agent');
             }, 4000)
             }
             setIsLoading(false);

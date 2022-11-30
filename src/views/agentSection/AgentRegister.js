@@ -14,6 +14,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 
 function Copyright(props) {
     return (
@@ -27,19 +28,19 @@ function Copyright(props) {
       </Typography>
     );
   }
+
   
 const AdminLogin = () => {
-    const theme = createTheme();
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        console.log({
-        email: data.get('email'),
-        password: data.get('password'),
-        });
-    };
-    ;
-  const navigate = useNavigate();
+
+  const navigate = useNavigate();const theme = createTheme();
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    console.log({
+      email: data.get('email'),
+      password: data.get('password'),
+    });
+  };
 
   const [ name, setName ] = useState('');
   const [ phone, setPhone ] = useState('');
@@ -48,10 +49,7 @@ const AdminLogin = () => {
   const [ password, setPassword ] = useState('');
   const [ confirmPassword, setConfirmPassword ] = useState('');
   const [ location, setLocation ] = useState('');
-
-  const [ loginMessage, setLoginMessage ] = useState('');
-  const [ loginStatus, setLoginStatus ] = useState(false);
-
+  const [category, setCategory ] = useState('')
 
   const [ registerMessage, setregisterMessage ] = useState('');
   const [ registerStatus, setRegisterStatus ] = useState(false);
@@ -67,7 +65,8 @@ const AdminLogin = () => {
 
   const register = () => {
     setIsLoading(true);
-    fetch('https://ribbons.onrender.com/admin/register',
+    console.log(name, phone, email, username, password, confirmPassword, location)
+    fetch('https://ribbons.onrender.com/agent/register',
         {
             method: 'post',
             headers: {
@@ -81,7 +80,8 @@ const AdminLogin = () => {
               username: username,
               password: password,
               confirmPassword: confirmPassword,
-              loc: location
+              loc: location,
+              dept: category
           })
         }
     )
@@ -92,7 +92,7 @@ const AdminLogin = () => {
           toggleMessageContent(setregisterMessage, regData);
           setRegisterStatus(false);
         } else {
-          fetch('https://ribbons.onrender.com/admin/login',
+          fetch('https://ribbons.onrender.com/agent/login',
             {
               method: 'post',
               headers: {
@@ -109,14 +109,14 @@ const AdminLogin = () => {
           .then(loginData => {
             toggleMessageContent(setregisterMessage, regData.message);
             setRegisterStatus(true);
-            localStorage.setItem('adminAccessToken', JSON.stringify(loginData.accessToken));
-            localStorage.setItem('adminUsername', JSON.stringify(username));
+            localStorage.setItem('agentAccessToken', JSON.stringify(loginData.accessToken));
+            localStorage.setItem('agentUsername', JSON.stringify(username));
             setTimeout(() => {
               setShowLoader(true);
             }, 2000);
             setTimeout(() => {
               setShowLoader(false);
-              navigate('/admin');
+              navigate('/agent');
             }, 5000);
           })
           .catch(err => console.log(err));
@@ -139,135 +139,149 @@ const AdminLogin = () => {
         :
         <>
         <ThemeProvider theme={theme}>
-                    <Container component="main" maxWidth="xs">
-                        <CssBaseline />
-                        <Box
-                            sx={{
-                                marginTop: 8,
-                                display: 'flex',
-                                flexDirection: 'column',
-                                alignItems: 'center',
-                            }}
-                        >
-                            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                                <LockOutlinedIcon />
-                            </Avatar>
-                            <div className='w-full max-w-[100px] h-30px'>
-                                <img alt='' src={logo} />
+            <Container component="main" maxWidth="sm">
+                <CssBaseline />
+                <Box
+                    sx={{
+                        marginTop: 1,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                    }}
+                >
+                    <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+                        <LockOutlinedIcon />
+                    </Avatar>
+                    <div className='w-full max-w-[100px] h-25px'>
+                        <img alt='' src={logo} />
+                    </div>
+                    <Typography component="h1" variant="h5">
+                        Agent Register
+                    </Typography>
+                    <Box component="form" noValidate >
+                        <TextField
+                            onChange={(e) => setName(e.target.value)}
+                            margin="normal"
+                            required
+                            fullWidth
+                            id="name"
+                            label="Name (Eg. Humanitarian camp, Maharashtra, India)"
+                            name="name"
+                            autoComplete="name"
+                            autoFocus
+                        />
+                        <FormControl fullWidth sx={{marginTop: '10px'}}>
+                            <InputLabel id="demo-simple-select-label">Category</InputLabel>
+                            <Select
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            value={category}
+                            label="Category"
+                            onChange={(e) => setCategory(e.target.value)}
+                            >
+                            <MenuItem value={'medical'}>Medical</MenuItem>
+                            <MenuItem value={'health'}>Health</MenuItem>
+                            <MenuItem value={'counselling'}>Counselling</MenuItem>
+                            <MenuItem value={'welfare'}>Welfare</MenuItem>
+                            </Select>
+                        </FormControl>
+                        <TextField
+                            onChange={(e) => setPhone(e.target.value)}
+                            margin="normal"
+                            required
+                            fullWidth
+                            id="phone"
+                            label="Phone"
+                            name="phone"
+                            autoComplete="phone"
+                            autoFocus
+                        />
+                        <TextField
+                            onChange={(e) => setEmail(e.target.value)}
+                            margin="normal"
+                            required
+                            fullWidth
+                            id="email"
+                            label="Email Address"
+                            name="email"
+                            autoComplete="email"
+                            autoFocus
+                        />
+                        <TextField
+                            onChange={(e) => setUsername(e.target.value)}
+                            margin="normal"
+                            required
+                            fullWidth
+                            id="username"
+                            label="Username"
+                            name="username"
+                            autoComplete="username"
+                            autoFocus
+                        />
+                        <TextField
+                            onChange={(e) => setPassword(e.target.value)}
+                            margin="normal"
+                            required
+                            fullWidth
+                            id="password"
+                            label="Password"
+                            type="password"
+                            name="current-password"
+                            autoFocus
+                        />
+                        <TextField
+                            onChange={(e) => setConfirmPassword(e.target.value)}
+                            margin="normal"
+                            required
+                            fullWidth
+                            name="confirmPassword"
+                            label="Confirm Password"
+                            type="password"
+                            id="confirmPassword"
+                            autoComplete="current-password"
+                        />
+                        <TextField
+                            onChange={(e) => setLocation(e.target.value)}
+                            margin="normal"
+                            required
+                            fullWidth
+                            name="location"
+                            label="Location (Eg. Mumbai, India)"
+                            id="location"
+                            autoComplete="location"
+                        />
+                        {registerMessage !== '' &&
+                            <div className='login-message'>
+                                <span className={`login-message-content block text-start font-semibold pb-3 italic text-${registerStatus === 'success' ? 'green-500' : 'purple-800'}`}>{registerMessage}</span>
                             </div>
-                            <Typography component="h1" variant="h5">
-                                Admin Login
-                            </Typography>
-                            <Box component="form" noValidate sx={{ mt: 1 }}>
-                                <TextField
-                                    onChange={(e) => setUsername(e.target.value)}
-                                    margin="normal"
-                                    required
-                                    fullWidth
-                                    id="email"
-                                    label="Email Address"
-                                    name="email"
-                                    autoComplete="email"
-                                    autoFocus
-                                />
-                                <TextField
-                                    onChange={(e) => setPassword(e.target.value)}
-                                    margin="normal"
-                                    required
-                                    fullWidth
-                                    name="password"
-                                    label="Password"
-                                    type="password"
-                                    id="password"
-                                    autoComplete="current-password"
-                                />
-                                <FormControlLabel
-                                    control={<Checkbox value="remember" color="primary" />}
-                                    label="Remember me"
-                                />
-                                {loginMessage !== '' &&
-                                    <div className='login-message'>
-                                        <span className={`login-message-content block text-start font-semibold pb-3 italic text-${loginStatus === 'success' ? 'green-500' : 'purple-800'}`}>{loginMessage}</span>
-                                    </div>
+                        }
+                        <Button
+                            type="button"
+                            fullWidth
+                            variant="contained"
+                            onClick={() => register()}
+                            sx={{ mt: 3, mb: 2, py: 2, backgroundColor: 'rgb(88 28 135)' }}
+                        >
+                            <div className='flex gap-3'>
+                                Sign In
+                                {
+                                    isLoading &&
+                                    <span className='flex w-5 h-5 rounded-full border-2 border-gray-300 border-r-white animate-spin'></span>
                                 }
-                                <Button
-                                    type="button"
-                                    fullWidth
-                                    variant="contained"
-                                    onClick={() => register()}
-                                    sx={{ mt: 3, mb: 2, py: 2, backgroundColor: 'rgb(88 28 135)' }}
-                                >
-                                    <div className='flex gap-3'>
-                                        Sign In
-                                        {
-                                            isLoading &&
-                                            <span className='flex w-5 h-5 rounded-full border-2 border-gray-300 border-r-white animate-spin'></span>
-                                        }
-                                    </div>
-                                </Button>
-                                <Grid container>
-                                    <Grid item>
-                                        <Link href='/agent/register' variant="body2">
-                                            {"Don't have an account? Register"}
-                                        </Link>
-                                    </Grid>
-                                </Grid>
-                            </Box>
-                        </Box>
-                        <Copyright sx={{ mt: 8, mb: 4 }} />
-                    </Container>
-                </ThemeProvider>
-        <div data-scroll className="promo relative w-full flex max-w-4xl flex-col items-center py-4 px-6 shadow rounded-3xl">
-          <div className='w-full max-w-[100px] h-30px'>
-            <img alt='' src={logo} />
-          </div>
-          <h2 style={{fontFamily: 'Gochi Hand'}} className='flex justify-center text-purple-900 w-full max-w-3xl px-3 font-orbitron text-3xl font-bold'>Admin Register</h2>
-          <form id='login-form' className='font-orbitron w-full max-w-3xl p-6 md:py-8 md:px-10 md:p-6 bg-white bg-opacity-25 rounded-2xl'>
-            <div className="relative z-0 mb-6 w-full group">
-              <input onChange={(e) => setName(e.target.value)} type="text" name="name" id="name" className="block py-3 pt-5 px-0 w-full text-sm bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-purple-900 peer" placeholder=" " required />
-              <label htmlFor="name" className="flex peer-focus:font-medium absolute text-xl  duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 text-gray-600 peer-focus:text-purple-900 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Name: (Eg. Humanitarian services camp, Maharashtra,  India)</label>
-            </div>
-            <div className="relative z-0 mb-4 w-full group">
-              <input onChange={(e) => setPhone(e.target.value)} type="text" name="phone" id="phone" className="block py-3 pt-5 px-0 w-full text-sm  bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-purple-900 peer" placeholder=" " required />
-              <label htmlFor="phone" className="flex peer-focus:font-medium absolute text-xl  duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 text-gray-600 peer-focus:text-purple-900 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Phone:</label>
-            </div>
-            <div className="relative z-0 mb-6 w-full group">
-              <input onChange={(e) => setEmail(e.target.value)} type="email" name="email" id="email" className="block py-3 pt-5 px-0 w-full text-sm bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-purple-900 peer" placeholder=" " required />
-              <label htmlFor="email" className="flex peer-focus:font-medium absolute text-xl  duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 text-gray-600 peer-focus:text-purple-900 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Email Address:</label>
-            </div>
-            <div className="relative z-0 mb-4 w-full group">
-              <input onChange={(e) => setUsername(e.target.value)} type="text" name="username" id="username" className="block py-3 pt-5 px-0 w-full text-sm  bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-purple-900 peer" placeholder=" " required />
-              <label htmlFor="username" className="flex peer-focus:font-medium absolute text-xl  duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 text-gray-600 peer-focus:text-purple-900 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Username:</label>
-            </div>
-            <div className="relative z-0 mb-6 w-full group">
-              <input onChange={(e) => setPassword(e.target.value)} type="password" name="password" id="password" className="block py-3 pt-5 px-0 w-full text-sm bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-purple-900 peer" placeholder=" " required />
-              <label htmlFor="password" className="flex peer-focus:font-medium absolute text-xl  duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 text-gray-600 peer-focus:text-purple-900 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Password:</label>
-            </div>
-            <div className="relative z-0 mb-4 w-full group">
-              <input onChange={(e) => setConfirmPassword(e.target.value)} type="password" name="confirm-password" id="password" className="block py-3 pt-5 px-0 w-full text-sm  bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-purple-900 peer" placeholder=" " required />
-              <label htmlFor="confirm-password" className="flex peer-focus:font-medium absolute text-xl  duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 text-gray-600 peer-focus:text-purple-900 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Confirm Password:</label>
-            </div>
-            <div className="relative z-0 mb-4 w-full group">
-              <input onChange={(e) => setLocation(e.target.value)} type="text" name="location" id="location" className="block py-3 pt-5 px-0 w-full text-sm  bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-purple-900 peer" placeholder=" " required />
-              <label htmlFor="location" className="flex peer-focus:font-medium absolute text-xl  duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 text-gray-600 peer-focus:text-purple-900 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Location: (Eg. Mumbai, India)</label>
-            </div>
-            { registerMessage !== '' &&
-              <div className='login-message'>
-                <span className={`login-message-content block text-start font-semibold pb-3 italic text-${registerStatus === 'success'? 'green-500': 'purple-800'}`}>{registerMessage}</span>
-              </div>
-            }
-            <div className='py-4'>
-              <span className='flex '>Already an Admin? <Link className='text-purple-900 font-semibold px-2' to='/admin/login'> Login</Link></span>
-            </div>
-            <button onClick={() => register()} type="button" id='login-btn' className="flex items-center justify-center gap-2 text-white bg-purple-900 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-400 font-medium rounded-lg text-md w-full sm:w-auto px-5 py-2.5 text-center">
-              Register
-              {
-                isLoading &&
-                <span className='flex w-5 h-5 rounded-full border-2 border-gray-300 border-r-white animate-spin'></span>
-              }
-            </button>
-          </form>
-        </div>
+                            </div>
+                        </Button>
+                        <Grid container>
+                            <Grid item>
+                                <Link to='/agent/login' variant="body2">
+                                    Already have an account? Login
+                                </Link>
+                            </Grid>
+                        </Grid>
+                    </Box>
+                </Box>
+                <Copyright sx={{ mt: 4, mb: 4 }} />
+            </Container>
+        </ThemeProvider>
         </>
       }
     </div>
