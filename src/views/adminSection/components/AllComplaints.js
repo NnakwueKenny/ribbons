@@ -39,7 +39,7 @@ const AllComplaints = ({filter}) => {
     }, [])
 
     return (
-        <div className='relative w-full flex justify-center p-10'>
+        <div className='relative w-full flex justify-center'>
             {
                 previewComplaint &&
                 <div className='fixed top-0 left-0 w-full h-full bg-gray-600 bg-opacity-25 flex justify-center items-center p-6'>

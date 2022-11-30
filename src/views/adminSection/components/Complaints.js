@@ -28,7 +28,7 @@ const Complaints = () => {
     const [ requestMessage, setRequestMessage ] = useState('');
 
     const toggleMessageContent = (setTarget, message, err) => {
-        if (!err) {
+        if (err !== undefined) {
             setTarget(message);
             setDept('');
             setDesc('');
@@ -130,7 +130,7 @@ const Complaints = () => {
     }
     
   return (
-    <>
+    <div className='flex flex-col h-'>
         {
             showCreateComplaint &&
             <div className='fixed z-20 top-0 left-0 w-full h-full bg-gray-600 bg-opacity-25 flex justify-center items-center p-3'>
@@ -191,7 +191,7 @@ const Complaints = () => {
                 </div>
             </div>
         }
-        <div className='flex items-center justify-center shadow px-8 py-3'>
+        <div className='flex items-center justify-center shadow px-8 py-5'>
             <div className='w-full max-w-6xl flex items-center justify-between'>
                 <div className='flex gap-4 py-4 w-full max-w-6xl'>
                     <button onClick={(e) => {setComplaintCategory(complaintCategories[`${e.target.textContent}`]); setCurrentCategory(e.target.textContent)}} className={`${currentCategory === 'all'? 'bg-purple-900 text-white': 'bg-white text-purple-900'} border border-purple-900 px-7 py-2 text-white rounded-lg capitalize`}>all</button>
@@ -206,10 +206,10 @@ const Complaints = () => {
                 </button>
             </div>
         </div>
-        <div className='w-full h-full flex justify-center my-5 overflow-auto'>
+        <div className='w-full h-full flex justify-center overflow-auto'>
             {complaintCategory}
         </div>
-    </>
+    </div>
   )
 }
 

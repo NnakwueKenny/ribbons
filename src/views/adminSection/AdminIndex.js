@@ -116,7 +116,7 @@ const AdminIndex = () => {
     const [ currentPage, setCurrentPage ] = useState('dashboard');
 
     useEffect(() => {
-        // checkLogin(setIsLoggedIn, setCurrentAdmin, navigate, setIsPageLoading);
+        checkLogin(setIsLoggedIn, setCurrentAdmin, navigate, setIsPageLoading);
         console.log('Hello');
     }, []);
 
