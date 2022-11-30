@@ -91,40 +91,23 @@ const mdTheme = createTheme();
 
 const AdminDashboard = () => {
 
-  const [open, setOpen] = React.useState(true);
-  const toggleDrawer = () => {
-    setOpen(!open);
-  };
-
   return (
     <>
     <Toolbar />
     <Container maxWidth="xl">
       <Grid container spacing={3}>
         {/* Chart */}
-        <Grid item xs={12} md={8} lg={9}>
-          <Paper
-            sx={{
-              p: 2,
-              display: 'flex',
-              flexDirection: 'column',
-              height: 240,
-            }}
-          >
-            <Chart />
-          </Paper>
-        </Grid>
         {/* Recent Deposits */}
         <Grid item xs={12} md={4} lg={3}>
+        <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', height: 240 }} >
+          <Deposits />
+        </Paper>
+      </Grid>
+        <Grid item xs={12} md={8} lg={9}>
           <Paper
-            sx={{
-              p: 2,
-              display: 'flex',
-              flexDirection: 'column',
-              height: 240,
-            }}
+            sx={{ p: 2,  display: 'flex', flexDirection: 'column', height: 240 }}
           >
-            <Deposits />
+            <Chart />
           </Paper>
         </Grid>
         {/* Recent Orders */}
