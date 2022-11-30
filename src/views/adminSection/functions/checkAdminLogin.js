@@ -1,11 +1,11 @@
 const checkAdminLogin = (isLoggedIn, currentAdmin, navigateTo, isPageLoading) => {
-    // isPageLoading(true);
+    isPageLoading(true);
     const adminAccessToken = JSON.parse(localStorage.getItem('adminAccessToken'));
     if (adminAccessToken === null) {
         isLoggedIn(false);
         navigateTo('/admin/login');
     } else {
-        fetch('http://localhost:3500/admin/current-admin',
+        fetch('https://ribbons.onrender.com/admin/current-admin',
             {
                 method: 'post',
                 headers: {

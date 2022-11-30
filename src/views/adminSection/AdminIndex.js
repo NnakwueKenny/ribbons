@@ -96,7 +96,6 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 );
   
 const mdTheme = createTheme();
-  
 
 const AdminIndex = () => {
     const navigate = useNavigate();

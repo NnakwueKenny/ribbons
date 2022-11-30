@@ -50,6 +50,8 @@ function App() {
 
         {/* All agent routes */}
         <Route path="/agent" element={<AgentIndex />} />
+        <Route path="/agent/login" element={<AgentLogin />} />
+        <Route path="/agent/register" element={<AgentRegister />} />
         {/*<Route path="/agent/register" element={<AgentRegister />} />
         <Route path="/agent/login" element={<AgentLogin />} /> */}
 
