@@ -159,7 +159,7 @@ const theme = createTheme();
               <div className='login-message'>
                   <span className={`login-message-content block text-start font-semibold pb-3 italic text-${loginStatus === 'success'? 'green-500': 'purple-800'}`}>{loginMessage}</span>
               </div>
-          }
+              }
               <Button
                 type="button"
                 fullWidth
@@ -176,11 +176,6 @@ const theme = createTheme();
                 </div>
               </Button>
               <Grid container>
-                <Grid item xs>
-                  <Link className='text-purple-900 font-semibold px-2' href="#" variant="body2">
-                    Forgot password?
-                  </Link>
-                </Grid>
                 <Grid item>
                   <Link href='/admin/register' variant="body2">
                     {"Don't have an account? Register"}
