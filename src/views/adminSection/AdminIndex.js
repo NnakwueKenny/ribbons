@@ -138,7 +138,7 @@ const AdminIndex = () => {
                         <Box sx={{ display: 'flex' }}>
                             <CssBaseline />
                             
-                            <AppBar position="absolute" open={open}>
+                            <AppBar position="absolute" sx={{backgroundColor: 'rgb(88 28 135)'}} open={open}>
                             <Toolbar
                                 sx={{
                                 pr: '24px', // keep right padding when drawer closed
@@ -224,8 +224,8 @@ const AdminIndex = () => {
                                 overflow: 'auto',
                             }}
                             >
-                            <Toolbar />
-                            {page}
+                                <Toolbar />
+                                {page}
                             </Box>
                         </Box>
                     </ThemeProvider>

@@ -99,7 +99,7 @@ const AdminDashboard = () => {
   return (
     <>
     <Toolbar />
-    <Container maxWidth="xl" sx={{ mt: 4, mb: 4 }}>
+    <Container maxWidth="xl">
       <Grid container spacing={3}>
         {/* Chart */}
         <Grid item xs={12} md={8} lg={9}>
@@ -133,8 +133,18 @@ const AdminDashboard = () => {
             <Orders />
           </Paper>
         </Grid>
+        <Grid item xs={12}>
+          <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+            <Orders />
+          </Paper>
+        </Grid>
+        <Grid item xs={12}>
+          <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+            <Orders />
+          </Paper>
+        </Grid>
       </Grid>
-      <Copyright sx={{ pt: 4 }} />
+      <Copyright sx={{ pt: 4, pb: 2 }} />
     </Container>
     </>
   )
