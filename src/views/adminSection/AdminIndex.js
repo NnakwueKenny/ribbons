@@ -182,35 +182,32 @@ const AdminIndex = () => {
                             <List component="nav">
                                 {
                                 <React.Fragment>
-                                    <ListItemButton>
-                                    <ListItemIcon>
-                                        <Dashboard />
-                                    </ListItemIcon>
-                                    <ListItemText primary="Dashboard" />
+                                    <ListItemButton onClick={(e) => {setPage(pages['dashboard']); setCurrentPage('dashboard')}}>
+                                        <ListItemIcon>
+                                            <Dashboard />
+                                        </ListItemIcon>
+                                        <ListItemText primary="Dashboard" />
                                     </ListItemButton>
-                                    <ListItemButton>
-                                    <ListItemIcon>
-                                        <ShoppingCart />
-                                    </ListItemIcon>
-                                    <ListItemText primary="Complaints" />
+
+                                    <ListItemButton onClick={(e) => {setPage(pages['complaints']); setCurrentPage('complaints')}}>
+                                        <ListItemIcon>
+                                            <ShoppingCart />
+                                        </ListItemIcon>
+                                        <ListItemText primary="Complaints" />
                                     </ListItemButton>
-                                    <ListItemButton>
-                                    <ListItemIcon>
-                                        <People />
-                                    </ListItemIcon>
-                                    <ListItemText primary="Drafts" />
+
+                                    <ListItemButton onClick={(e) => {setPage(pages['drafts']); setCurrentPage('drafts')}}>
+                                        <ListItemIcon>
+                                            <People />
+                                        </ListItemIcon>
+                                        <ListItemText primary="Drafts" />
                                     </ListItemButton>
-                                    <ListItemButton>
-                                    <ListItemIcon>
-                                        <BarChart />
-                                    </ListItemIcon>
-                                    <ListItemText primary="Chat" />
-                                    </ListItemButton>
-                                    <ListItemButton>
-                                    <ListItemIcon>
-                                        <Layers />
-                                    </ListItemIcon>
-                                    <ListItemText primary="Integrations" />
+
+                                    <ListItemButton onClick={(e) => {setPage(pages['chat']); setCurrentPage('chat')}}>
+                                        <ListItemIcon>
+                                            <BarChart />
+                                        </ListItemIcon>
+                                        <ListItemText primary="Chat" />
                                     </ListItemButton>
                                 </React.Fragment>}
                             </List>
