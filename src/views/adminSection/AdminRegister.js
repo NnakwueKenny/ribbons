@@ -53,7 +53,7 @@ const AdminLogin = () => {
           toggleMessageContent(setregisterMessage, regData);
           setRegisterStatus(false);
         } else {
-          fetch('http://localhost:3500/admin/login',
+          fetch('https://ribbons.onrender.com/admin/login',
             {
               method: 'post',
               headers: {

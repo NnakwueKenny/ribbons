@@ -21,13 +21,15 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import { mainListItems, secondaryListItems } from './ListItems';
 import Chart from './Chart';
 import Deposits from './Deposits';
+import DisplayComponents from './DisplayComponents';
 import Orders from './Orders';
-import { ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
+import { ListItem, ListItemButton, ListItemIcon, ListItemText, Stack } from '@mui/material';
 import People from '@mui/icons-material/People';
 import ShoppingCart from '@mui/icons-material/ShoppingCart';
 import BarChart from '@mui/icons-material/BarChart';
 import Layers from '@mui/icons-material/Layers';
 import Dashboard from '@mui/icons-material/Dashboard';
+import Title from './Title';
 
 function Copyright(props) {
   return (
@@ -97,33 +99,195 @@ const AdminDashboard = () => {
     <Container maxWidth="xl">
       <Grid container spacing={3}>
         {/* Chart */}
-        {/* Recent Deposits */}
-        <Grid item xs={12} md={4} lg={3}>
-        <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', height: 240 }} >
-          <Deposits />
-        </Paper>
-      </Grid>
-        <Grid item xs={12} md={8} lg={9}>
+        {/* All Cases */}
+        <Grid item xs={12} md={6} lg={4}>
+          <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', height: 320 }} >
+            <DisplayComponents value={'allCases'}/>
+          </Paper>
+        </Grid>
+
+        {/* Emergency Cases */}
+        <Grid item xs={12} md={6} lg={4}>
+          <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', height: 320 }} >
+            <DisplayComponents value={'liveEmergency'}/>
+          </Paper>
+        </Grid>
+
+        {/* Top Cases */}
+        <Grid item xs={12} md={6} lg={4}>
           <Paper
-            sx={{ p: 2,  display: 'flex', flexDirection: 'column', height: 240 }}
+            sx={{ p: 2,  display: 'flex', flexDirection: 'column', height: 320 }}
+          >
+            <Title>
+              <Typography sx={{color: 'rgb(22 163 74)'}} component="h2" variant="h4">
+                  Top Cases Solved
+              </Typography>
+            </Title>
+            <Grid container spacing={3}>
+                <Grid item xs={12}>
+                  <Stack direction="col" spacing={2} justifyContent="center">
+                    <ListItem textAlign = 'end'>
+                      <Typography variant='h5'>
+                        Department
+                      </Typography>
+                    </ListItem>
+                    <ListItem textAlign = 'end'>
+                      <Typography variant='h5'>
+                        Solved
+                      </Typography>
+                    </ListItem>
+                  </Stack>
+
+                  <Stack direction="col" spacing={2} justifyContent="center">
+                    <ListItem textAlign = 'end'>
+                      <Typography variant='h5'>
+                        Shelter
+                      </Typography>
+                    </ListItem>
+                    <ListItem textAlign = 'end'>
+                      <Typography variant='h5'>
+                        39
+                      </Typography>
+                    </ListItem>
+                  </Stack>
+
+                  <Stack direction="col" spacing={2} justifyContent="center">
+                    <ListItem textAlign = 'end'>
+                      <Typography variant='h5'>
+                        Legal
+                      </Typography>
+                    </ListItem>
+                    <ListItem textAlign = 'end'>
+                      <Typography variant='h5'>
+                        15
+                      </Typography>
+                    </ListItem>
+                  </Stack>
+
+                  <Stack direction="col" spacing={2} justifyContent="center">
+                    <ListItem textAlign = 'end'>
+                      <Typography variant='h5'>
+                        Counselling
+                      </Typography>
+                    </ListItem>
+                    <ListItem textAlign = 'end'>
+                      <Typography variant='h5'>
+                        70
+                      </Typography>
+                    </ListItem>
+                  </Stack>
+
+                  <Stack direction="col" spacing={2} justifyContent="center">
+                    <ListItem textAlign = 'end'>
+                      <Typography variant='h5'>
+                        Welfare
+                      </Typography>
+                    </ListItem>
+                    <ListItem textAlign = 'end'>
+                      <Typography variant='h5'>
+                        150
+                      </Typography>
+                    </ListItem>
+                  </Stack>
+                </Grid>
+            </Grid>
+          </Paper>
+        </Grid>
+
+        {/* Chart */}
+        <Grid item xs={12} md={6} lg={4}>
+          <Paper
+            sx={{ p: 2,  display: 'flex', flexDirection: 'column', height: 320 }}
           >
             <Chart />
           </Paper>
         </Grid>
-        {/* Recent Orders */}
-        <Grid item xs={12}>
-          <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-            <Orders />
+        
+        {/* Feedback */}
+        <Grid item xs={12} md={6} lg={4}>
+          <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', height: 320 }} >
+            <DisplayComponents value={'liveEmergency'}/>
           </Paper>
         </Grid>
-        <Grid item xs={12}>
-          <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-            <Orders />
-          </Paper>
-        </Grid>
-        <Grid item xs={12}>
-          <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-            <Orders />
+
+        {/* Agent Status */}
+        <Grid item xs={12} md={6} lg={4}>
+          <Paper
+            sx={{ p: 2,  display: 'flex', flexDirection: 'column', height: 320 }}
+          >
+            <Title>
+              <Typography sx={{color: 'rgb(22 163 74)'}} component="h2" variant="h4">
+                  Agent Status
+              </Typography>
+            </Title>
+            <Grid container spacing={3}>
+                <Grid item xs={12}>
+                  <Stack direction="col" spacing={2} justifyContent="center">
+                    <ListItem textAlign = 'end'>
+                      <Typography variant='h5'>
+                        Department
+                      </Typography>
+                    </ListItem>
+                    <ListItem textAlign = 'end'>
+                      <Typography variant='h5'>
+                        Solved
+                      </Typography>
+                    </ListItem>
+                  </Stack>
+
+                  <Stack direction="col" spacing={2} justifyContent="center">
+                    <ListItem textAlign = 'end'>
+                      <Typography variant='h5'>
+                        Shelter
+                      </Typography>
+                    </ListItem>
+                    <ListItem textAlign = 'end'>
+                      <Typography variant='h5'>
+                        39
+                      </Typography>
+                    </ListItem>
+                  </Stack>
+
+                  <Stack direction="col" spacing={2} justifyContent="center">
+                    <ListItem textAlign = 'end'>
+                      <Typography variant='h5'>
+                        Legal
+                      </Typography>
+                    </ListItem>
+                    <ListItem textAlign = 'end'>
+                      <Typography variant='h5'>
+                        15
+                      </Typography>
+                    </ListItem>
+                  </Stack>
+
+                  <Stack direction="col" spacing={2} justifyContent="center">
+                    <ListItem textAlign = 'end'>
+                      <Typography variant='h5'>
+                        Counselling
+                      </Typography>
+                    </ListItem>
+                    <ListItem textAlign = 'end'>
+                      <Typography variant='h5'>
+                        70
+                      </Typography>
+                    </ListItem>
+                  </Stack>
+
+                  <Stack direction="col" spacing={2} justifyContent="center">
+                    <ListItem textAlign = 'end'>
+                      <Typography variant='h5'>
+                        Welfare
+                      </Typography>
+                    </ListItem>
+                    <ListItem textAlign = 'end'>
+                      <Typography variant='h5'>
+                        150
+                      </Typography>
+                    </ListItem>
+                  </Stack>
+                </Grid>
+            </Grid>
           </Paper>
         </Grid>
       </Grid>
