@@ -73,6 +73,7 @@ const AllComplaints = ({filter}) => {
                                         <span className="block text-green-600">{complaint.createdAt.split('T')[0]}</span>   
                                     </div>
                                     <p className="mb-2 font-normal text-gray-700">{complaint.desc}</p>
+                                    <p className="mb-2 font-normal text-gray-700">{complaint.medium}</p>
                                     {
                                         complaint.status?
                                         <p className='mt-auto mb-4 text-green-700 text-xl'>Resolved</p>

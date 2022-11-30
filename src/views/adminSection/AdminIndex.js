@@ -1,11 +1,102 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import MuiDrawer from '@mui/material/Drawer';
+import Box from '@mui/material/Box';
+import MuiAppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import List from '@mui/material/List';
+import Typography from '@mui/material/Typography';
+import Divider from '@mui/material/Divider';
+import IconButton from '@mui/material/IconButton';
+import Badge from '@mui/material/Badge';
+import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
+import Link from '@mui/material/Link';
+import MenuIcon from '@mui/icons-material/Menu';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+
+import { mainListItems, secondaryListItems } from './components/ListItems';
+import Chart from './components/Chart';
+import Deposits from './components/Deposits';
+import Orders from './components/Orders';
+
+import { useNavigate } from 'react-router-dom';
 import  checkLogin from './functions/checkAdminLogin';
 import Loader from '../../components/Loader';
 import logo from '../../images/logo.png';
 import AdminDashboard from './components/AdminDashboard'
 import Complaints from './components/Complaints';
 import Drafts from './components/Drafts';
+import { ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
+import Dashboard from '@mui/icons-material/Dashboard';
+import ShoppingCart from '@mui/icons-material/ShoppingCart';
+import People from '@mui/icons-material/People';
+import BarChart from '@mui/icons-material/BarChart';
+import Layers from '@mui/icons-material/Layers';
+
+function Copyright(props) {
+    return (
+        <Typography variant="body2" color="text.primary" align="center" {...props}>
+            {'Copyright © '}
+            <Link color="inherit" href="https://mui.com/">
+                Ribbons
+            </Link>{' '}
+            {new Date().getFullYear()}
+            {'.'}
+        </Typography>
+    );
+}
+const drawerWidth = 240;
+
+const AppBar = styled(MuiAppBar, {
+    shouldForwardProp: (prop) => prop !== 'open',
+})(({ theme, open }) => ({
+    zIndex: theme.zIndex.drawer + 1,
+    transition: theme.transitions.create(['width', 'margin'], {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+    }),
+    ...(open && {
+        marginLeft: drawerWidth,
+        width: `calc(100% - ${drawerWidth}px)`,
+        transition: theme.transitions.create(['width', 'margin'], {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.enteringScreen,
+        }),
+    }),
+}));
+
+const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
+    ({ theme, open }) => ({
+        '& .MuiDrawer-paper': {
+            position: 'relative',
+            whiteSpace: 'nowrap',
+            width: drawerWidth,
+            transition: theme.transitions.create('width', {
+                easing: theme.transitions.easing.sharp,
+                duration: theme.transitions.duration.enteringScreen,
+            }),
+            boxSizing: 'border-box',
+            ...(!open && {
+                overflowX: 'hidden',
+                transition: theme.transitions.create('width', {
+                    easing: theme.transitions.easing.sharp,
+                    duration: theme.transitions.duration.leavingScreen,
+                }),
+                width: theme.spacing(7),
+                [theme.breakpoints.up('sm')]: {
+                    width: theme.spacing(9),
+                },
+            }),
+        },
+    }),
+);
+  
+const mdTheme = createTheme();
+  
 
 const AdminIndex = () => {
     const navigate = useNavigate();
@@ -29,6 +120,12 @@ const AdminIndex = () => {
         console.log('Hello');
     }, []);
 
+
+    const [open, setOpen] = React.useState(true);
+    const toggleDrawer = () => {
+      setOpen(!open);
+    };
+
     return (
         <div className='w-full h-screen flex flex-col'>
             {
@@ -36,83 +133,106 @@ const AdminIndex = () => {
                 <Loader />
                 :
                 <>
-                <aside className={`fixed h-full z-20`}>
-                    <div className={`bg-white h-full ${showSidebar? 'w-64':'w-0 md:w-24'} overflow-hidden shadow flex flex-col divide-y`}>
-                        <div className='flex justify-center'>
-                            <div className='w-full max-w-[100px] h-20 mb-2 flex items-center'>{showSidebar && <img alt='' src={logo} />}</div>
-                        </div>
-                        <button
-                            onClick={() => setShowSidebar(prevValue => !prevValue)}
-                            className={'absolute -right-5 top-1/2 flex items-center justify-center rounded-full w-8 h-8 hover:h-9 hover:w-9 hover:-right-6 border'}>
+                <main className='h-full w-full flex flex-col overflow-y-auto'>
+                    <ThemeProvider theme={mdTheme}>
+                        <Box sx={{ display: 'flex' }}>
+                            <CssBaseline />
+                            
+                            <AppBar position="absolute" open={open}>
+                            <Toolbar
+                                sx={{
+                                pr: '24px', // keep right padding when drawer closed
+                                }}
+                            >
+                                <IconButton edge="start" color="inherit" aria-label="open drawer" onClick={toggleDrawer}
+                                sx={{
+                                    marginRight: '36px',
+                                    ...(open && { display: 'none' }),
+                                }}
+                                >
+                                <MenuIcon />
+                                </IconButton>
+                                <Typography component="h1" variant="h6" color="inherit" noWrap
+                                sx={{ flexGrow: 1 }}
+                                >
+                                Ribbons
+                                </Typography>
+                                <IconButton color="inherit">
+                                <Badge badgeContent={4} color="secondary">
+                                    <NotificationsIcon />
+                                </Badge>
+                                </IconButton>
+                            </Toolbar>
+                            </AppBar>
+
+                            <Drawer variant="permanent" open={open}>
+                            <Toolbar
+                                sx={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'flex-end',
+                                px: [1],
+                                }}
+                            >
+                                <IconButton onClick={toggleDrawer}>
+                                <ChevronLeftIcon />
+                                </IconButton>
+                            </Toolbar>
+                            <Divider />
+                            <List component="nav">
                                 {
-                                    showSidebar?
-                                    <i className='fa fa-chevron-left'></i>
-                                    :
-                                    <i className='fa fa-chevron-right'></i>
-                                }
-                        </button>
-                        <button
-                            onClick={(e) => {setPage(pages['dashboard']);
-                            setCurrentPage('dashboard')}}
-                            className={`${currentPage === 'dashboard'? 'text-white bg-purple-900': 'hover:bg-gray-100 hover:text-gray-600 text-gray-700'} p-4 flex ${showSidebar? 'justify-start' : 'justify-center'} gap-4 text-xl font-semibold capitalize`}>
-                            <span><i className='fa fa-home'></i></span>
-                            {
-                                showSidebar &&
-                                <span>dashboard</span>
-                            }
-                        </button>
-                        <button
-                            onClick={(e) => {setPage(pages['complaints']);
-                            setCurrentPage('complaints')}}
-                            className={`${currentPage === 'complaints'? 'text-white bg-purple-900': 'hover:bg-gray-100 hover:text-gray-600 text-gray-700'} p-4 flex ${showSidebar? 'justify-start' : 'justify-center'} gap-4 text-xl font-semibold capitalize`}>
-                            <span><i className='fa fa-c'></i></span>
-                            {
-                                showSidebar &&
-                                <span>complaints</span>
-                            }
-                        </button>
-                        <button
-                            onClick={(e) => {setPage(pages['drafts']);
-                            setCurrentPage('drafts')}}
-                            className={`${currentPage === 'drafts'? 'text-white bg-purple-900': 'hover:bg-gray-100 hover:text-gray-600 text-gray-700'} p-4 flex ${showSidebar? 'justify-start' : 'justify-center'} gap-4 text-xl font-semibold capitalize`}>
-                            <span><i className='fa fa-d'></i></span>
-                            {
-                                showSidebar &&
-                                <span>drafts</span>
-                            }
-                        </button>
-                        <button
-                            onClick={(e) => {setPage(pages['chat']);
-                            setCurrentPage('chat')}}
-                            className={`${currentPage === 'chat'? 'text-white bg-purple-900': 'hover:bg-gray-100 hover:text-gray-600 text-gray-700'} p-4 flex ${showSidebar? 'justify-start' : 'justify-center'} gap-4 text-xl font-semibold capitalize`}>
-                            <span><i className='fa fa-c'></i></span>
-                            {
-                                showSidebar &&
-                                <span>chat</span>
-                            }
-                        </button>
-                    </div>
-                </aside>
-                <section className='w-full h-full flex flex-col items-center'>
-                    <header className='w-full h-auto flex justify-center shadow'>
-                        <div className='w-full max-w-8xl flex justify-between items-center py-3 px-4'>
-                            <div className='w-full max-w-[100px]'><img alt='' src={logo} /></div>
-                            <div className='text-3xl'>Help Desk</div>
-                            <div className='hidden md:flex gap-4'>
-                                <button className='relative flex items-center justify-center text-gray-600 text-2xl w-12 h-12 border-2 border-gray-700 rounded-full shadow hover:shadow-md hover:border-purple-900 hover:text-purple-900'>
-                                    <span className='absolute -top-[10px] right-0 w-5 h-5 rounded-full flex items-center justify-center text-white bg-red-400 text-sm'>1</span>
-                                    <span className=''><i className="fa-regular fa-comments"></i></span>
-                                </button>
-                                <button className="flex items-center justify-center text-gray-600 text-2xl w-12 h-12 border-2 border-gray-700 rounded-full shadow hover:shadow-md hover:border-purple-900 hover:text-purple-900" id="dropdownInformationButton" data-dropdown-toggle="dropdownInformation" type="button">
-                                    <span className=''><i className="fa-regular fa-user"></i></span>
-                                </button>
-                            </div>
-                        </div>
-                    </header>
-                    <main className='h-full w-full flex flex-col overflow-y-auto'>
-                        {page}
-                    </main>
-                </section>
+                                <React.Fragment>
+                                    <ListItemButton>
+                                    <ListItemIcon>
+                                        <Dashboard />
+                                    </ListItemIcon>
+                                    <ListItemText primary="Dashboard" />
+                                    </ListItemButton>
+                                    <ListItemButton>
+                                    <ListItemIcon>
+                                        <ShoppingCart />
+                                    </ListItemIcon>
+                                    <ListItemText primary="Complaints" />
+                                    </ListItemButton>
+                                    <ListItemButton>
+                                    <ListItemIcon>
+                                        <People />
+                                    </ListItemIcon>
+                                    <ListItemText primary="Drafts" />
+                                    </ListItemButton>
+                                    <ListItemButton>
+                                    <ListItemIcon>
+                                        <BarChart />
+                                    </ListItemIcon>
+                                    <ListItemText primary="Chat" />
+                                    </ListItemButton>
+                                    <ListItemButton>
+                                    <ListItemIcon>
+                                        <Layers />
+                                    </ListItemIcon>
+                                    <ListItemText primary="Integrations" />
+                                    </ListItemButton>
+                                </React.Fragment>}
+                            </List>
+                            </Drawer>
+                            <Box
+                            component="main"
+                            sx={{
+                                backgroundColor: (theme) =>
+                                theme.palette.mode === 'light'
+                                    ? theme.palette.grey[100]
+                                    : theme.palette.grey[900],
+                                flexGrow: 1,
+                                height: '100vh',
+                                overflow: 'auto',
+                            }}
+                            >
+                            <Toolbar />
+                            {page}
+                            </Box>
+                        </Box>
+                    </ThemeProvider>
+                </main>
                 </>
             }
         </div>
