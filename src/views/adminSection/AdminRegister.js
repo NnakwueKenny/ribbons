@@ -28,7 +28,7 @@ const AdminLogin = () => {
 
   const register = () => {
     setIsLoading(true);
-    fetch('http://localhost:3500/admin/register',
+    fetch('https://ribbons.onrender.com/admin/register',
         {
             method: 'post',
             headers: {
@@ -53,7 +53,7 @@ const AdminLogin = () => {
           toggleMessageContent(setregisterMessage, regData);
           setRegisterStatus(false);
         } else {
-          fetch('https://ribbons.onrender.com/admin/register',
+          fetch('https://ribbons.onrender.com/admin/login',
             {
               method: 'post',
               headers: {
