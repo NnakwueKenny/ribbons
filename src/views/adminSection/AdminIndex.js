@@ -127,7 +127,7 @@ const AdminIndex = () => {
     };
 
     return (
-        <div className='w-full h-screen flex flex-col'>
+        <div className='w-full h-full flex flex-col'>
             {
                 isPageLoading?
                 <Loader />
@@ -212,21 +212,7 @@ const AdminIndex = () => {
                                 </React.Fragment>}
                             </List>
                             </Drawer>
-                            <Box
-                            component="main"
-                            sx={{
-                                backgroundColor: (theme) =>
-                                theme.palette.mode === 'light'
-                                    ? theme.palette.grey[100]
-                                    : theme.palette.grey[900],
-                                flexGrow: 1,
-                                height: '100vh',
-                                overflow: 'auto',
-                            }}
-                            >
-                                <Toolbar />
                                 {page}
-                            </Box>
                         </Box>
                     </ThemeProvider>
                 </main>

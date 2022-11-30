@@ -94,7 +94,19 @@ const mdTheme = createTheme();
 const AdminDashboard = () => {
 
   return (
-    <>
+    <><Box
+    component="main"
+    sx={{
+        backgroundColor: (theme) =>
+        theme.palette.mode === 'light'
+            ? theme.palette.grey[100]
+            : theme.palette.grey[900],
+        flexGrow: 1,
+        height: '100vh',
+        overflow: 'auto',
+    }}
+    >
+        <Toolbar />
     <Toolbar />
     <Container maxWidth="xl">
       <Grid container spacing={3}>
@@ -125,7 +137,7 @@ const AdminDashboard = () => {
             </Title>
             <Grid container spacing={3}>
                 <Grid item xs={12}>
-                  <Stack direction="col" spacing={2} justifyContent="center">
+                  <Stack direction="col" spacing={2} justifyContent="between">
                     <ListItem textAlign = 'end'>
                       <Typography variant='h5'>
                         Department
@@ -138,7 +150,7 @@ const AdminDashboard = () => {
                     </ListItem>
                   </Stack>
 
-                  <Stack direction="col" spacing={2} justifyContent="center">
+                  <Stack direction="col" spacing={2} justifyContent="between">
                     <ListItem textAlign = 'end'>
                       <Typography variant='h5'>
                         Shelter
@@ -151,7 +163,7 @@ const AdminDashboard = () => {
                     </ListItem>
                   </Stack>
 
-                  <Stack direction="col" spacing={2} justifyContent="center">
+                  <Stack direction="col" spacing={2} justifyContent="between">
                     <ListItem textAlign = 'end'>
                       <Typography variant='h5'>
                         Legal
@@ -164,7 +176,7 @@ const AdminDashboard = () => {
                     </ListItem>
                   </Stack>
 
-                  <Stack direction="col" spacing={2} justifyContent="center">
+                  <Stack direction="col" spacing={2} justifyContent="between">
                     <ListItem textAlign = 'end'>
                       <Typography variant='h5'>
                         Counselling
@@ -177,7 +189,7 @@ const AdminDashboard = () => {
                     </ListItem>
                   </Stack>
 
-                  <Stack direction="col" spacing={2} justifyContent="center">
+                  <Stack direction="col" spacing={2} justifyContent="between">
                     <ListItem textAlign = 'end'>
                       <Typography variant='h5'>
                         Welfare
@@ -216,73 +228,77 @@ const AdminDashboard = () => {
             sx={{ p: 2,  display: 'flex', flexDirection: 'column', height: 320 }}
           >
             <Title>
-              <Typography sx={{color: 'rgb(22 163 74)'}} component="h2" variant="h4">
+              <Typography sx={{color: 'gray'}} component="h2" variant="h4">
                   Agent Status
               </Typography>
             </Title>
             <Grid container spacing={3}>
                 <Grid item xs={12}>
-                  <Stack direction="col" spacing={2} justifyContent="center">
+                  <Stack direction="col" spacing={2} justifyContent="between">
+                    <ListItem textAlign = 'end'>
+                      <div className='w-full flex justify-between'>
+                        <Title>
+                          <Typography sx={{color: 'gray'}} component="h3" variant="h5">
+                              Name
+                          </Typography>
+                        </Title>
+                        <Title>
+                          <Typography sx={{color: 'gray'}} component="h3" variant="h5">
+                              Status
+                          </Typography>
+                        </Title>
+                      </div>
+                    </ListItem>
+                  </Stack>
+
+                  <Stack direction="col" spacing={2} justifyContent="between">
                     <ListItem textAlign = 'end'>
                       <Typography variant='h5'>
-                        Department
+                        Salma50
                       </Typography>
                     </ListItem>
                     <ListItem textAlign = 'end'>
                       <Typography variant='h5'>
-                        Solved
+                        Online
                       </Typography>
                     </ListItem>
                   </Stack>
 
-                  <Stack direction="col" spacing={2} justifyContent="center">
+                  <Stack direction="col" spacing={2} justifyContent="between">
                     <ListItem textAlign = 'end'>
                       <Typography variant='h5'>
-                        Shelter
+                        Dujo38
                       </Typography>
                     </ListItem>
                     <ListItem textAlign = 'end'>
-                      <Typography variant='h5'>
-                        39
-                      </Typography>
-                    </ListItem>
-                  </Stack>
-
-                  <Stack direction="col" spacing={2} justifyContent="center">
-                    <ListItem textAlign = 'end'>
-                      <Typography variant='h5'>
-                        Legal
-                      </Typography>
-                    </ListItem>
-                    <ListItem textAlign = 'end'>
-                      <Typography variant='h5'>
-                        15
+                      <Typography variant='h5'color='red'>
+                        Offline
                       </Typography>
                     </ListItem>
                   </Stack>
 
-                  <Stack direction="col" spacing={2} justifyContent="center">
+                  <Stack direction="col" spacing={2} justifyContent="between">
                     <ListItem textAlign = 'end'>
                       <Typography variant='h5'>
-                        Counselling
+                        Prince40
                       </Typography>
                     </ListItem>
                     <ListItem textAlign = 'end'>
-                      <Typography variant='h5'>
-                        70
+                      <Typography variant='h5' color='green'>
+                        Online
                       </Typography>
                     </ListItem>
                   </Stack>
 
-                  <Stack direction="col" spacing={2} justifyContent="center">
+                  <Stack direction="col" spacing={2} justifyContent="between">
                     <ListItem textAlign = 'end'>
                       <Typography variant='h5'>
-                        Welfare
+                        Kene70
                       </Typography>
                     </ListItem>
                     <ListItem textAlign = 'end'>
-                      <Typography variant='h5'>
-                        150
+                      <Typography variant='h5' color='red'>
+                        Offline
                       </Typography>
                     </ListItem>
                   </Stack>
@@ -293,6 +309,7 @@ const AdminDashboard = () => {
       </Grid>
       <Copyright sx={{ pt: 4, pb: 2 }} />
     </Container>
+    </Box>
     </>
   )
 }

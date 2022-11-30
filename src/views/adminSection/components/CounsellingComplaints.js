@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import Loader from '../../../components/Loader';
 
-const CounsellingComplaint = () => {
+const CounsellingComplaint = ({filter}) => {
     const [ isLoading, setIsLoading ] = useState(false);
     const [ complaints, setComplaints ] = useState([]);
     const [ previewComplaint, setPreviewComplaint ] = useState(false)
 
     const getAllComplaints = () => {
         setIsLoading(true);
-        fetch('http://localhost:3500/complaint/get-all-complaints',
+        fetch('https://ribbons.onrender.com/complaint/get-all-complaints',
             {
                 method: 'post',
                 headers: {
@@ -24,7 +25,11 @@ const CounsellingComplaint = () => {
         .then(response => response.json())
         .then(data =>{
             console.log(data);
-            setComplaints(data.filter(item => item.cat === 'counselling'));
+            if (filter === 'all') {
+                setComplaints(data);
+            } else {
+                setComplaints(data);
+            }
             setIsLoading(false)
         })
     }
@@ -34,7 +39,7 @@ const CounsellingComplaint = () => {
     }, [])
 
     return (
-        <div className='relative w-full flex justify-center p-10'>
+        <div className='relative w-full flex justify-center'>
             {
                 previewComplaint &&
                 <div className='fixed top-0 left-0 w-full h-full bg-gray-600 bg-opacity-25 flex justify-center items-center p-6'>
@@ -68,6 +73,7 @@ const CounsellingComplaint = () => {
                                         <span className="block text-green-600">{complaint.createdAt.split('T')[0]}</span>   
                                     </div>
                                     <p className="mb-2 font-normal text-gray-700">{complaint.desc}</p>
+                                    <p className="mb-2 font-normal text-gray-700">{complaint.medium}</p>
                                     {
                                         complaint.status?
                                         <p className='mt-auto mb-4 text-green-700 text-xl'>Resolved</p>
