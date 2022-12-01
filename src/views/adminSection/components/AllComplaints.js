@@ -39,7 +39,7 @@ const AllComplaints = ({filter}) => {
     }, [])
 
     return (
-        <div className='relative w-full flex justify-center'>
+        <div className='relative w-full '>
             {
                 previewComplaint &&
                 <div className='fixed top-0 left-0 w-full h-full bg-gray-600 bg-opacity-25 flex justify-center items-center p-6'>
@@ -62,7 +62,7 @@ const AllComplaints = ({filter}) => {
                        <p>No complaints found!</p>
                     </div>
                     :
-                    <div className='w-full max-w-8xl h-full grid md:grid-cols-1 lg:grid-cols-3 gap-8'>
+                    <div className='w-full grid md:grid-cols-2 xl:grid-cols-3 gap-8 py-8 px-3 md:px-6 lg:px-10'>
                         {complaints.map((complaint, index) => {
                             return (
                                 <div key={index+1} className="w-full h-80 flex flex-col p-4 bg-white border border-gray-200 rounded-lg shadow hover:shadow-md">

@@ -178,60 +178,60 @@ const AdminIndex = () => {
                             </AppBar>
 
                             <Drawer variant="permanent" open={open}>
-                            <Toolbar
-                                sx={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'flex-end',
-                                px: [1],
-                                }}
-                            >
-                                <div className='text-center font-semibold block w-full text-purple-900 '>
-                                    <Typography component="h1" variant="h4" color="inherit" noWrap
-                                    sx={{ flexGrow: 1 }}
-                                    >
-                                    Ribbons
-                                    </Typography>
-                                </div>
-                                <IconButton onClick={toggleDrawer}>
-                                <ChevronLeftIcon />
-                                </IconButton>
-                            </Toolbar>
-                            <Divider />
-                            <List component="nav">
-                                {
-                                <React.Fragment>
-                                    <ListItemButton onClick={(e) => {setPage(pages['dashboard']); setCurrentPage('dashboard')}}>
-                                        <ListItemIcon>
-                                            <Dashboard />
-                                        </ListItemIcon>
-                                        <ListItemText primary="Dashboard" />
-                                    </ListItemButton>
+                                <Toolbar
+                                    sx={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'flex-end',
+                                    px: [1],
+                                    }}
+                                >
+                                    <div className='text-center font-semibold block w-full text-purple-900 '>
+                                        <Typography component="h1" variant="h4" color="inherit" noWrap
+                                        sx={{ flexGrow: 1 }}
+                                        >
+                                        Ribbons
+                                        </Typography>
+                                    </div>
+                                    <IconButton onClick={toggleDrawer}>
+                                    <ChevronLeftIcon />
+                                    </IconButton>
+                                </Toolbar>
+                                <Divider />
+                                <List component="nav">
+                                    {
+                                    <React.Fragment>
+                                        <ListItemButton onClick={(e) => {setPage(pages['dashboard']); setCurrentPage('dashboard')}}>
+                                            <ListItemIcon>
+                                                <Dashboard />
+                                            </ListItemIcon>
+                                            <ListItemText primary="Dashboard" />
+                                        </ListItemButton>
 
-                                    <ListItemButton onClick={(e) => {setPage(pages['complaints']); setCurrentPage('complaints')}}>
-                                        <ListItemIcon>
-                                            <ShoppingCart />
-                                        </ListItemIcon>
-                                        <ListItemText primary="Complaints" />
-                                    </ListItemButton>
+                                        <ListItemButton onClick={(e) => {setPage(pages['complaints']); setCurrentPage('complaints')}}>
+                                            <ListItemIcon>
+                                                <ShoppingCart />
+                                            </ListItemIcon>
+                                            <ListItemText primary="Complaints" />
+                                        </ListItemButton>
 
-                                    <ListItemButton onClick={(e) => {setPage(pages['drafts']); setCurrentPage('drafts')}}>
-                                        <ListItemIcon>
-                                            <People />
-                                        </ListItemIcon>
-                                        <ListItemText primary="Drafts" />
-                                    </ListItemButton>
+                                        <ListItemButton onClick={(e) => {setPage(pages['drafts']); setCurrentPage('drafts')}}>
+                                            <ListItemIcon>
+                                                <People />
+                                            </ListItemIcon>
+                                            <ListItemText primary="Drafts" />
+                                        </ListItemButton>
 
-                                    <ListItemButton onClick={(e) => {setPage(pages['chat']); setCurrentPage('chat')}}>
-                                        <ListItemIcon>
-                                            <BarChart />
-                                        </ListItemIcon>
-                                        <ListItemText primary="Chat" />
-                                    </ListItemButton>
-                                </React.Fragment>}
-                            </List>
+                                        <ListItemButton onClick={(e) => {setPage(pages['chat']); setCurrentPage('chat')}}>
+                                            <ListItemIcon>
+                                                <BarChart />
+                                            </ListItemIcon>
+                                            <ListItemText primary="Chat" />
+                                        </ListItemButton>
+                                    </React.Fragment>}
+                                </List>
                             </Drawer>
-                                {page}
+                            {page}
                         </Box>
                     </ThemeProvider>
                 </main>
