@@ -17,6 +17,7 @@ import Link from '@mui/material/Link';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
+import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
 
 import { mainListItems, secondaryListItems } from './components/ListItems';
 import Chart from './components/Chart';
@@ -24,7 +25,7 @@ import Deposits from './components/Deposits';
 import Orders from './components/Orders';
 
 import { useNavigate } from 'react-router-dom';
-import  checkLogin from './functions/checkAdminLogin';
+import  checkLogin from './functions/checkAgentLogin';
 import Loader from '../../components/Loader';
 import logo from '../../images/logo.png';
 import AdminDashboard from './components/AdminDashboard'
@@ -115,14 +116,23 @@ const AgentIndex = () => {
     const [ currentPage, setCurrentPage ] = useState('dashboard');
 
     useEffect(() => {
-        //  checkLogin(setIsLoggedIn, setCurrentAgent, navigate, setIsPageLoading);
+        checkLogin(setIsLoggedIn, setCurrentAgent, navigate, setIsPageLoading);
         console.log('Hello');
     }, []);
 
-    const [open, setOpen] = React.useState(true);
+    const [open, setOpen] = React.useState(false);
     const toggleDrawer = () => {
       setOpen(!open);
     };
+    
+    const logout = () => {
+        setIsPageLoading(true);
+        localStorage.removeItem('agentAccessToken');
+        setTimeout(() => {
+            setIsPageLoading(false);
+            checkLogin(setIsLoggedIn, setCurrentAgent, navigate, setIsPageLoading);
+        }, 2000);
+    }
 
     return (
         <div className='w-full h-full flex flex-col'>
@@ -150,11 +160,14 @@ const AgentIndex = () => {
                                 >
                                 <MenuIcon />
                                 </IconButton>
-                                <Typography component="h1" variant="h6" color="inherit" noWrap
+                                <Typography component="h1" variant="h4" color="inherit" noWrap
                                 sx={{ flexGrow: 1 }}
                                 >
-                                Ribbons
+                                Agent Panel
                                 </Typography>
+                                <IconButton color="inherit" size='large' onClick={() => logout()}>
+                                    <PowerSettingsNewIcon fontSize='inherit'/>
+                                </IconButton>
                                 <IconButton color="inherit">
                                 <Badge badgeContent={4} color="secondary">
                                     <NotificationsIcon />
@@ -172,6 +185,13 @@ const AgentIndex = () => {
                                 px: [1],
                                 }}
                             >
+                                <div className='text-center font-semibold block w-full text-purple-900 '>
+                                    <Typography component="h1" variant="h4" color="inherit" noWrap
+                                    sx={{ flexGrow: 1 }}
+                                    >
+                                    Ribbons
+                                    </Typography>
+                                </div>
                                 <IconButton onClick={toggleDrawer}>
                                 <ChevronLeftIcon />
                                 </IconButton>

@@ -75,8 +75,8 @@ const theme = createTheme();
     .then(response => response.json())
     .then(data => {
       console.log(data)
-        if (data.err) {
-          toggleMessageContent(setLoginMessage, data.err);
+        if (data.error) {
+          toggleMessageContent(setLoginMessage, data.error);
           setLoginStatus(false);
         } else {
           toggleMessageContent(setLoginMessage, data.message);

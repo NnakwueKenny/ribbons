@@ -238,7 +238,7 @@ const AdminLogin = () => {
                             sx={{ mt: 3, mb: 2, py: 2, backgroundColor: 'rgb(88 28 135)' }}
                         >
                             <div className='flex gap-3'>
-                                Sign In
+                                Register
                                 {
                                     isLoading &&
                                     <span className='flex w-5 h-5 rounded-full border-2 border-gray-300 border-r-white animate-spin'></span>

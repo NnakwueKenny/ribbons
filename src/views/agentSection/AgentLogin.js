@@ -74,8 +74,8 @@ const AgentLogin = () => {
         .then(response => response.json())
         .then(data => {
         console.log(data)
-            if (data.err) {
-            toggleMessageContent(setLoginMessage, data.err);
+            if (data.error) {
+            toggleMessageContent(setLoginMessage, data.error);
             setLoginStatus(false);
             } else {
             toggleMessageContent(setLoginMessage, data.message);
@@ -124,7 +124,7 @@ const AgentLogin = () => {
                                 <img alt='' src={logo} />
                             </div>
                             <Typography component="h1" variant="h5">
-                                Admin Login
+                                Agent Login
                             </Typography>
                             <Box component="form" noValidate sx={{ mt: 1 }}>
                                 <TextField
