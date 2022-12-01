@@ -17,7 +17,7 @@ const Complaints = () => {
 
     const [ complaintCategory, setComplaintCategory ] = useState(complaintCategories.all);
     const [ currentCategory, setCurrentCategory ] = useState('all');
-    const [ showCreateComplaint , setShowCreateComplain ] = useState(false);
+    const [ showCreateComplaint , setShowCreateComplaint ] = useState(false);
     const [ isSubmitting, setIsSubmitting ] = useState(false);
     const [ isSaving, setIsSaving ] = useState(false);
 
@@ -38,7 +38,7 @@ const Complaints = () => {
             setComplainantPhone('');
             setTimeout(() => {
                 setTarget('');
-                setShowCreateComplain(false);
+                setShowCreateComplaint(false);
             }, 3000)
         } else {
             setTarget(message);
@@ -135,12 +135,12 @@ const Complaints = () => {
         <Modal
             className='h-full w-full flex justify-center items-center p-3'
             open={showCreateComplaint}
-            onClose={() => setShowCreateComplain(prevValue => !prevValue)}
+            onClose={() => setShowCreateComplaint(prevValue => !prevValue)}
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
             >
             <Box className='relative bg-white w-full max-w-3xl h-auto max-h-[700px] rounded-2xl p-6'>
-                <button onClick={() => setShowCreateComplain(prevValue => !prevValue)} className='absolute top-8 right-8 text-2xl'><i className='fa fa-times'></i></button>
+                <button onClick={() => setShowCreateComplaint(prevValue => !prevValue)} className='absolute top-8 right-8 text-2xl'><i className='fa fa-times'></i></button>
                 <div className='w-full flex justify-center text-purple-900'>
                     <Typography variant='h4' sx={{ mt: 2 }}>
                         Create New Complaint
@@ -251,13 +251,13 @@ const Complaints = () => {
                     <button onClick={(e) => {setComplaintCategory(complaintCategories[`${e.target.textContent}`]); setCurrentCategory(e.target.textContent)}} className={`${currentCategory === 'welfare'? 'bg-yellow-600 text-white': 'bg-white text-yellow-600'} border border-yellow-600 px-7 py-2 text-white rounded-lg capitalize`}>welfare</button>
                     <button onClick={(e) => {setComplaintCategory(complaintCategories[`${e.target.textContent}`]); setCurrentCategory(e.target.textContent)}} className={`${currentCategory === 'legal'? 'bg-purple-600 text-white': 'bg-white text-purple-600'} border border-purple-600 px-7 py-2 text-white rounded-lg capitalize`}>legal</button>
                 </div>
-                <button onClick={() => setShowCreateComplain(prevValue => !prevValue)} className='shrink-0 flex items-center gap-1 md:gap-3 border-[3px] hover:text-purple-600 hover:border-purple-600 text-gray-700 px-2 md:px-4 h-12 rounded-xl'>
-                    <span className='flex items-center text-base '>New Complaint</span>
+                <button onClick={() => setShowCreateComplaint(prevValue => !prevValue)} className='shrink-0 flex items-center gap-1 md:gap-3 border-[3px] hover:text-purple-600 hover:border-purple-600 text-gray-700 px-2 md:px-4 h-12 rounded-xl'>
+                    <span className='flex items-center text-base'>New Complaint</span>
                     <span className='flex items-center text-base'><i className='fa fa-plus'></i></span>
                 </button>
             </div>
         </div>
-        <div className='w-full h-full flex overflow-auto pt-50 pb-4'>
+        <div className='w-full h-full flex overflow-auto pt-8'>
             {complaintCategory}
         </div>
     </div>

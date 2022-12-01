@@ -39,7 +39,7 @@ const AllComplaints = ({filter}) => {
     }, [])
 
     return (
-        <div className='relative w-full '>
+        <div className='relative w-full'>
             {
                 previewComplaint &&
                 <div className='fixed top-0 left-0 w-full h-full bg-gray-600 bg-opacity-25 flex justify-center items-center p-6'>
@@ -66,7 +66,15 @@ const AllComplaints = ({filter}) => {
                         {complaints.map((complaint, index) => {
                             return (
                                 <div key={index+1} className="w-full h-80 flex flex-col p-4 bg-white border border-gray-200 rounded-lg shadow hover:shadow-md">
-                                    <span className="block mb-2 text-2xl font-bold tracking-tight text-gray-900"><span className='capitalize'>{complaint.cat}</span> Support Complaint</span>
+                                    <div className="block flex justify-between items-start mb-2 text-xl md:text-2xl font-bold tracking-tight text-gray-900">
+                                        <span className='capitalize'>
+                                            {complaint.cat} Support Complaint
+                                        </span>
+                                        {
+                                            complaint.severity === 'emergency' &&
+                                            <span className='font-bold text-base flex text-red-500 text-lg capitalize'>{complaint.severity}</span>
+                                        }
+                                    </div>
                                     <div className='w-full mb-3 flex justify-between text-gray-700 text-base'>
                                         <span className="block">Aminu Kano Teaching Hospital, Kano</span>
                                         -

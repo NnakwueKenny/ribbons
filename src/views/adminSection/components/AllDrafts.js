@@ -150,7 +150,7 @@ const AllDrafts = ({filter}) => {
     }, [])
 
     return (
-        <div className='relative w-full flex justify-center'>
+        <div className='relative w-full'>
             {
                 previewComplaint &&
                 <div className='fixed top-0 left-0 w-full h-full bg-gray-600 bg-opacity-25 flex justify-center items-center p-6'>
@@ -229,7 +229,7 @@ const AllDrafts = ({filter}) => {
                        <p>No complaints found!</p>
                     </div>
                     :
-                    <div className='w-full h-full grid md:grid-cols-2 xl:grid-cols-3 gap-8'>
+                    <div className='w-full grid md:grid-cols-2 xl:grid-cols-3 gap-8 py-8 px-3 md:px-6 lg:px-10'>
                         {complaints.map((complaint, index) => {
                             return (
                                 <div key={index+1} className="w-full h-80 flex flex-col p-4 bg-white border border-gray-200 rounded-lg shadow hover:shadow-md">
@@ -249,7 +249,7 @@ const AllDrafts = ({filter}) => {
                                     }
                                     <div className='px-5'>
                                         <button onClick={() => setPreviewComplaint(prevValue => !prevValue)} id={complaint.id} className="flex w-full items-center justify-center px-3 py-3 text-lg font-semibold text-center text-white bg-purple-800 rounded-lg hover:bg-purple-900 focus:ring-4 focus:outline-none focus:ring-purple-300">
-                                            View
+                                            Edit
                                             <svg aria-hidden="true" className="w-4 h-4 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
                                         </button>
                                     </div>

@@ -17,7 +17,7 @@ const Drafts = () => {
 
     const [ draftCategory, setDraftCategory ] = useState(draftCategories.all);
     const [ currentCategory, setCurrentCategory ] = useState('all');
-    const [ showCreateComplaint , setShowCreateComplain ] = useState(false);
+    const [ showCreateComplaint , setShowCreateComplaint ] = useState(false);
     const [ isSubmitting, setIsSubmitting ] = useState(false);
     const [ isSaving, setIsSaving ] = useState(false);
 
@@ -38,7 +38,7 @@ const Drafts = () => {
             setComplainantPhone('');
             setTimeout(() => {
                 setTarget('');
-                setShowCreateComplain(false);
+                setShowCreateComplaint(false);
             }, 3000)
         } else {
             setTarget(message);
@@ -93,12 +93,12 @@ const Drafts = () => {
         <Modal
             className='h-full w-full flex justify-center items-center p-3'
             open={showCreateComplaint}
-            onClose={() => setShowCreateComplain(prevValue => !prevValue)}
+            onClose={() => setShowCreateComplaint(prevValue => !prevValue)}
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
             >
             <Box className='relative bg-white w-full max-w-3xl h-auto max-h-[700px] rounded-2xl p-6'>
-                <button onClick={() => setShowCreateComplain(prevValue => !prevValue)} className='absolute top-8 right-8 text-2xl'><i className='fa fa-times'></i></button>
+                <button onClick={() => setShowCreateComplaint(prevValue => !prevValue)} className='absolute top-8 right-8 text-2xl'><i className='fa fa-times'></i></button>
                 <div className='w-full flex justify-center text-purple-900'>
                     <Typography variant='h4' sx={{ mt: 2 }}>
                         Create New Draft
@@ -192,24 +192,22 @@ const Drafts = () => {
                 </div>
             </Box>
         </Modal>
-        <div className='flex items-center justify-center shadow px-8 py-5 pt-20'>
-            <div className='w-full max-w-6xl flex items-center justify-between'>
-                <div className='flex gap-4 py-4 w-full max-w-6xl'>
+        <div className='flex items-center justify-center shadow px-3 py-5 pt-20'>
+            <div className='w-full max-w-7xl flex gap-3 items-baseline lg:items-center justify-between'>
+                <div className='flex flex-col lg:flex-row gap-4 py-4 w-full max-w-6xl'>
                     <button onClick={(e) => {setDraftCategory(draftCategories[`${e.target.textContent}`]); setCurrentCategory(e.target.textContent)}} className={`${currentCategory === 'all'? 'bg-purple-900 text-white': 'bg-white text-purple-900'} border border-purple-900 px-7 py-2 text-white rounded-lg capitalize`}>all</button>
                     <button onClick={(e) => {setDraftCategory(draftCategories[`${e.target.textContent}`]); setCurrentCategory(e.target.textContent)}} className={`${currentCategory === 'health'? 'bg-green-600 text-white': 'bg-white text-green-600'} border border-green-600 px-7 py-2 text-white rounded-lg capitalize`}>health</button>
                     <button onClick={(e) => {setDraftCategory(draftCategories[`${e.target.textContent}`]); setCurrentCategory(e.target.textContent)}} className={`${currentCategory === 'counselling'? 'bg-red-600 text-white': 'bg-white text-red-600'} border border-red-600 px-7 py-2 text-white rounded-lg capitalize`}>counselling</button>
                     <button onClick={(e) => {setDraftCategory(draftCategories[`${e.target.textContent}`]); setCurrentCategory(e.target.textContent)}} className={`${currentCategory === 'welfare'? 'bg-yellow-600 text-white': 'bg-white text-yellow-600'} border border-yellow-600 px-7 py-2 text-white rounded-lg capitalize`}>welfare</button>
                     <button onClick={(e) => {setDraftCategory(draftCategories[`${e.target.textContent}`]); setCurrentCategory(e.target.textContent)}} className={`${currentCategory === 'legal'? 'bg-purple-600 text-white': 'bg-white text-purple-600'} border border-purple-600 px-7 py-2 text-white rounded-lg capitalize`}>legal</button>
                 </div>
-                <button onClick={() => setShowCreateComplain(prevValue => !prevValue)} className='shrink-0 flex items-center gap-3 border-[3px] hover:text-purple-600 hover:border-purple-600 text-gray-700 px-4 h-12 rounded-xl'>
-                    <span className='flex items-center text-xl'>New Draft</span>
-                    <span className='flex items-center text-xl'><i className='fa fa-plus'></i></span>
+                <button onClick={() => setShowCreateComplaint(prevValue => !prevValue)} className='shrink-0 flex items-center gap-1 md:gap-3 border-[3px] hover:text-purple-600 hover:border-purple-600 text-gray-700 px-2 md:px-4 h-12 rounded-xl'>
+                    <span className='flex items-center text-base'>New Draft</span>
+                    <span className='flex items-center text-base'><i className='fa fa-plus'></i></span>
                 </button>
             </div>
         </div>
         <div className='w-full h-full flex overflow-auto pt-8'>
-            <Toolbar />
-            <Toolbar />
             {draftCategory}
         </div>
     </div>

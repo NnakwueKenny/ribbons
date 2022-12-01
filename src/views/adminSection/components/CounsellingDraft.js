@@ -3,7 +3,7 @@ import Loader from '../../../components/Loader';
 
 const CounsellingDraft = ({filter}) => {
     const [ isLoading, setIsLoading ] = useState(false);
-    const [ drafts, setDrafts ] = useState([]);
+    const [ complaints, setComplaints ] = useState([]);
     const [ previewComplaint, setPreviewComplaint ] = useState(false);
     const [ isSubmitting, setIsSubmitting ] = useState(false);
     const [ isSaving, setIsSaving ] = useState(false);
@@ -14,6 +14,7 @@ const CounsellingDraft = ({filter}) => {
     const [ desc, setDesc ] = useState('');
     const [ complainantPhone , setComplainantPhone ] = useState('');
     const [ requestMessage, setRequestMessage ] = useState('');
+
 
     const toggleMessageContent = (setTarget, message, err) => {
         if (!err) {
@@ -35,7 +36,7 @@ const CounsellingDraft = ({filter}) => {
         }
     }
 
-    const getAllDrafts = () => {
+    const getAllComplaints = () => {
         setIsLoading(true);
         fetch('https://ribbons.onrender.com/draft/get-drafts',
             {
@@ -52,7 +53,7 @@ const CounsellingDraft = ({filter}) => {
         .then(response => response.json())
         .then(data =>{
             console.log(data);
-            setDrafts(data.filter(item => item.cat === 'counselling'));
+            setComplaints(data.filter(item => item.cat === 'counselling'));
             setIsLoading(false)
         })
     }
@@ -144,11 +145,11 @@ const CounsellingDraft = ({filter}) => {
     }
     
     useEffect(() => {
-        getAllDrafts();
+        getAllComplaints();
     }, [])
 
     return (
-        <div className='relative w-full flex justify-center'>
+        <div className='relative w-full'>
             {
                 previewComplaint &&
                 <div className='fixed top-0 left-0 w-full h-full bg-gray-600 bg-opacity-25 flex justify-center items-center p-6'>
@@ -222,13 +223,13 @@ const CounsellingDraft = ({filter}) => {
                 :
                 <>
                 {
-                    drafts.length < 1?
+                    complaints.length < 1?
                     <div className='w-full h-full flex flex-col gap-5 justify-center items-center text-3xl text-gray-600'>
                        <p>No complaints found!</p>
                     </div>
                     :
-                    <div className='w-full max-w-8xl h-full grid md:grid-cols-1 lg:grid-cols-3 gap-8'>
-                        {drafts.map((complaint, index) => {
+                    <div className='w-full grid md:grid-cols-2 xl:grid-cols-3 gap-8 py-8 px-3 md:px-6 lg:px-10'>
+                        {complaints.map((complaint, index) => {
                             return (
                                 <div key={index+1} className="w-full h-80 flex flex-col p-4 bg-white border border-gray-200 rounded-lg shadow hover:shadow-md">
                                     <span className="block mb-2 text-2xl font-bold tracking-tight text-gray-900"><span className='capitalize'>{complaint.cat}</span> Support Complaint</span>
@@ -247,7 +248,7 @@ const CounsellingDraft = ({filter}) => {
                                     }
                                     <div className='px-5'>
                                         <button onClick={() => setPreviewComplaint(prevValue => !prevValue)} id={complaint.id} className="flex w-full items-center justify-center px-3 py-3 text-lg font-semibold text-center text-white bg-purple-800 rounded-lg hover:bg-purple-900 focus:ring-4 focus:outline-none focus:ring-purple-300">
-                                            View
+                                            Edit
                                             <svg aria-hidden="true" className="w-4 h-4 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
                                         </button>
                                     </div>
