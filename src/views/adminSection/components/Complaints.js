@@ -29,7 +29,7 @@ const Complaints = () => {
     const [ requestMessage, setRequestMessage ] = useState('');
 
     const toggleMessageContent = (setTarget, message, err) => {
-        if (err !== undefined) {
+        if (err === undefined) {
             setTarget(message);
             setDept('');
             setDesc('');
@@ -75,9 +75,9 @@ const Complaints = () => {
         .then(data => {
             console.log(data);
             setIsSubmitting(false);
-            if (data.errors) {
-                console.log(data.errors);
-                toggleMessageContent(setRequestMessage, 'Please fill all fields!', 'error');
+            if (data.error) {
+                console.log(data.error);
+                toggleMessageContent(setRequestMessage, data.error, 'error');
             } else {
                 toggleMessageContent(setRequestMessage, data);
             }
@@ -85,7 +85,7 @@ const Complaints = () => {
         .catch(err => {
             console.log(err);
             setIsSubmitting(false);
-            toggleMessageContent(setRequestMessage, err.message, err);
+            toggleMessageContent(setRequestMessage, 'An error just occurred. Please, try again!', 'error');
         })
 
     }
@@ -115,9 +115,9 @@ const Complaints = () => {
         .then(data => {
             console.log(data);
             setIsSaving(false);
-            if (data.errors) {
-                console.log(data.errors);
-                toggleMessageContent(setRequestMessage, 'Please fill all fields!', 'error');
+            if (data.error) {
+                console.log(data.error);
+                toggleMessageContent(setRequestMessage, data.error, 'error');
             } else {
                 toggleMessageContent(setRequestMessage, data);
             }
@@ -125,7 +125,7 @@ const Complaints = () => {
         .catch(err => {
             console.log(err);
             setIsSaving(false);
-            toggleMessageContent(setRequestMessage, err.message, err);
+            toggleMessageContent(setRequestMessage, 'An error just occurred!', 'error');
         })
 
     }
