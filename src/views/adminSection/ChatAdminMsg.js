@@ -23,20 +23,21 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import SpeakerNotesIcon from '@mui/icons-material/SpeakerNotes';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Avatar from '@mui/material/Avatar';
+import SendIcon from '@mui/icons-material/Send';
 
 import { mainListItems, secondaryListItems } from './components/ListItems';
 import Chart from './components/Chart';
 import Deposits from './components/Deposits';
 import Orders from './components/Orders';
 
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import  checkLogin from './functions/checkAdminLogin';
 import Loader from '../../components/Loader';
 import logo from '../../images/logo.png';
 import AdminDashboard from './components/AdminDashboard';
 import Complaints from './components/Complaints';
 import Drafts from './components/Drafts';
-import { ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
+import { AvatarGroup, ListItemAvatar, ListItemButton, ListItemIcon, ListItemText, TextField } from '@mui/material';
 import Dashboard from '@mui/icons-material/Dashboard';
 import ShoppingCart from '@mui/icons-material/ShoppingCart';
 import People from '@mui/icons-material/People';
@@ -121,6 +122,8 @@ const theme = createTheme({
 });
 
 const AdminIndex = () => {
+	const { number } = useParams();
+
     const navigate = useNavigate();
     const [ isLoggedIn, setIsLoggedIn ] = useState(false);
     const [ currentAdmin, setCurrentAdmin ] = useState({});
@@ -139,7 +142,7 @@ const AdminIndex = () => {
     const [ currentPage, setCurrentPage ] = useState('dashboard');
 
     useEffect(() => {
-        checkLogin(setIsLoggedIn, setCurrentAdmin, navigate, setIsPageLoading);
+        // checkLogin(setIsLoggedIn, setCurrentAdmin, navigate, setIsPageLoading);
         console.log('Hello');
     }, []);
 
@@ -170,6 +173,7 @@ const AdminIndex = () => {
     }
     
     const [ chatUsers, setChatUsers ] = useState([]);
+    const [ currentUser, setCurrentUser ] = useState([])
 
     const getAllChats = () => {
         fetch('https://ribbons.onrender.com/chat/my-chats',
@@ -189,6 +193,7 @@ const AdminIndex = () => {
             console.log(data);
             console.log(localStorage.getItem('adminLocation'));
             setChatUsers(data);
+            setCurrentUser(data.filter(item => item.user == number))
         })
     }
     useEffect(() => {
@@ -308,48 +313,60 @@ const AdminIndex = () => {
                                     </List>
                                 </Drawer>
                                 <Box
-                                    component="main"
-                                    sx={{
-                                        backgroundColor: (theme) =>
-                                        theme.palette.mode === 'light'
-                                            ? theme.palette.grey[100]
-                                            : theme.palette.grey[900],
-                                        flexGrow: 1,
-                                        height: '100vh',
-                                        overflow: 'auto',
-                                    }}>
-                                        <Container maxWidth="xl" className='h-full pt-24'>
-                                            <Grid container spacing={3} height='100%' columns={{ xs: 12}} direction='col'>
-                                                <div className='flex w-full h-full px-5 shadow'>
-                                                    <div className='h-full overflow-y-auto shadow w-2/5 divide-y'>
+                                component="main"
+                                sx={{
+                                    backgroundColor: (theme) =>
+                                    theme.palette.mode === 'light'
+                                        ? theme.palette.grey[100]
+                                        : theme.palette.grey[900],
+                                    flexGrow: 1,
+                                    height: '100vh',
+                                    overflow: 'auto',
+                                }}>
+                                    <Container maxWidth="xl" className='h-full pt-24'>
+                                        <Grid container spacing={3} height='100%' columns={{ xs: 12}} direction='col'>
+                                            <div className='flex w-full h-full shadow'>
+                                                <div className='h-full overflow-y-auto shadow w-2/5 divide-y px-2'>
+                                                    {
+                                                        chatUsers.map(user => {
+                                                            return (
+                                                                <button onClick={() => openChat(user.user)} className='w-full flex items-center gap-2 py-3 px-2 text-base'>
+                                                                    <Avatar></Avatar>
+                                                                    {user.user}
+                                                                </button>
+                                                            )
+                                                        })
+                                                    }
+                                                </div>
+                                                <div className='flex flex-col gap-2 font-semibold text-purple-900 w-full'>
+                                                    <div className='flex w-full shadow py-2 px-4'>
+                                                        <div className='flex gap-2 '>
+                                                            <div className='w-14 h-14 flex items-center justify-center border rounded-full shadow'>
+                                                                <span className='text-gray-600 text-2xl'><i className='fa fa-user'></i></span>
+                                                            </div>
+                                                            <div className='flex items-center justify-center text-gray-600'>
+                                                                {number.split(':')}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className='mb-auto h-full overflow-auto'>
                                                         {
-                                                            chatUsers.map(user => {
-                                                                console.log(user)
-                                                                return (
-                                                                    <button onClick={() => openChat(user.user)} className='w-full flex items-center gap-2 py-3 px-2 text-base'>
-                                                                        <Avatar>U</Avatar>
-                                                                        {user.user}
-                                                                    </button>
-                                                                )
-                                                            })
+                                                            currentUser &&
+                                                            currentUser.message.map(item => item.content)
                                                         }
                                                     </div>
-                                                    <div className='flex flex-col gap-2 justify-center items-center text-2xl font-semibold text-purple-900 w-full'>
-                                                        {
-                                                            chatUsers.map(user => {
-                                                                console.log(user)
-                                                                return (
-                                                                    <button onClick={() => openChat(user.user)} className='w-full flex items-center gap-2 py-3 px-2 text-base'>
-                                                                        <Avatar>U</Avatar>
-                                                                        {user.user}
-                                                                    </button>
-                                                                )
-                                                            })
-                                                        }
+                                                    <div className='w-full px-4 py-4'>
+                                                        <div className='relative'>
+                                                            <div className='absolute top-0 right-0 h-full px-3 flex items-center'>
+                                                                <button className=''><SendIcon color='primary'/></button>
+                                                            </div>
+                                                            <TextField id="outlined-basic" placeholder='Type Message' variant="outlined" className='w-full rounded-xl'/>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </Grid>
-                                        </Container>
+                                            </div>
+                                        </Grid>
+                                    </Container>
                                 </Box>
                             </Box>
                         </ThemeProvider>

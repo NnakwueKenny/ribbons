@@ -25,6 +25,8 @@ AOS.init();
 function App() {
   // localStorage.clear();
   // console.log('LocalStorage cleared!');
+	const { number } = useParams();
+
   return (
     <div className='w-full relative flex flex-col font-medium'>
       {/*<div id="google_translate_element" className='w-full'></div>*/}
@@ -46,7 +48,7 @@ function App() {
         <Route path="/admin/register" element={<AdminRegister />} />
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/admin/chat" element={<ChatAdmin />} />
-        <Route path="/admin/chat/:number" element={<ChatAdminMsg />} />
+        <Route path="/admin/chat/:number" element={<ChatAdminMsg number={number} />} />
 
         {/* All agent routes */}
         <Route path="/agent" element={<AgentIndex />} />
