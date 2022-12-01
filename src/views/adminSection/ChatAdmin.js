@@ -168,24 +168,26 @@ const AdminIndex = () => {
         navigate('/admin');
     }
 
-    const [ chatUsers, setChatUSers ] = useState([]);
+    const [ chatUsers, setChatUsers ] = useState([]);
 
     const getAllChats = () => {
         fetch('https://ribbons.onrender.com/chat/my-chats',
             {
+                method: 'post',
                 headers: {
                     accept: 'application/json',
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    location: localStorage.getItem('adminLocation')
+                    loc: JSON.parse(localStorage.getItem('adminLocation'))
                 })
             }
         )
         .then(response => response.json())
         .then(data => {
             console.log(data);
-            setChatUSers(data);
+            console.log(localStorage.getItem('adminLocation'));
+            setChatUsers(data);
         })
     }
     useEffect(() => {
@@ -314,19 +316,15 @@ const AdminIndex = () => {
                                                     <div className='h-full overflow-y-auto shadow w-2/5 divide-y'>
                                                         {
                                                             chatUsers.map(user => {
+                                                                console.log(user)
                                                                 return (
-                                                                    <button onClick={() => openChat()} className='w-full flex items-center gap-2 py-3 px-2 text-lg'>
+                                                                    <button onClick={() => openChat(user.user)} className='w-full flex items-center gap-2 py-3 px-2 text-base'>
                                                                         <Avatar>U</Avatar>
-                                                                        +23481379260904
+                                                                        {user.user}
                                                                     </button>
                                                                 )
                                                             })
                                                         }
-                                                        
-                                                        <button onClick={() => openChat()} className='w-full flex items-center gap-2 py-3 px-2 text-lg'>
-                                                        <Avatar>U</Avatar>
-                                                        +23481379260904
-                                                    </button>
                                                     </div>
                                                     <div className='flex flex-col gap-2 justify-center items-center text-2xl font-semibold text-purple-900 w-full'>
                                                         <span className='text-purple-900 text-3xl'><i className='fa fa-message'></i></span>
