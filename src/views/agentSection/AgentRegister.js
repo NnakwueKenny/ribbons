@@ -32,15 +32,8 @@ function Copyright(props) {
   
 const AdminLogin = () => {
 
-  const navigate = useNavigate();const theme = createTheme();
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-  };
+  const navigate = useNavigate();
+  const theme = createTheme();
 
   const [ name, setName ] = useState('');
   const [ phone, setPhone ] = useState('');
@@ -89,37 +82,39 @@ const AdminLogin = () => {
     .then(regData => {
       console.log(regData)
         if (!regData.message) {
-          toggleMessageContent(setregisterMessage, regData);
+          toggleMessageContent(setregisterMessage, regData.error);
           setRegisterStatus(false);
         } else {
-          fetch('https://ribbons.onrender.com/agent/login',
-            {
-              method: 'post',
-              headers: {
-                  Accept: 'application/json',
-                  'Content-Type': 'application/json'
-              },
-              body: JSON.stringify({
-                  "username": username,
-                  "password": password
-              })
-            }
-          )
-          .then(response => response.json())
-          .then(loginData => {
-            toggleMessageContent(setregisterMessage, regData.message);
-            setRegisterStatus(true);
-            localStorage.setItem('agentAccessToken', JSON.stringify(loginData.accessToken));
-            localStorage.setItem('agentUsername', JSON.stringify(username));
-            setTimeout(() => {
-              setShowLoader(true);
-            }, 2000);
-            setTimeout(() => {
-              setShowLoader(false);
-              navigate('/agent');
-            }, 5000);
-          })
-          .catch(err => console.log(err));
+            toggleMessageContent(setregisterMessage, regData.messsage);
+            fetch('https://ribbons.onrender.com/agent/login',
+                {
+                    method: 'post',
+                    headers: {
+                        Accept: 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        "username": username,
+                        "password": password
+                    })
+                }
+            )
+            .then(response => response.json())
+            .then(loginData => {
+                toggleMessageContent(setregisterMessage, regData.message);
+                setRegisterStatus(true);
+                localStorage.setItem('agentAccessToken', JSON.stringify(loginData.accessToken));
+                localStorage.setItem('agentUsername', JSON.stringify(username));
+                localStorage.setItem('agentLocation', JSON.stringify(location));
+                setTimeout(() => {
+                    setShowLoader(true);
+                }, 2000);
+                setTimeout(() => {
+                    setShowLoader(false);
+                    navigate('/agent');
+                }, 5000);
+            })
+            .catch(err => console.log(err));
         }
         setIsLoading(false);
     })
@@ -156,7 +151,7 @@ const AdminLogin = () => {
                         <img alt='' src={logo} />
                     </div>
                     <Typography component="h1" variant="h5">
-                        Agent Register
+                        Agent Registration
                     </Typography>
                     <Box component="form" noValidate >
                         <TextField
@@ -224,9 +219,10 @@ const AdminLogin = () => {
                             required
                             fullWidth
                             id="password"
+                            name="password"
                             label="Password"
                             type="password"
-                            name="current-password"
+                            autoComplete="current-password"
                             autoFocus
                         />
                         <TextField
@@ -234,10 +230,10 @@ const AdminLogin = () => {
                             margin="normal"
                             required
                             fullWidth
+                            id="confirmPassword"
                             name="confirmPassword"
                             label="Confirm Password"
                             type="password"
-                            id="confirmPassword"
                             autoComplete="current-password"
                         />
                         <TextField
