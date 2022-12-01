@@ -45,8 +45,8 @@ function App() {
         <Route path="/admin" element={<AdminIndex />} />
         <Route path="/admin/register" element={<AdminRegister />} />
         <Route path="/admin/login" element={<AdminLogin />} />
-        <Route path="/chat-admin" element={<ChatAdmin />} />
-        <Route path="/chat-admin-msg/:number" element={<ChatAdminMsg />} />
+        <Route path="/admin/chat" element={<ChatAdmin />} />
+        <Route path="/admin/chat/:number" element={<ChatAdminMsg />} />
 
         {/* All agent routes */}
         <Route path="/agent" element={<AgentIndex />} />
@@ -54,9 +54,6 @@ function App() {
         <Route path="/agent/register" element={<AgentRegister />} />
         {/*<Route path="/agent/register" element={<AgentRegister />} />
         <Route path="/agent/login" element={<AgentLogin />} /> */}
-
-          {/* ChatAdminMsg Route */}
-          <Route path="/chat-admin-msg/:number" element={<ChatAdminMsg />} />
 
         {/* Evidence Route */}
         <Route path="/evidence" element={<Evidence />} />

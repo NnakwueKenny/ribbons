@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import Loader from '../../../components/Loader';
 
-const WelfareComplaint = ({filter}) => {
+const SuppliesComplaints = ({filter}) => {
     const [ isLoading, setIsLoading ] = useState(false);
     const [ complaints, setComplaints ] = useState([]);
     const [ previewComplaint, setPreviewComplaint ] = useState(false)
@@ -24,7 +25,7 @@ const WelfareComplaint = ({filter}) => {
         .then(response => response.json())
         .then(data =>{
             console.log(data);
-            setComplaints(data.filter(item => item.cat === 'welfare'));
+            setComplaints(data.filter(item => item.cat === 'counselling'));
             setIsLoading(false)
         })
     }
@@ -100,4 +101,4 @@ const WelfareComplaint = ({filter}) => {
     )
 }
 
-export default WelfareComplaint;
+export default SuppliesComplaints;

@@ -18,6 +18,9 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
+import DraftsIcon from '@mui/icons-material/Drafts';
+import SettingsIcon from '@mui/icons-material/Settings';
+import SpeakerNotesIcon from '@mui/icons-material/SpeakerNotes';
 
 import { mainListItems, secondaryListItems } from './components/ListItems';
 import Chart from './components/Chart';
@@ -28,7 +31,7 @@ import { useNavigate } from 'react-router-dom';
 import  checkLogin from './functions/checkAdminLogin';
 import Loader from '../../components/Loader';
 import logo from '../../images/logo.png';
-import AdminDashboard from './components/AdminDashboard'
+import AdminDashboard from './components/AdminDashboard';
 import Complaints from './components/Complaints';
 import Drafts from './components/Drafts';
 import { ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
@@ -37,6 +40,7 @@ import ShoppingCart from '@mui/icons-material/ShoppingCart';
 import People from '@mui/icons-material/People';
 import BarChart from '@mui/icons-material/BarChart';
 import Layers from '@mui/icons-material/Layers';
+import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
 
 function Copyright(props) {
     return (
@@ -95,7 +99,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
         },
     }),
 );
-  
+
 const mdTheme = createTheme();
 
 const theme = createTheme({
@@ -113,7 +117,6 @@ const theme = createTheme({
       },
     },
   });
-  
 
 const AdminIndex = () => {
     const navigate = useNavigate();
@@ -126,6 +129,7 @@ const AdminIndex = () => {
         dashboard: <AdminDashboard />,
         complaints: <Complaints /> ,
         drafts: <Drafts />,
+        support: <Drafts filter='support' />,
         // chat: <WelfareComplaint filter='welfare' />,
     }
 
@@ -150,6 +154,10 @@ const AdminIndex = () => {
             setIsPageLoading(false);
             checkLogin(setIsLoggedIn, setCurrentAdmin, navigate, setIsPageLoading);
         }, 2000);
+    }
+
+    const openChat = () => {
+        navigate(`/admin/chat`);
     }
 
     return (
@@ -227,21 +235,28 @@ const AdminIndex = () => {
 
                                         <ListItemButton onClick={(e) => {setPage(pages['complaints']); setCurrentPage('complaints')}}>
                                             <ListItemIcon>
-                                                <ShoppingCart />
+                                                <DriveFileRenameOutlineIcon />
                                             </ListItemIcon>
                                             <ListItemText primary="Complaints" />
                                         </ListItemButton>
 
                                         <ListItemButton onClick={(e) => {setPage(pages['drafts']); setCurrentPage('drafts')}}>
                                             <ListItemIcon>
-                                                <People />
+                                                <DraftsIcon />
                                             </ListItemIcon>
                                             <ListItemText primary="Drafts" />
                                         </ListItemButton>
 
-                                        <ListItemButton onClick={(e) => {setPage(pages['chat']); setCurrentPage('chat')}}>
+                                        <ListItemButton onClick={(e) => {setPage(pages['support']); setCurrentPage('support')}}>
                                             <ListItemIcon>
-                                                <BarChart />
+                                                <SettingsIcon />
+                                            </ListItemIcon>
+                                            <ListItemText primary="Support" />
+                                        </ListItemButton>
+
+                                        <ListItemButton  onClick={() => openChat()}>
+                                            <ListItemIcon>
+                                                <SpeakerNotesIcon />
                                             </ListItemIcon>
                                             <ListItemText primary="Chat" />
                                         </ListItemButton>

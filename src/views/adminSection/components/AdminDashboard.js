@@ -94,222 +94,223 @@ const mdTheme = createTheme();
 const AdminDashboard = () => {
 
   return (
-    <><Box
-    component="main"
-    sx={{
-        backgroundColor: (theme) =>
-        theme.palette.mode === 'light'
-            ? theme.palette.grey[100]
-            : theme.palette.grey[900],
-        flexGrow: 1,
-        height: '100vh',
-        overflow: 'auto',
-    }}
-    >
-        <Toolbar />
-    <Toolbar />
-    <Container maxWidth="xl">
-      <Grid container spacing={3}>
-        {/* Chart */}
-        {/* All Cases */}
-        <Grid item xs={12} md={6} lg={4}>
-          <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', height: 320 }} >
-            <DisplayComponents value={'allCases'}/>
-          </Paper>
+    <>
+      <Box
+      component="main"
+      sx={{
+          backgroundColor: (theme) =>
+          theme.palette.mode === 'light'
+              ? theme.palette.grey[100]
+              : theme.palette.grey[900],
+          flexGrow: 1,
+          height: '100vh',
+          overflow: 'auto',
+      }}
+      >
+      <Toolbar />
+      <Toolbar />
+      <Container maxWidth="xl">
+        <Grid container spacing={3}>
+          {/* Chart */}
+          {/* All Cases */}
+          <Grid item xs={12} md={6} lg={4}>
+            <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', height: 320 }} >
+              <DisplayComponents value={'allCases'}/>
+            </Paper>
+          </Grid>
+
+          {/* Emergency Cases */}
+          <Grid item xs={12} md={6} lg={4}>
+            <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', height: 320 }} >
+              <DisplayComponents value={'liveEmergency'}/>
+            </Paper>
+          </Grid>
+
+          {/* Top Cases */}
+          <Grid item xs={12} md={6} lg={4}>
+            <Paper
+              sx={{ p: 2,  display: 'flex', flexDirection: 'column', height: 320 }}
+            >
+              <Title>
+                <Typography sx={{color: 'rgb(22 163 74)'}} component="h2" variant="h4">
+                    Top Cases Solved
+                </Typography>
+              </Title>
+              <Grid container spacing={3}>
+                  <Grid item xs={12}>
+                    <Stack direction="col" spacing={2} justifyContent="between">
+                      <ListItem textAlign = 'end'>
+                        <Typography variant='h5'>
+                          Department
+                        </Typography>
+                      </ListItem>
+                      <ListItem textAlign = 'end'>
+                        <Typography variant='h5'>
+                          Solved
+                        </Typography>
+                      </ListItem>
+                    </Stack>
+
+                    <Stack direction="col" spacing={2} justifyContent="between">
+                      <ListItem textAlign = 'end'>
+                        <Typography variant='h5'>
+                          Shelter
+                        </Typography>
+                      </ListItem>
+                      <ListItem textAlign = 'end'>
+                        <Typography variant='h5'>
+                          39
+                        </Typography>
+                      </ListItem>
+                    </Stack>
+
+                    <Stack direction="col" spacing={2} justifyContent="between">
+                      <ListItem textAlign = 'end'>
+                        <Typography variant='h5'>
+                          Legal
+                        </Typography>
+                      </ListItem>
+                      <ListItem textAlign = 'end'>
+                        <Typography variant='h5'>
+                          15
+                        </Typography>
+                      </ListItem>
+                    </Stack>
+
+                    <Stack direction="col" spacing={2} justifyContent="between">
+                      <ListItem textAlign = 'end'>
+                        <Typography variant='h5'>
+                          Counselling
+                        </Typography>
+                      </ListItem>
+                      <ListItem textAlign = 'end'>
+                        <Typography variant='h5'>
+                          70
+                        </Typography>
+                      </ListItem>
+                    </Stack>
+
+                    <Stack direction="col" spacing={2} justifyContent="between">
+                      <ListItem textAlign = 'end'>
+                        <Typography variant='h5'>
+                          Welfare
+                        </Typography>
+                      </ListItem>
+                      <ListItem textAlign = 'end'>
+                        <Typography variant='h5'>
+                          150
+                        </Typography>
+                      </ListItem>
+                    </Stack>
+                  </Grid>
+              </Grid>
+            </Paper>
+          </Grid>
+
+          {/* Chart */}
+          <Grid item xs={12} md={6} lg={4}>
+            <Paper
+              sx={{ p: 2,  display: 'flex', flexDirection: 'column', height: 320 }}
+            >
+              <Chart />
+            </Paper>
+          </Grid>
+          
+          {/* Feedback */}
+          <Grid item xs={12} md={6} lg={4}>
+            <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', height: 320 }} >
+              <DisplayComponents value={'liveEmergency'}/>
+            </Paper>
+          </Grid>
+
+          {/* Agent Status */}
+          <Grid item xs={12} md={6} lg={4}>
+            <Paper
+              sx={{ p: 2,  display: 'flex', flexDirection: 'column', height: 320 }}
+            >
+              <Title>
+                <Typography sx={{color: 'gray'}} component="h2" variant="h4">
+                    Agent Status
+                </Typography>
+              </Title>
+              <Grid container spacing={3}>
+                  <Grid item xs={12}>
+                    <Stack direction="col" spacing={2} justifyContent="between">
+                      <ListItem textAlign = 'end'>
+                        <div className='w-full flex justify-between'>
+                          <Title>
+                            <Typography sx={{color: 'gray'}} component="h3" variant="h5">
+                                Name
+                            </Typography>
+                          </Title>
+                          <Title>
+                            <Typography sx={{color: 'gray'}} component="h3" variant="h5">
+                                Status
+                            </Typography>
+                          </Title>
+                        </div>
+                      </ListItem>
+                    </Stack>
+
+                    <Stack direction="col" spacing={2} justifyContent="between">
+                      <ListItem textAlign = 'end'>
+                        <Typography variant='h5'>
+                          Salma50
+                        </Typography>
+                      </ListItem>
+                      <ListItem textAlign = 'end'>
+                        <Typography variant='h5'>
+                          Online
+                        </Typography>
+                      </ListItem>
+                    </Stack>
+
+                    <Stack direction="col" spacing={2} justifyContent="between">
+                      <ListItem textAlign = 'end'>
+                        <Typography variant='h5'>
+                          Dujo38
+                        </Typography>
+                      </ListItem>
+                      <ListItem textAlign = 'end'>
+                        <Typography variant='h5'color='red'>
+                          Offline
+                        </Typography>
+                      </ListItem>
+                    </Stack>
+
+                    <Stack direction="col" spacing={2} justifyContent="between">
+                      <ListItem textAlign = 'end'>
+                        <Typography variant='h5'>
+                          Prince40
+                        </Typography>
+                      </ListItem>
+                      <ListItem textAlign = 'end'>
+                        <Typography variant='h5' color='green'>
+                          Online
+                        </Typography>
+                      </ListItem>
+                    </Stack>
+
+                    <Stack direction="col" spacing={2} justifyContent="between">
+                      <ListItem textAlign = 'end'>
+                        <Typography variant='h5'>
+                          Kene70
+                        </Typography>
+                      </ListItem>
+                      <ListItem textAlign = 'end'>
+                        <Typography variant='h5' color='red'>
+                          Offline
+                        </Typography>
+                      </ListItem>
+                    </Stack>
+                  </Grid>
+              </Grid>
+            </Paper>
+          </Grid>
         </Grid>
-
-        {/* Emergency Cases */}
-        <Grid item xs={12} md={6} lg={4}>
-          <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', height: 320 }} >
-            <DisplayComponents value={'liveEmergency'}/>
-          </Paper>
-        </Grid>
-
-        {/* Top Cases */}
-        <Grid item xs={12} md={6} lg={4}>
-          <Paper
-            sx={{ p: 2,  display: 'flex', flexDirection: 'column', height: 320 }}
-          >
-            <Title>
-              <Typography sx={{color: 'rgb(22 163 74)'}} component="h2" variant="h4">
-                  Top Cases Solved
-              </Typography>
-            </Title>
-            <Grid container spacing={3}>
-                <Grid item xs={12}>
-                  <Stack direction="col" spacing={2} justifyContent="between">
-                    <ListItem textAlign = 'end'>
-                      <Typography variant='h5'>
-                        Department
-                      </Typography>
-                    </ListItem>
-                    <ListItem textAlign = 'end'>
-                      <Typography variant='h5'>
-                        Solved
-                      </Typography>
-                    </ListItem>
-                  </Stack>
-
-                  <Stack direction="col" spacing={2} justifyContent="between">
-                    <ListItem textAlign = 'end'>
-                      <Typography variant='h5'>
-                        Shelter
-                      </Typography>
-                    </ListItem>
-                    <ListItem textAlign = 'end'>
-                      <Typography variant='h5'>
-                        39
-                      </Typography>
-                    </ListItem>
-                  </Stack>
-
-                  <Stack direction="col" spacing={2} justifyContent="between">
-                    <ListItem textAlign = 'end'>
-                      <Typography variant='h5'>
-                        Legal
-                      </Typography>
-                    </ListItem>
-                    <ListItem textAlign = 'end'>
-                      <Typography variant='h5'>
-                        15
-                      </Typography>
-                    </ListItem>
-                  </Stack>
-
-                  <Stack direction="col" spacing={2} justifyContent="between">
-                    <ListItem textAlign = 'end'>
-                      <Typography variant='h5'>
-                        Counselling
-                      </Typography>
-                    </ListItem>
-                    <ListItem textAlign = 'end'>
-                      <Typography variant='h5'>
-                        70
-                      </Typography>
-                    </ListItem>
-                  </Stack>
-
-                  <Stack direction="col" spacing={2} justifyContent="between">
-                    <ListItem textAlign = 'end'>
-                      <Typography variant='h5'>
-                        Welfare
-                      </Typography>
-                    </ListItem>
-                    <ListItem textAlign = 'end'>
-                      <Typography variant='h5'>
-                        150
-                      </Typography>
-                    </ListItem>
-                  </Stack>
-                </Grid>
-            </Grid>
-          </Paper>
-        </Grid>
-
-        {/* Chart */}
-        <Grid item xs={12} md={6} lg={4}>
-          <Paper
-            sx={{ p: 2,  display: 'flex', flexDirection: 'column', height: 320 }}
-          >
-            <Chart />
-          </Paper>
-        </Grid>
-        
-        {/* Feedback */}
-        <Grid item xs={12} md={6} lg={4}>
-          <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', height: 320 }} >
-            <DisplayComponents value={'liveEmergency'}/>
-          </Paper>
-        </Grid>
-
-        {/* Agent Status */}
-        <Grid item xs={12} md={6} lg={4}>
-          <Paper
-            sx={{ p: 2,  display: 'flex', flexDirection: 'column', height: 320 }}
-          >
-            <Title>
-              <Typography sx={{color: 'gray'}} component="h2" variant="h4">
-                  Agent Status
-              </Typography>
-            </Title>
-            <Grid container spacing={3}>
-                <Grid item xs={12}>
-                  <Stack direction="col" spacing={2} justifyContent="between">
-                    <ListItem textAlign = 'end'>
-                      <div className='w-full flex justify-between'>
-                        <Title>
-                          <Typography sx={{color: 'gray'}} component="h3" variant="h5">
-                              Name
-                          </Typography>
-                        </Title>
-                        <Title>
-                          <Typography sx={{color: 'gray'}} component="h3" variant="h5">
-                              Status
-                          </Typography>
-                        </Title>
-                      </div>
-                    </ListItem>
-                  </Stack>
-
-                  <Stack direction="col" spacing={2} justifyContent="between">
-                    <ListItem textAlign = 'end'>
-                      <Typography variant='h5'>
-                        Salma50
-                      </Typography>
-                    </ListItem>
-                    <ListItem textAlign = 'end'>
-                      <Typography variant='h5'>
-                        Online
-                      </Typography>
-                    </ListItem>
-                  </Stack>
-
-                  <Stack direction="col" spacing={2} justifyContent="between">
-                    <ListItem textAlign = 'end'>
-                      <Typography variant='h5'>
-                        Dujo38
-                      </Typography>
-                    </ListItem>
-                    <ListItem textAlign = 'end'>
-                      <Typography variant='h5'color='red'>
-                        Offline
-                      </Typography>
-                    </ListItem>
-                  </Stack>
-
-                  <Stack direction="col" spacing={2} justifyContent="between">
-                    <ListItem textAlign = 'end'>
-                      <Typography variant='h5'>
-                        Prince40
-                      </Typography>
-                    </ListItem>
-                    <ListItem textAlign = 'end'>
-                      <Typography variant='h5' color='green'>
-                        Online
-                      </Typography>
-                    </ListItem>
-                  </Stack>
-
-                  <Stack direction="col" spacing={2} justifyContent="between">
-                    <ListItem textAlign = 'end'>
-                      <Typography variant='h5'>
-                        Kene70
-                      </Typography>
-                    </ListItem>
-                    <ListItem textAlign = 'end'>
-                      <Typography variant='h5' color='red'>
-                        Offline
-                      </Typography>
-                    </ListItem>
-                  </Stack>
-                </Grid>
-            </Grid>
-          </Paper>
-        </Grid>
-      </Grid>
-      <Copyright sx={{ pt: 4, pb: 2 }} />
-    </Container>
-    </Box>
+        <Copyright sx={{ pt: 4, pb: 2 }} />
+      </Container>
+      </Box>
     </>
   )
 }

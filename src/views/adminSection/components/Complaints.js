@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
 import AllComplaints from '../components/AllComplaints';
 import HealthComplaint from '../components/HealthComplaint';
-import CounsellingComplaint from '../components/CounsellingComplaints';
-import WelfareComplaint from '../components/WelfareComplaints';
-import LegalComplaint from '../components/LegalComplaints';
+import SuppliesComplaint from '../components/SuppliesComplaints';
+import PsychosocialComplaints from '../components/PsychosocialComplaints';
+import WASHComplaints from '../components/WASHComplaints';
+import LegalComplaint from '../components/LegalComplaint';
 import { Box, FormControl, InputLabel, MenuItem, Modal, Select, TextField, Toolbar, Typography } from '@mui/material';
 
 const Complaints = () => {
     const complaintCategories = {
         all: <AllComplaints filter='all' /> ,
         health: <HealthComplaint filter='health' />,
-        counselling: <CounsellingComplaint filter='counselling' />,
-        welfare: <WelfareComplaint filter='welfare' />,
+        supplies: <SuppliesComplaint filter='supplies' />,
+        psychological: <PsychosocialComplaints filter='psychosocial' />,
+        wash: <WASHComplaints filter='wash' />,
         legal: <LegalComplaint filter='legal' />,
     }
 
@@ -162,10 +164,11 @@ const Complaints = () => {
                             <MenuItem value="">
                                 <em>None</em>
                             </MenuItem>
-                            <MenuItem value={'counselling'}>Counselling</MenuItem>
+                            <MenuItem value={'supplies'}>Supplies</MenuItem>
                             <MenuItem value={'health'}>Health</MenuItem>
+                            <MenuItem value={'wash'}>WASH</MenuItem>
+                            <MenuItem value={'psychosocial'}>Psychosocial</MenuItem>
                             <MenuItem value={'legal'}>Legal</MenuItem>
-                            <MenuItem value={'welfare'}>Welfare</MenuItem>
                             </Select>
                         </FormControl>
                         <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
@@ -259,9 +262,10 @@ const Complaints = () => {
                 <div className={`relative flex flex-col lg:flex-row gap-4 py-4 w-full max-w-6xl overflow-hidden ${showTopNav? 'h-16 lg:h-auto': ''}`}>
                     <button onClick={(e) => {setComplaintCategory(complaintCategories[`${e.target.textContent}`]); setCurrentCategory(e.target.textContent)}} className={`${currentCategory === 'all'? 'bg-purple-900 text-white': 'bg-white text-purple-900'} border border-purple-900 px-7 py-2 text-white rounded-lg capitalize`}>all</button>
                     <button onClick={(e) => {setComplaintCategory(complaintCategories[`${e.target.textContent}`]); setCurrentCategory(e.target.textContent)}} className={`${currentCategory === 'health'? 'bg-green-600 text-white': 'bg-white text-green-600'} border border-green-600 px-7 py-2 text-white rounded-lg capitalize`}>health</button>
-                    <button onClick={(e) => {setComplaintCategory(complaintCategories[`${e.target.textContent}`]); setCurrentCategory(e.target.textContent)}} className={`${currentCategory === 'counselling'? 'bg-red-600 text-white': 'bg-white text-red-600'} border border-red-600 px-7 py-2 text-white rounded-lg capitalize`}>counselling</button>
-                    <button onClick={(e) => {setComplaintCategory(complaintCategories[`${e.target.textContent}`]); setCurrentCategory(e.target.textContent)}} className={`${currentCategory === 'welfare'? 'bg-yellow-600 text-white': 'bg-white text-yellow-600'} border border-yellow-600 px-7 py-2 text-white rounded-lg capitalize`}>welfare</button>
-                    <button onClick={(e) => {setComplaintCategory(complaintCategories[`${e.target.textContent}`]); setCurrentCategory(e.target.textContent)}} className={`${currentCategory === 'legal'? 'bg-purple-600 text-white': 'bg-white text-purple-600'} border border-purple-600 px-7 py-2 text-white rounded-lg capitalize`}>legal</button>
+                    <button onClick={(e) => {setComplaintCategory(complaintCategories[`${e.target.textContent}`]); setCurrentCategory(e.target.textContent)}} className={`${currentCategory === 'supplies'? 'bg-red-600 text-white': 'bg-white text-red-600'} border border-red-600 px-7 py-2 text-white rounded-lg capitalize`}>supplies</button>
+                    <button onClick={(e) => {setComplaintCategory(complaintCategories[`${e.target.textContent}`]); setCurrentCategory(e.target.textContent)}} className={`${currentCategory === 'psychosocial'? 'bg-blue-600 text-white': 'bg-white text-blue-600'} border border-blue-600 px-7 py-2 text-white rounded-lg capitalize`}>psychosocial</button>
+                    <button onClick={(e) => {setComplaintCategory(complaintCategories[`${e.target.textContent}`]); setCurrentCategory(e.target.textContent)}} className={`${currentCategory === 'wash'? 'bg-purple-600 text-white': 'bg-white text-purple-600'} border border-purple-600 px-7 py-2 text-white rounded-lg uppercase`}>wash</button>
+                    <button onClick={(e) => {setComplaintCategory(complaintCategories[`${e.target.textContent}`]); setCurrentCategory(e.target.textContent)}} className={`${currentCategory === 'legal'? 'bg-orange-600 text-white': 'bg-white text-orange-600'} border border-orange-600 px-7 py-2 text-white rounded-lg capitalize`}>legal</button>
                 </div>
                 <button onClick={() => setShowCreateComplaint(prevValue => !prevValue)} className='shrink-0 flex items-center gap-1 md:gap-3 border-[3px] hover:text-purple-600 hover:border-purple-600 text-gray-700 px-2 md:px-4 h-12 rounded-xl'>
                     <span className='flex items-center text-base'>New Complaint</span>

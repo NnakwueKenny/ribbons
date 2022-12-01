@@ -1,89 +1,289 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import MuiDrawer from '@mui/material/Drawer';
+import Box from '@mui/material/Box';
+import MuiAppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import List from '@mui/material/List';
+import Typography from '@mui/material/Typography';
+import Divider from '@mui/material/Divider';
+import IconButton from '@mui/material/IconButton';
+import Badge from '@mui/material/Badge';
+import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
+import Link from '@mui/material/Link';
+import MenuIcon from '@mui/icons-material/Menu';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
+import DraftsIcon from '@mui/icons-material/Drafts';
+import SettingsIcon from '@mui/icons-material/Settings';
+import SpeakerNotesIcon from '@mui/icons-material/SpeakerNotes';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
-const ChatAdminMsg = () => {
-    const { number } = useParams();
-    const [ chats, setChats ] = useState([]);
-    const [ typedMessage, setTypedMessage ] = useState('')
+import { mainListItems, secondaryListItems } from './components/ListItems';
+import Chart from './components/Chart';
+import Deposits from './components/Deposits';
+import Orders from './components/Orders';
 
-    const sendMessage = (message) => {
-        fetch('https://timmyedibo.pythonanywhere.com/api/chats/', {
-            method: 'post',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                sent_by: "+2347067272110",
-                sent_to: `${number}`,
-                message: message
-            })
-        })
-        .then(response => response.json())
-        .then(data => {
-            setTypedMessage('');
-            getMessages();
-        })
-        .catch(err => console.log(err))
+import { useNavigate } from 'react-router-dom';
+import  checkLogin from './functions/checkAdminLogin';
+import Loader from '../../components/Loader';
+import logo from '../../images/logo.png';
+import AdminDashboard from './components/AdminDashboard';
+import Complaints from './components/Complaints';
+import Drafts from './components/Drafts';
+import { ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
+import Dashboard from '@mui/icons-material/Dashboard';
+import ShoppingCart from '@mui/icons-material/ShoppingCart';
+import People from '@mui/icons-material/People';
+import BarChart from '@mui/icons-material/BarChart';
+import Layers from '@mui/icons-material/Layers';
+import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
+
+function Copyright(props) {
+    return (
+        <Typography variant="body2" color="text.primary" align="center" {...props}>
+            {'Copyright © '}
+            <Link color="inherit" href="https://mui.com/">
+                Ribbons
+            </Link>{' '}
+            {new Date().getFullYear()}
+            {'.'}
+        </Typography>
+    );
+}
+const drawerWidth = 240;
+
+const AppBar = styled(MuiAppBar, {
+    shouldForwardProp: (prop) => prop !== 'open',
+})(({ theme, open }) => ({
+    zIndex: theme.zIndex.drawer + 1,
+    transition: theme.transitions.create(['width', 'margin'], {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+    }),
+    ...(open && {
+        marginLeft: drawerWidth,
+        width: `calc(100% - ${drawerWidth}px)`,
+        transition: theme.transitions.create(['width', 'margin'], {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.enteringScreen,
+        }),
+    }),
+}));
+
+const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
+    ({ theme, open }) => ({
+        '& .MuiDrawer-paper': {
+            position: 'relative',
+            whiteSpace: 'nowrap',
+            width: drawerWidth,
+            transition: theme.transitions.create('width', {
+                easing: theme.transitions.easing.sharp,
+                duration: theme.transitions.duration.enteringScreen,
+            }),
+            boxSizing: 'border-box',
+            ...(!open && {
+                overflowX: 'hidden',
+                transition: theme.transitions.create('width', {
+                    easing: theme.transitions.easing.sharp,
+                    duration: theme.transitions.duration.leavingScreen,
+                }),
+                width: theme.spacing(7),
+                [theme.breakpoints.up('sm')]: {
+                    width: theme.spacing(9),
+                },
+            }),
+        },
+    }),
+);
+
+const mdTheme = createTheme();
+
+const theme = createTheme({
+    status: {
+        danger: '#e53e3e',
+    },
+    palette: {
+        primary: {
+        main: 'rgb(88 28 135)',
+        darker: 'rgb(88 40 120)',
+        },
+        neutral: {
+        main: '#64748B',
+        contrastText: '#fff',
+        },
+    },
+});
+
+const AdminIndex = () => {
+    const navigate = useNavigate();
+    const [ isLoggedIn, setIsLoggedIn ] = useState(false);
+    const [ currentAdmin, setCurrentAdmin ] = useState({});
+    const [ isPageLoading, setIsPageLoading ] = useState(false);
+    const [ showSidebar, setShowSidebar ] = useState(false);
+
+    const pages = {
+        dashboard: <AdminDashboard />,
+        complaints: <Complaints /> ,
+        drafts: <Drafts />,
+        support: <Drafts filter='support' />,
+        // chat: <WelfareComplaint filter='welfare' />,
     }
 
-    const getMessages = () => {
-        fetch(`https://timmyedibo.pythonanywhere.com/api/chats/${number}`)
-        .then(response => response.json())
-        .then(data => {
-            setChats(data);
-        })
-        .catch(err => console.log(err))
-    }
+    const [ page, setPage ] = useState(pages.dashboard);
+    const [ currentPage, setCurrentPage ] = useState('dashboard');
 
     useEffect(() => {
-        getMessages();
+        checkLogin(setIsLoggedIn, setCurrentAdmin, navigate, setIsPageLoading);
+        console.log('Hello');
     }, []);
 
-  return (
-    <div className='w-full h-full flex flex-col'>
-        <Link to='/chat-admin' className='absolute h-14 flex items-center px-3 text-gray-600 hover:text-purple-900'><i className='fa fa-arrow-left'></i></Link>
-        <div className='text-xl font-bold shadow-lg py-3 text-gray-500 border-y'>Ease Tour Admin</div>
-        <div className='w-full mb-auto flex flex-col divide-y px-3 h-ful overflow-auto'>
-            <div style={{fontFamily: `'Lato', sans-serif`}} className='flex flex-col py-2 w-full h-full overflow-auto gap-2 rounded-lg'>
-                <div className='relative flex justify-center py-1'>
-                    <div className='absolute w-full border top-[50%] z-20'></div>
-                    <span className='bg-gray-500 px-3 py-1 rounded-lg text-xs text-white z-30'>Today</span>
-                </div>
-                <div className='flex justify-end px-2 mb-1'>
-                    <div className='max-w-xs text-start border border-purple-900 bg-white text-purple-900 px-2.5 py-1 rounded-2xl rounded-tr-none'>Hi ! Welcome to Ribbons...</div>
-                </div>
-                <div className='flex justify-end px-2 mb-1'>
-                    <div className='max-w-xs text-start border border-purple-900 bg-white text-purple-900 px-2.5 py-1 rounded-2xl rounded-tr-none'>Please provide your phone number.</div>
-                </div>
-                <div className='relative flex justify-start px-2 mb-1'>
-                    <div  className='max-w-xs text-start bg-purple-900 text-white px-2.5 py-1 rounded-2xl rounded-tl-none'>{number}</div>
-                </div>
-                {
-                    chats.filter(item => (item.sent_by === '+2347067272110' && item.sent_to === number) || (item.sent_by === number && item.sent_to === '+2347067272110')).map(data => 
-                        data.sent_by === number?
-                        <div className='flex justify-start px-2 mb-1'>
-                            <div  className='max-w-xs text-start bg-purple-900 text-white px-2.5 py-1 rounded-2xl rounded-tl-none'>{data.message.split('[')[0]}</div>
-                        </div>
-                        :
-                        <div className='flex justify-end px-2 mb-1'>
-                            <div className='max-w-xs text-start border border-purple-900 bg-white text-purple-900 px-2.5 py-1 rounded-2xl rounded-tr-none'>{data.message.split('[')[0]}</div>
-                        </div>
-                )
-                }
-            </div>
+
+    const [open, setOpen] = React.useState(false);
+    const toggleDrawer = () => {
+      setOpen(!open);
+    };
+
+    const logout = () => {
+        setIsPageLoading(true);
+        localStorage.removeItem('adminAccessToken');
+        setTimeout(() => {
+            setIsPageLoading(false);
+            checkLogin(setIsLoggedIn, setCurrentAdmin, navigate, setIsPageLoading);
+        }, 2000);
+    }
+
+    const closeChat = (number) => {
+        navigate(`/admin/chat`);
+    }
+
+    const openAdminPage = () => {
+        navigate('/admin');
+    }
+
+    return (
+        <div className='w-full h-full flex flex-col'>
+            {
+                isPageLoading?
+                <Loader />
+                :
+                <>
+                    <main className='h-full w-full flex flex-col overflow-y-auto'>
+                        <ThemeProvider theme={mdTheme}>
+                            <Box sx={{ display: 'flex' }}>
+                                <CssBaseline />
+                                
+                                <AppBar position="absolute" sx={{backgroundColor: 'rgb(88 28 135)'}} open={open}>
+                                <Toolbar
+                                    sx={{
+                                    pr: '24px', // keep right padding when drawer closed
+                                    }}
+                                >
+                                    <IconButton edge="start" color="inherit" aria-label="open drawer" onClick={toggleDrawer}
+                                    sx={{
+                                        marginRight: '36px',
+                                        ...(open && { display: 'none' }),
+                                    }}
+                                    >
+                                    <MenuIcon />
+                                    </IconButton>
+                                    <Typography component="h1" variant="h4" color="inherit" noWrap
+                                    sx={{ flexGrow: 1 }}
+                                    >
+                                    Help Desk
+                                    </Typography>
+                                    <IconButton color="inherit" size='large' onClick={() => logout()}>
+                                        <PowerSettingsNewIcon fontSize='inherit'/>
+                                    </IconButton>
+                                    <IconButton color="inherit">
+                                    <Badge badgeContent={4} color="secondary">
+                                        <NotificationsIcon/>
+                                    </Badge>
+                                    </IconButton>
+                                </Toolbar>
+                                </AppBar>
+
+                                <Drawer variant="permanent" open={open}>
+                                    <Toolbar
+                                        sx={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'flex-end',
+                                        px: [1],
+                                        }}
+                                    >
+                                        <div className='text-center font-semibold block w-full text-purple-900 '>
+                                            <Typography component="h1" variant="h4" color="inherit" noWrap
+                                            sx={{ flexGrow: 1 }}
+                                            >
+                                            Ribbons
+                                            </Typography>
+                                        </div>
+                                        <IconButton onClick={toggleDrawer}>
+                                        <ChevronLeftIcon />
+                                        </IconButton>
+                                    </Toolbar>
+                                    <Divider />
+                                    <List component="nav">
+                                        {
+                                            <React.Fragment>
+                                                <ListItemButton onClick={() => closeChat()}>
+                                                    <ListItemIcon>
+                                                        <ArrowBackIcon />
+                                                    </ListItemIcon>
+                                                    <ListItemText primary="Back" />
+                                                </ListItemButton>
+
+                                                <ListItemButton onClick={() => openAdminPage()}>
+                                                    <ListItemIcon>
+                                                        <Dashboard />
+                                                    </ListItemIcon>
+                                                    <ListItemText primary="Dashboard" />
+                                                </ListItemButton>
+    
+                                                <ListItemButton onClick={() => openAdminPage()}>
+                                                    <ListItemIcon>
+                                                        <DriveFileRenameOutlineIcon />
+                                                    </ListItemIcon>
+                                                    <ListItemText primary="Complaints" />
+                                                </ListItemButton>
+    
+                                                <ListItemButton onClick={() => openAdminPage()}>
+                                                    <ListItemIcon>
+                                                        <DraftsIcon />
+                                                    </ListItemIcon>
+                                                    <ListItemText primary="Drafts" />
+                                                </ListItemButton>
+    
+                                                <ListItemButton onClick={() => openAdminPage()}>
+                                                    <ListItemIcon>
+                                                        <SettingsIcon />
+                                                    </ListItemIcon>
+                                                    <ListItemText primary="Support" />
+                                                </ListItemButton>
+    
+                                                <ListItemButton>
+                                                    <ListItemIcon>
+                                                        <SpeakerNotesIcon />
+                                                    </ListItemIcon>
+                                                    <ListItemText primary="Chat" />
+                                                </ListItemButton>
+                                            </React.Fragment>
+                                        }
+                                    </List>
+                                </Drawer>
+                                {page}
+                            </Box>
+                        </ThemeProvider>
+                    </main>
+                </>
+            }
         </div>
-        <div className='w-full'>
-            <div className='flex py-2 px-4 w-full'>
-                <div className='w-full relative'>
-                    <label className='sr-only'>Send Message</label>
-                    <input onChange={(e) => setTypedMessage(e.target.value)} value={typedMessage} type='text' className='w-full rounded-xl' placeholder='Your message...'/>
-                    <button type='button' onClick={() => sendMessage(typedMessage)} className='absolute h-full px-3 text-teal-600 right-0'><i className='fa fa-paper-plane'></i></button>
-                </div>
-            </div>
-        </div>
-    </div>
-  )
+    )
 }
 
-export default ChatAdminMsg;
+export default AdminIndex
