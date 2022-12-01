@@ -98,6 +98,23 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   
 const mdTheme = createTheme();
 
+const theme = createTheme({
+    status: {
+      danger: '#e53e3e',
+    },
+    palette: {
+      primary: {
+        main: 'rgb(88 28 135)',
+        darker: 'rgb(88 40 120)',
+      },
+      neutral: {
+        main: '#64748B',
+        contrastText: '#fff',
+      },
+    },
+  });
+  
+
 const AdminIndex = () => {
     const navigate = useNavigate();
     const [ isLoggedIn, setIsLoggedIn ] = useState(false);

@@ -48,6 +48,8 @@ const Complaints = () => {
         }
     }
 
+    const [ showTopNav, setShowTopNav ] = useState(false);
+
     const sendComplaint = () => {
         setIsSubmitting(true);
         console.log(dept, severity, complainantName, complainantPhone, desc);
@@ -141,12 +143,12 @@ const Complaints = () => {
             >
             <Box className='relative bg-white w-full max-w-3xl h-auto max-h-[700px] rounded-2xl p-6'>
                 <button onClick={() => setShowCreateComplaint(prevValue => !prevValue)} className='absolute top-8 right-8 text-2xl'><i className='fa fa-times'></i></button>
-                <div className='w-full flex justify-center text-purple-900'>
-                    <Typography variant='h4' sx={{ mt: 2 }}>
+                <div className='w-full flex justify-start md:justify-center text-purple-900'>
+                    <Typography variant='h5' sx={{ mt: 1 }}>
                         Create New Complaint
                     </Typography>
                 </div>
-                <div className='py-5 md:p-8 h-auto flex flex-col gap-3'>
+                <div className='py-2 md:p-8 h-auto flex flex-col gap-3'>
                     <div className='grid md:grid-cols-2 gap-2 md:gap-6 py-2 '>
                         <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
                             <InputLabel id="dept-label">Department</InputLabel>
@@ -212,7 +214,7 @@ const Complaints = () => {
                         <TextField
                             id="filled-multiline-flexible"
                             multiline
-                            rows={4}
+                            rows={3}
                             p={2}
                             value={desc}
                             onChange={(e) => setDesc(e.target.value)}
@@ -242,9 +244,19 @@ const Complaints = () => {
                 </div>
             </Box>
         </Modal>
-        <div className='flex items-center justify-center shadow px-3 py-5 pt-20'>
-            <div className='w-full max-w-7xl flex gap-3 items-baseline lg:items-center justify-between'>
-                <div className='flex flex-col lg:flex-row gap-4 py-4 w-full max-w-6xl'>
+        <div className='flex items-center justify-center shadow px-3 py-5 pt-20 bg-opacity-25'>
+            <div className='relative w-full max-w-7xl flex gap-3 items-baseline lg:items-center justify-between bg-opacity-25'>
+                <div className={'absolute -top-4 right-2 lg:hidden'}>
+                    <button onClick={() => setShowTopNav(prevValue => !prevValue)} className='text-lg'>
+                        {
+                            showTopNav?
+                            <span><i className='fa fa-bars'></i></span>
+                            :
+                            <span><i className='fa fa-times'></i></span>
+                        }
+                    </button>
+                </div>
+                <div className={`relative flex flex-col lg:flex-row gap-4 py-4 w-full max-w-6xl overflow-hidden ${showTopNav? 'h-16 lg:h-auto': ''}`}>
                     <button onClick={(e) => {setComplaintCategory(complaintCategories[`${e.target.textContent}`]); setCurrentCategory(e.target.textContent)}} className={`${currentCategory === 'all'? 'bg-purple-900 text-white': 'bg-white text-purple-900'} border border-purple-900 px-7 py-2 text-white rounded-lg capitalize`}>all</button>
                     <button onClick={(e) => {setComplaintCategory(complaintCategories[`${e.target.textContent}`]); setCurrentCategory(e.target.textContent)}} className={`${currentCategory === 'health'? 'bg-green-600 text-white': 'bg-white text-green-600'} border border-green-600 px-7 py-2 text-white rounded-lg capitalize`}>health</button>
                     <button onClick={(e) => {setComplaintCategory(complaintCategories[`${e.target.textContent}`]); setCurrentCategory(e.target.textContent)}} className={`${currentCategory === 'counselling'? 'bg-red-600 text-white': 'bg-white text-red-600'} border border-red-600 px-7 py-2 text-white rounded-lg capitalize`}>counselling</button>
@@ -257,7 +269,7 @@ const Complaints = () => {
                 </button>
             </div>
         </div>
-        <div className='w-full h-full flex overflow-auto pt-8'>
+        <div className='w-full h-full flex overflow-auto pt-2 md:pt-6'>
             {complaintCategory}
         </div>
     </div>
