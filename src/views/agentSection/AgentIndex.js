@@ -28,9 +28,8 @@ import { useNavigate } from 'react-router-dom';
 import  checkLogin from './functions/checkAgentLogin';
 import Loader from '../../components/Loader';
 import logo from '../../images/logo.png';
-import AdminDashboard from './components/AdminDashboard'
+import AgentDashboard from './components/AgentDashboard'
 import Complaints from './components/Complaints';
-import Drafts from './components/Drafts';
 import { ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
 import Dashboard from '@mui/icons-material/Dashboard';
 import ShoppingCart from '@mui/icons-material/ShoppingCart';
@@ -106,9 +105,9 @@ const AgentIndex = () => {
     // const [ showSidebar, setShowSidebar ] = useState(false);
 
     const pages = {
-        dashboard: <AdminDashboard />,
+        dashboard: <AgentDashboard />,
         complaints: <Complaints /> ,
-        drafts: <Drafts />,
+        // drafts: <Drafts />,
         // chat: <WelfareComplaint filter='welfare' />,
     }
 
@@ -212,13 +211,6 @@ const AgentIndex = () => {
                                             <ShoppingCart />
                                         </ListItemIcon>
                                         <ListItemText primary="Complaints" />
-                                    </ListItemButton>
-
-                                    <ListItemButton onClick={(e) => {setPage(pages['drafts']); setCurrentPage('drafts')}}>
-                                        <ListItemIcon>
-                                            <People />
-                                        </ListItemIcon>
-                                        <ListItemText primary="Drafts" />
                                     </ListItemButton>
 
                                     <ListItemButton onClick={(e) => {setPage(pages['chat']); setCurrentPage('chat')}}>
