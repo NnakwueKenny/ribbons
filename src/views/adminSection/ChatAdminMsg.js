@@ -220,7 +220,7 @@ const AdminIndex = () => {
                     msg: myMessage,
                     dept: "Medical",
                     loc: JSON.parse(localStorage.getItem('adminLocation')),
-                    status: 0
+                    status: 2
                 })
             }
         )
