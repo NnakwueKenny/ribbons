@@ -207,42 +207,43 @@ const AdminIndex = () => {
 
     const sendMessage = () => {
         console.log('Sending message');
-        fetch(`https://fancy.com/api/sms/sendsms?username=farex&password=faruqcomputers&sender=Ribbons&recipient=%22${'+2348137926904'}%22&message=${myMessage}`,
-            {
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                }
-            }
-        )
-        .then(res => res.json())
-        .then(data => console.log(data))
-        .catch(err => console.log(err))
-        // fetch('https://ribbons.onrender.com/admin/chat',
+        // fetch(`https://fancy.com/api/sms/sendsms?username=farex&password=faruqcomputers&sender=Ribbons&recipient=%22${'+2348137926904'}%22&message=${myMessage}`,
         //     {
-        //         method: 'post',
         //         headers: {
-        //             accept: 'application/json',
-        //             'Content-Type': 'application/json'
-        //         },
-        //         body: JSON.stringify({
-        //             sender: JSON.parse(localStorage.getItem('adminPhone')),
-        //             receiver: userNumber,
-        //             msg: myMessage,
-        //             dept: "Medical",
-        //             loc: JSON.parse(localStorage.getItem('adminLocation')),
-        //             status: 2
-        //         })
+        //             'Content-Type': 'application/x-www-form-urlencoded',
+        //         }
         //     }
         // )
-        // .then(response => response.json())
-        // .then(data => {
-        //     console.log(data);
-        //     setMyMessage('');
-        //     getAllChats();
-        //     fetch(`https://fancy.com/api/sms/sendsms?username=farex&password=faruqcomputers&sender=Ribbons&recipient=%22${'+2348137926904'}%22&message=${myMessage}`)
-        //     .then(response => response.json())
-        //     .then(data => console.log(data))
-        // })
+        // .then(res => res.json())
+        // .then(data => console.log(data))
+        // .catch(err => console.log(err))
+
+        fetch('https://ribbons.onrender.com/admin/chat',
+            {
+                method: 'post',
+                headers: {
+                    accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    sender: JSON.parse(localStorage.getItem('adminPhone')),
+                    receiver: userNumber,
+                    msg: myMessage,
+                    dept: "Medical",
+                    loc: JSON.parse(localStorage.getItem('adminLocation')),
+                    status: 2
+                })
+            }
+        )
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            setMyMessage('');
+            getAllChats();
+            fetch(`https://fancy.com/api/sms/sendsms?username=farex&password=faruqcomputers&sender=Ribbons&recipient=%22${'+2348137926904'}%22&message=${myMessage}`)
+            .then(response => response.json())
+            .then(data => console.log(data))
+        })
     }
 
     return (

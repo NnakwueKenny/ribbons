@@ -5,6 +5,12 @@ import CounsellingComplaint from '../components/CounsellingComplaints';
 import WelfareComplaint from '../components/WelfareComplaints';
 import LegalComplaint from '../components/LegalComplaints';
 import { Box, FormControl, InputLabel, MenuItem, Modal, Select, TextField, Toolbar, Typography } from '@mui/material';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 
 const Complaints = () => {
     const complaintCategories = {
@@ -14,6 +20,8 @@ const Complaints = () => {
         welfare: <WelfareComplaint filter='welfare' />,
         legal: <LegalComplaint filter='legal' />,
     }
+
+    
 
     const [ complaintCategory, setComplaintCategory ] = useState(complaintCategories.all);
     const [ currentCategory, setCurrentCategory ] = useState('all');
@@ -259,13 +267,13 @@ const Complaints = () => {
                 <div className='w-full flex justify-center'>
                     <div className={`relative flex flex-col md:flex-row md:justify-between gap-4 md:gap-2 py-4 w-full max-w-3xl overflow-hidden ${showTopNav? '': 'h-16 md:h-auto'}`}>
                         <FormControl >
-                            <InputLabel id="demo-simple-select-helper-label">Status</InputLabel>
+                            <InputLabel id="demo-simple-select-helper-label">{`${currentCategory === 'open'? 'Open': currentCategory === 'closed'? 'Closed': 'Status'}`}</InputLabel>
                             <Select
                                 labelId="demo-simple-select-helper-label"
                                 id="demo-simple-select-helper"
                                 value={''}
                                 label="Status"
-                                onChange={(e) => {e.target.value === ''? alert('Nothing is happening here'): setComplaintCategory(complaintCategories[`${e.target.value}`]); setCurrentCategory(e.value)}}
+                                onChange={(e) => {e.target.value === ''? alert('Nothing is happening here'): setComplaintCategory(complaintCategories[`${e.target.value}`]); setCurrentCategory(e.target.value)}}
                                 className='w-full lg:w-24 h-12'
                                 >
                                 <MenuItem value={''}>None</MenuItem>
