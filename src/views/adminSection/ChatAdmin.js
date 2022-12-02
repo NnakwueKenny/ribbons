@@ -312,8 +312,8 @@ const AdminIndex = () => {
                                     }}>
                                         <Container maxWidth="xl" className='h-full pt-24'>
                                             <Grid container spacing={3} height='100%' columns={{ xs: 12}} direction='col'>
-                                                <div className='flex w-full h-full px-5 shadow'>
-                                                    <div className='h-full overflow-y-auto shadow w-2/5 divide-y'>
+                                                <div className='flex w-full h-full shadow'>
+                                                    <div className='h-full overflow-y-auto shadow w-full lg:w-2/5 divide-y px-5'>
                                                         {
                                                             chatUsers.map(user => {
                                                                 console.log(user)
@@ -326,7 +326,7 @@ const AdminIndex = () => {
                                                             })
                                                         }
                                                     </div>
-                                                    <div className='flex flex-col gap-2 justify-center items-center text-2xl font-semibold text-purple-900 w-full'>
+                                                    <div className='hidden lg:flex flex-col gap-2 justify-center items-center text-2xl font-semibold text-purple-900 w-full'>
                                                         <span className='text-purple-900 text-3xl'><i className='fa fa-message'></i></span>
                                                         <span>Chats Appear Here</span>
                                                     </div>

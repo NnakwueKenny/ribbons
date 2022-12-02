@@ -349,11 +349,35 @@ const AdminIndex = () => {
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div className='mb-auto h-full overflow-auto'>
-                                                        {
-                                                            currentUser &&
-                                                            currentUser.message.map(item => item.content)
-                                                        }
+                                                    <div className='flex flex-col justify-end px-2 h-full bg-white overflow-auto'>
+                                                        <div style={{ fontFamily: `'Lato', sans-serif` }} className='flex flex-col py-2 w-full h-full gap-2 rounded-lg'>
+                                                            <div className='mb-auto'></div>
+                                                            <div className='relative flex justify-center py-1'>
+                                                                <div className='absolute w-full border top-[50%] z-20'></div>
+                                                                <span className='bg-gray-500 px-3 py-1 rounded-lg text-xs text-white z-30'>Today</span>
+                                                            </div>
+                                                            <div className='flex justify-start px-2 mb-1'>
+                                                                <div className='max-w-xs text-start bg-purple-900 text-white px-2.5 py-1 rounded-2xl rounded-tl-none'>Hi ! Welcome to Ribbons...</div>
+                                                            </div>
+                                                            <div className='flex justify-start px-2 mb-1'>
+                                                                <div className='max-w-xs text-start bg-purple-900 text-white px-2.5 py-1 rounded-2xl rounded-tl-none'>Please provide your phone number.</div>
+                                                            </div>
+
+                                                            {/*
+                                                                chats.map(item => {
+                                                                    return (item.status === 'sent' ?
+                                                                        <div className='flex justify-end px-2 mb-1'>
+                                                                            <div className='max-w-xs text-start border border-purple-900 bg-white text-purple-900 px-2.5 py-1 rounded-2xl rounded-tr-none'>{item.content}</div>
+                                                                        </div>
+                                                                        :
+                                                                        <div className='flex justify-start px-2 mb-1'>
+                                                                            <div className='max-w-xs text-start bg-purple-900 text-white px-2.5 py-1 rounded-2xl rounded-tl-none'>{item.content}</div>
+                                                                        </div>)
+                                                                })
+
+                                                                 */
+                                                            }
+                                                        </div>
                                                     </div>
                                                     <div className='w-full px-4 py-4'>
                                                         <div className='relative'>
