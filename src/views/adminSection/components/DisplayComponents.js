@@ -12,7 +12,7 @@ export default function Deposits({value}) {
 
     const [ displayValues, setDisplayValues ] = useState({
         allCases: {
-            title: 'Cases/Request',
+            title: 'Open/Pending',
             resolved: '10',
             open: '60'
         },

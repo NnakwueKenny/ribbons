@@ -173,7 +173,9 @@ const AdminIndex = () => {
     }
     
     const [ chatUsers, setChatUsers ] = useState([]);
-    const [ currentUser, setCurrentUser ] = useState([])
+    const [ userNumber, setUserNumber ] = useState('');
+    const [ currentUserMessage, setCurrentUserMessage ] = useState([]);
+    const [ myMessage, setMyMessage ] = useState('');
 
     const getAllChats = () => {
         fetch('https://ribbons.onrender.com/chat/my-chats',
@@ -191,15 +193,44 @@ const AdminIndex = () => {
         .then(response => response.json())
         .then(data => {
             console.log(data);
-            console.log(localStorage.getItem('adminLocation'));
             setChatUsers(data);
-            setCurrentUser(data.filter(item => item.user == number))
+            setUserNumber(number.split(':')[1])
+            const thisUser = data.filter(item => item.user === number.split(':')[1]);
+            setCurrentUserMessage(thisUser.length > 0? thisUser[0].message: []);
+            console.log('This is the current user: ', thisUser[0].message);
         })
     }
     useEffect(() => {
         getAllChats();
         // console.log('Hello');
     }, []);
+
+    const sendMessage = () => {
+        console.log('Sending message');
+        fetch('https://ribbons.onrender.com/admin/chat',
+            {
+                method: 'post',
+                headers: {
+                    accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    sender: "+2348137926904",
+                    receiver: userNumber,
+                    msg: myMessage,
+                    dept: "Medical",
+                    loc: JSON.parse(localStorage.getItem('adminLocation')),
+                    status: 0
+                })
+            }
+        )
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            setMyMessage('');
+            getAllChats();
+        })
+    }
 
     return (
         <div className='w-full h-full flex flex-col'>
@@ -345,11 +376,11 @@ const AdminIndex = () => {
                                                                 <span className='text-gray-600 text-2xl'><i className='fa fa-user'></i></span>
                                                             </div>
                                                             <div className='flex items-center justify-center text-gray-600'>
-                                                                {number.split(':')}
+                                                                {number.split(':')[1]}
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div className='flex flex-col justify-end px-2 h-full bg-white overflow-auto'>
+                                                    <div className='flex flex-col justify-end px-2 h-full overflow-auto'>
                                                         <div style={{ fontFamily: `'Lato', sans-serif` }} className='flex flex-col py-2 w-full h-full gap-2 rounded-lg'>
                                                             <div className='mb-auto'></div>
                                                             <div className='relative flex justify-center py-1'>
@@ -363,9 +394,9 @@ const AdminIndex = () => {
                                                                 <div className='max-w-xs text-start bg-purple-900 text-white px-2.5 py-1 rounded-2xl rounded-tl-none'>Please provide your phone number.</div>
                                                             </div>
 
-                                                            {/*
-                                                                chats.map(item => {
-                                                                    return (item.status === 'sent' ?
+                                                            {
+                                                                currentUserMessage.map(item => {
+                                                                    return (item.status === 'received' ?
                                                                         <div className='flex justify-end px-2 mb-1'>
                                                                             <div className='max-w-xs text-start border border-purple-900 bg-white text-purple-900 px-2.5 py-1 rounded-2xl rounded-tr-none'>{item.content}</div>
                                                                         </div>
@@ -374,17 +405,15 @@ const AdminIndex = () => {
                                                                             <div className='max-w-xs text-start bg-purple-900 text-white px-2.5 py-1 rounded-2xl rounded-tl-none'>{item.content}</div>
                                                                         </div>)
                                                                 })
-
-                                                                 */
                                                             }
                                                         </div>
                                                     </div>
                                                     <div className='w-full px-4 py-4'>
                                                         <div className='relative'>
-                                                            <div className='absolute top-0 right-0 h-full px-3 flex items-center'>
-                                                                <button className=''><SendIcon color='primary'/></button>
+                                                            <div className='absolute top-0 right-0 h-full px-3 flex items-center z-10'>
+                                                                <button onClick={() => sendMessage()} className=''><SendIcon color='primary'/></button>
                                                             </div>
-                                                            <TextField id="outlined-basic" placeholder='Type Message' variant="outlined" className='w-full rounded-xl'/>
+                                                            <TextField onChange={(e) => setMyMessage(e.target.value)} value={myMessage} id="outlined-basic" placeholder='Type Message' variant="outlined" className='w-full rounded-xl'/>
                                                         </div>
                                                     </div>
                                                 </div>
