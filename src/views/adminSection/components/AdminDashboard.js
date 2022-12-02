@@ -113,138 +113,173 @@ const AdminDashboard = () => {
         <Grid container spacing={3}>
           {/* Chart */}
           {/* All Cases */}
-          <Grid item xs={12} md={6} lg={4}>
-            <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', height: 320 }} >
+          <Grid item xs={12} md={4} lg={4}>
+            <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', height: 200, justifyContent: 'space-between'}} >
               <DisplayComponents value={'allCases'}/>
             </Paper>
           </Grid>
 
           {/* Emergency Cases */}
-          <Grid item xs={12} md={6} lg={4}>
-            <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', height: 320 }} >
+          <Grid item xs={12} md={4} lg={4}>
+            <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', height: 200, justifyContent: 'space-between'}} >
               <DisplayComponents value={'liveEmergency'}/>
-            </Paper>
-          </Grid>
-
-          {/* Top Cases */}
-          <Grid item xs={12} md={6} lg={4}>
-            <Paper
-              sx={{ p: 2,  display: 'flex', flexDirection: 'column', height: 320 }}
-            >
-              <Title>
-                <Typography sx={{color: 'rgb(22 163 74)'}} component="h2" variant="h4">
-                    Top Cases Solved
-                </Typography>
-              </Title>
-              <Grid container spacing={3}>
-                  <Grid item xs={12}>
-                    <Stack direction="col" spacing={2} justifyContent="between">
-                      <ListItem textAlign = 'end'>
-                        <Typography variant='h5'>
-                          Department
-                        </Typography>
-                      </ListItem>
-                      <ListItem textAlign = 'end'>
-                        <Typography variant='h5'>
-                          Solved
-                        </Typography>
-                      </ListItem>
-                    </Stack>
-
-                    <Stack direction="col" spacing={2} justifyContent="between">
-                      <ListItem textAlign = 'end'>
-                        <Typography variant='h5'>
-                          Shelter
-                        </Typography>
-                      </ListItem>
-                      <ListItem textAlign = 'end'>
-                        <Typography variant='h5'>
-                          39
-                        </Typography>
-                      </ListItem>
-                    </Stack>
-
-                    <Stack direction="col" spacing={2} justifyContent="between">
-                      <ListItem textAlign = 'end'>
-                        <Typography variant='h5'>
-                          Legal
-                        </Typography>
-                      </ListItem>
-                      <ListItem textAlign = 'end'>
-                        <Typography variant='h5'>
-                          15
-                        </Typography>
-                      </ListItem>
-                    </Stack>
-
-                    <Stack direction="col" spacing={2} justifyContent="between">
-                      <ListItem textAlign = 'end'>
-                        <Typography variant='h5'>
-                          Counselling
-                        </Typography>
-                      </ListItem>
-                      <ListItem textAlign = 'end'>
-                        <Typography variant='h5'>
-                          70
-                        </Typography>
-                      </ListItem>
-                    </Stack>
-
-                    <Stack direction="col" spacing={2} justifyContent="between">
-                      <ListItem textAlign = 'end'>
-                        <Typography variant='h5'>
-                          Welfare
-                        </Typography>
-                      </ListItem>
-                      <ListItem textAlign = 'end'>
-                        <Typography variant='h5'>
-                          150
-                        </Typography>
-                      </ListItem>
-                    </Stack>
-                  </Grid>
-              </Grid>
             </Paper>
           </Grid>
 
           {/* Chart */}
-          <Grid item xs={12} md={6} lg={4}>
-            <Paper
-              sx={{ p: 2,  display: 'flex', flexDirection: 'column', height: 320 }}
-            >
+          <Grid item xs={12} md={4} lg={4}>
+            <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', height: 200, justifyContent: 'space-between'}} >
               <Chart />
             </Paper>
           </Grid>
-          
-          {/* Feedback */}
-          <Grid item xs={12} md={6} lg={4}>
-            <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', height: 320 }} >
-              <DisplayComponents value={'liveEmergency'}/>
-            </Paper>
-          </Grid>
 
-          {/* Agent Status */}
+          {/* Top Cases */}
+
           <Grid item xs={12} md={6} lg={4}>
             <Paper
-              sx={{ p: 2,  display: 'flex', flexDirection: 'column', height: 320 }}
+              sx={{ p: 1,  display: 'flex', flexDirection: 'column', height: 310 }}
             >
               <Title>
-                <Typography sx={{color: 'gray'}} component="h2" variant="h4">
-                    Agent Status
+                <Typography sx={{color: 'gray'}} component="h2" variant="h5">
+                  Top Cases Solved
                 </Typography>
               </Title>
-              <Grid container spacing={3}>
+              <Grid container spacing={1}>
                   <Grid item xs={12}>
                     <Stack direction="col" spacing={2} justifyContent="between">
                       <ListItem textAlign = 'end'>
                         <div className='w-full flex justify-between'>
                           <Title>
-                            <Typography sx={{color: 'gray'}} component="h3" variant="h5">
+                            <Typography sx={{color: 'gray'}} component="h3" variant="h6">
+                                Department
+                            </Typography>
+                          </Title>
+                          <Title>
+                            <Typography sx={{color: 'gray'}} component="h3" variant="h6">
+                                Cases
+                            </Typography>
+                          </Title>
+                        </div>
+                      </ListItem>
+                    </Stack>
+
+                    <Stack direction="col" spacing={2} justifyContent="between">
+                      <ListItem textAlign = 'end'>
+                        <div className='w-full flex justify-between'>
+                          <Title>
+                            <Typography sx={{color: 'gray'}} component="h3" variant="body2">
+                                Health
+                            </Typography>
+                          </Title>
+                          <Title>
+                            <Typography sx={{color: 'gray'}} component="h3" variant="body2">
+                                89
+                            </Typography>
+                          </Title>
+                        </div>
+                      </ListItem>
+                    </Stack>
+
+                    <Stack direction="col" spacing={2} justifyContent="between">
+                      <ListItem textAlign = 'end'>
+                        <div className='w-full flex justify-between'>
+                          <Title>
+                            <Typography sx={{color: 'gray'}} component="h3" variant="body2">
+                                Supplies
+                            </Typography>
+                          </Title>
+                          <Title>
+                            <Typography sx={{color: 'gray'}} component="h3" variant="body2">
+                              82
+                            </Typography>
+                          </Title>
+                        </div>
+                      </ListItem>
+                    </Stack>
+
+                    <Stack direction="col" spacing={2} justifyContent="between">
+                      <ListItem textAlign = 'end'>
+                        <div className='w-full flex justify-between'>
+                          <Title>
+                            <Typography sx={{color: 'gray'}} component="h3" variant="body2">
+                                WASH
+                            </Typography>
+                          </Title>
+                          <Title>
+                            <Typography sx={{color: 'gray'}} component="h3" variant="body2">
+                              80
+                            </Typography>
+                          </Title>
+                        </div>
+                      </ListItem>
+                    </Stack>
+                    
+                    <Stack direction="col" spacing={2} justifyContent="between">
+                      <ListItem textAlign = 'end'>
+                        <div className='w-full flex justify-between'>
+                          <Title>
+                            <Typography sx={{color: 'gray'}} component="h3" variant="body2">
+                                Psychosocial
+                            </Typography>
+                          </Title>
+                          <Title>
+                            <Typography sx={{color: 'gray'}} component="h3" variant="body2">
+                              80
+                            </Typography>
+                          </Title>
+                        </div>
+                      </ListItem>
+                    </Stack>
+
+                    <Stack direction="col" spacing={2} justifyContent="between">
+                      <ListItem textAlign = 'end'>
+                        <div className='w-full flex justify-between'>
+                          <Title>
+                            <Typography sx={{color: 'gray'}} component="h3" variant="body2">
+                              Legal
+                            </Typography>
+                          </Title>
+                          <Title>
+                            <Typography sx={{color: 'gray'}} component="h3" variant="body2">
+                              80
+                            </Typography>
+                          </Title>
+                        </div>
+                      </ListItem>
+                    </Stack>
+
+                  </Grid>
+              </Grid>
+            </Paper>
+          </Grid>
+          
+          {/* Feedback */}
+          <Grid item xs={12} md={6} lg={4}>
+            <Paper
+              sx={{ p: 2,  display: 'flex', flexDirection: 'column', height: 310 }}
+            >
+              <Title>
+                <Typography sx={{color: 'gray'}} component="h2" variant="h5">
+                  Feedback
+                </Typography>
+              </Title>
+              <Grid container spacing={1}>
+                  <Grid item xs={12}>
+                    <Stack direction="col" spacing={2} justifyContent="between">
+                      <ListItem textAlign = 'end'>
+                        <div className='w-full flex justify-between'>
+                          <Title>
+                            <Typography sx={{color: 'gray'}} component="h3" variant="h6">
                                 Name
                             </Typography>
                           </Title>
                           <Title>
-                            <Typography sx={{color: 'gray'}} component="h3" variant="h5">
+                            <Typography sx={{color: 'gray'}} component="h3" variant="h6">
+                                Dept.
+                            </Typography>
+                          </Title>
+                          <Title>
+                            <Typography sx={{color: 'gray'}} component="h3" variant="h6">
                                 Status
                             </Typography>
                           </Title>
@@ -254,53 +289,215 @@ const AdminDashboard = () => {
 
                     <Stack direction="col" spacing={2} justifyContent="between">
                       <ListItem textAlign = 'end'>
-                        <Typography variant='h5'>
-                          Salma50
-                        </Typography>
-                      </ListItem>
-                      <ListItem textAlign = 'end'>
-                        <Typography variant='h5'>
-                          Online
-                        </Typography>
-                      </ListItem>
-                    </Stack>
-
-                    <Stack direction="col" spacing={2} justifyContent="between">
-                      <ListItem textAlign = 'end'>
-                        <Typography variant='h5'>
-                          Dujo38
-                        </Typography>
-                      </ListItem>
-                      <ListItem textAlign = 'end'>
-                        <Typography variant='h5'color='red'>
-                          Offline
-                        </Typography>
+                        <div className='w-full flex justify-between'>
+                          <Title>
+                            <Typography sx={{color: 'gray'}} component="h3" variant="body2">
+                                Salma50
+                            </Typography>
+                          </Title>
+                          <Title>
+                            <Typography sx={{color: 'gray'}} component="h3" variant="body2">
+                                WASH
+                            </Typography>
+                          </Title>
+                          <Title>
+                            <Typography sx={{color: 'gray'}} component="h3" variant="body2">
+                                Online
+                            </Typography>
+                          </Title>
+                        </div>
                       </ListItem>
                     </Stack>
 
                     <Stack direction="col" spacing={2} justifyContent="between">
                       <ListItem textAlign = 'end'>
-                        <Typography variant='h5'>
-                          Prince40
-                        </Typography>
-                      </ListItem>
-                      <ListItem textAlign = 'end'>
-                        <Typography variant='h5' color='green'>
-                          Online
-                        </Typography>
+                        <div className='w-full flex justify-between'>
+                          <Title>
+                            <Typography sx={{color: 'gray'}} component="h3" variant="body2">
+                                Dujo38
+                            </Typography>
+                          </Title>
+                          <Title>
+                            <Typography sx={{color: 'gray'}} component="h3" variant="body2">
+                                Psychosocial
+                            </Typography>
+                          </Title>
+                          <Title>
+                            <Typography sx={{color: 'gray'}} component="h3" variant="body2">
+                            Offline
+                            </Typography>
+                          </Title>
+                        </div>
                       </ListItem>
                     </Stack>
 
                     <Stack direction="col" spacing={2} justifyContent="between">
                       <ListItem textAlign = 'end'>
-                        <Typography variant='h5'>
-                          Kene70
-                        </Typography>
+                        <div className='w-full flex justify-between'>
+                          <Title>
+                            <Typography sx={{color: 'gray'}} component="h3" variant="body2">
+                              Kene70
+                            </Typography>
+                          </Title>
+                          <Title>
+                            <Typography sx={{color: 'gray'}} component="h3" variant="body2">
+                              Medical
+                            </Typography>
+                          </Title>
+                          <Title>
+                            <Typography sx={{color: 'gray'}} component="h3" variant="body2">
+                            Offline
+                            </Typography>
+                          </Title>
+                        </div>
                       </ListItem>
+                    </Stack>
+
+                    <Stack direction="col" spacing={2} justifyContent="between">
                       <ListItem textAlign = 'end'>
-                        <Typography variant='h5' color='red'>
-                          Offline
-                        </Typography>
+                        <div className='w-full flex justify-between'>
+                          <Title>
+                            <Typography sx={{color: 'gray'}} component="h3" variant="body2">
+                              Prince40
+                            </Typography>
+                          </Title>
+                          <Title>
+                            <Typography sx={{color: 'gray'}} component="h3" variant="body2">
+                              Supplies
+                            </Typography>
+                          </Title>
+                          <Title>
+                            <Typography sx={{color: 'gray'}} component="h3" variant="body2">
+                            Online
+                            </Typography>
+                          </Title>
+                        </div>
+                      </ListItem>
+                    </Stack>
+                  </Grid>
+              </Grid>
+            </Paper>
+          </Grid>
+
+          {/* Agent Status */}
+          <Grid item xs={12} md={6} lg={4}>
+            <Paper
+              sx={{ p: 1,  display: 'flex', flexDirection: 'column', height: 310 }}
+            >
+              <Title>
+                <Typography sx={{color: 'gray'}} component="h2" variant="h5">
+                    Agent Status
+                </Typography>
+              </Title>
+              <Grid container spacing={1}>
+                  <Grid item xs={12}>
+                    <Stack direction="col" spacing={2} justifyContent="between">
+                      <ListItem textAlign = 'end'>
+                        <div className='w-full flex justify-between'>
+                          <Title>
+                            <Typography sx={{color: 'gray'}} component="h3" variant="subtitle1">
+                                Name
+                            </Typography>
+                          </Title>
+                          <Title>
+                            <Typography sx={{color: 'gray'}} component="h3" variant="h6">
+                                Dept.
+                            </Typography>
+                          </Title>
+                          <Title>
+                            <Typography sx={{color: 'gray'}} component="h3" variant="h6">
+                                Status
+                            </Typography>
+                          </Title>
+                        </div>
+                      </ListItem>
+                    </Stack>
+
+                    <Stack direction="col" spacing={2} justifyContent="between">
+                      <ListItem textAlign = 'end'>
+                        <div className='w-full flex justify-between'>
+                          <Title>
+                            <Typography sx={{color: 'gray'}} component="h3" variant="body2">
+                                Salma50
+                            </Typography>
+                          </Title>
+                          <Title>
+                            <Typography sx={{color: 'gray'}} component="h3" variant="body2">
+                                WASH
+                            </Typography>
+                          </Title>
+                          <Title>
+                            <Typography sx={{color: 'gray'}} component="h3" variant="body2">
+                                Online
+                            </Typography>
+                          </Title>
+                        </div>
+                      </ListItem>
+                    </Stack>
+
+                    <Stack direction="col" spacing={2} justifyContent="between">
+                      <ListItem textAlign = 'end'>
+                        <div className='w-full flex justify-between'>
+                          <Title>
+                            <Typography sx={{color: 'gray'}} component="h3" variant="body2">
+                                Dujo38
+                            </Typography>
+                          </Title>
+                          <Title>
+                            <Typography sx={{color: 'gray'}} component="h3" variant="body2">
+                                Psychosocial
+                            </Typography>
+                          </Title>
+                          <Title>
+                            <Typography sx={{color: 'gray'}} component="h3" variant="body2">
+                            Offline
+                            </Typography>
+                          </Title>
+                        </div>
+                      </ListItem>
+                    </Stack>
+
+                    <Stack direction="col" spacing={2} justifyContent="between">
+                      <ListItem textAlign = 'end'>
+                        <div className='w-full flex justify-between'>
+                          <Title>
+                            <Typography sx={{color: 'gray'}} component="h3" variant="body2">
+                              Kene70
+                            </Typography>
+                          </Title>
+                          <Title>
+                            <Typography sx={{color: 'gray'}} component="h3" variant="body2">
+                              Medical
+                            </Typography>
+                          </Title>
+                          <Title>
+                            <Typography sx={{color: 'gray'}} component="h3" variant="body2">
+                            Offline
+                            </Typography>
+                          </Title>
+                        </div>
+                      </ListItem>
+                    </Stack>
+
+                    <Stack direction="col" spacing={2} justifyContent="between">
+                      <ListItem textAlign = 'end'>
+                        <div className='w-full flex justify-between'>
+                          <Title>
+                            <Typography sx={{color: 'gray'}} component="h3" variant="body2">
+                              Prince40
+                            </Typography>
+                          </Title>
+                          <Title>
+                            <Typography sx={{color: 'gray'}} component="h3" variant="body2">
+                              Supplies
+                            </Typography>
+                          </Title>
+                          <Title>
+                            <Typography sx={{color: 'gray'}} component="h3" variant="body2">
+                            Online
+                            </Typography>
+                          </Title>
+                        </div>
                       </ListItem>
                     </Stack>
                   </Grid>

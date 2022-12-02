@@ -43,7 +43,7 @@ export default function Deposits({value}) {
 
     const [ displayValues, setDisplayValues ] = useState({
         allCases: {
-            title: 'Open/Pending',
+            title: 'All Cases',
             resolved: resolvedCases,
             open: pendingCases,
         },
@@ -64,24 +64,24 @@ export default function Deposits({value}) {
         </Title>
 
         <Grid container spacing={3}>
-            <Grid item xs={12}>
+            <Grid item xs={6}>
                 <Title>
-                    <Typography component="h2" variant="h4">
-                        Pending
+                    <Typography component="h2" variant="h5">
+                        Open
                     </Typography>
                 </Title>
-                <Typography component="p" variant="h4">
+                <Typography component="p" variant="h6">
                     {currentDisplay.open}
                 </Typography>
             </Grid>
 
             <Grid item xs={6}>
                 <Title>
-                    <Typography component="h2" variant="h4">
-                        Resolved
+                    <Typography component="h2" variant="h5">
+                        Closed
                     </Typography>
                 </Title>
-                <Typography component="p" variant="h4">
+                <Typography component="p" variant="h6">
                     {currentDisplay.resolved}
                 </Typography>
             </Grid>
