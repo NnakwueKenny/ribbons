@@ -9,12 +9,21 @@ function preventDefault(event) {
 }
 
 export default function Deposits({value}) {
-
-    const [ resolvedCases, setResolvedCases ] = useState(0);
-    const [ pendingCases, setPendingCases ] = useState(0);
-    const [ resolvedEmergency, setResolvedEmergency ] = useState(0);
-    const [ pendingEmergency, setPendingEmergency ] = useState(0);
-
+    
+    const [ displayValues, setDisplayValues ] = useState({
+        allCases: {
+            title: 'All Cases',
+            resolved: 0,
+            open: 0,
+        },
+        liveEmergency: {
+            title: 'Emergency Cases',
+            resolved: 0,
+            open: 0,
+        },
+    });
+    const [ currentDisplay, setCurrentDisplay ] = useState(displayValues[`${value}`]);
+    
     const getAllComplaints = () => {
         console.log('Fetching all request...');
         fetch('https://ribbons.onrender.com/complaint/get-all-complaints',
@@ -33,27 +42,35 @@ export default function Deposits({value}) {
         .then(response => response.json())
         .then(data => {
             console.log(data);
-
+            if (value === 'allCases') {
+                setDisplayValues(prevValue => {
+                    return {
+                        ...prevValue,
+                        allCases: {
+                            title: 'All Cases',
+                            resolved: data.filter(item => item.status === true).length,
+                            open: data.filter(item => item.status === false).length,
+                        }
+                    }
+                });
+            } else if (value === 'liveEmergency') {
+                setDisplayValues(prevValue => {
+                    return {
+                        ...prevValue,
+                        liveEmergency: {
+                            title: 'Emergency Cases',
+                            resolved: data.filter(item => item.status === true && item.severity === 'emergency').length,
+                            open: data.filter(item => item.status === false && item.severity === 'emergency').length,
+                        }
+                    }
+                });
+            }
         })
     }
-
     useEffect(() => {
         getAllComplaints();
-    })
-
-    const [ displayValues, setDisplayValues ] = useState({
-        allCases: {
-            title: 'All Cases',
-            resolved: resolvedCases,
-            open: pendingCases,
-        },
-        liveEmergency: {
-            title: 'Emergency Cases',
-            resolved: resolvedEmergency,
-            open: pendingEmergency,
-        },
-    })
-    const [ currentDisplay, setCurrentDisplay ] = useState(displayValues[`${value}`]);
+        setCurrentDisplay(displayValues[`${value}`])
+    }, []);
 
   return (
     <React.Fragment>
