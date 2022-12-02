@@ -75,7 +75,7 @@ export default function Deposits({value}) {
   return (
     <React.Fragment>
         <Title>
-            <Typography sx={{color: `${currentDisplay.title === 'All Cases'? 'rgb(88 28 135)': 'rgb(225 29 72)'}`}} component="h2" variant="h4">
+            <Typography sx={{color: `${currentDisplay.title === 'All Cases'? 'rgb(88 28 135)': 'rgb(225 29 72)'}`}} component="h2" variant="h5">
                 {currentDisplay.title}
             </Typography>
         </Title>

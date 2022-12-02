@@ -203,7 +203,7 @@ const AdminIndex = () => {
     useEffect(() => {
         getAllChats();
         // console.log('Hello');
-    }, []);
+    }, [number]);
 
     const sendMessage = () => {
         console.log('Sending message');
@@ -298,13 +298,6 @@ const AdminIndex = () => {
                                     <List component="nav">
                                         {
                                             <React.Fragment>
-                                                <ListItemButton onClick={() => closeChat()}>
-                                                    <ListItemIcon>
-                                                        <ArrowBackIcon />
-                                                    </ListItemIcon>
-                                                    <ListItemText primary="Back" />
-                                                </ListItemButton>
-
                                                 <ListItemButton onClick={() => openAdminPage()}>
                                                     <ListItemIcon>
                                                         <Dashboard />
@@ -357,7 +350,7 @@ const AdminIndex = () => {
                                     <Container maxWidth="xl" className='h-full pt-24'>
                                         <Grid container spacing={3} height='100%' columns={{ xs: 12}} direction='col'>
                                             <div className='flex w-full h-full shadow'>
-                                                <div className='h-full overflow-y-auto shadow w-2/5 divide-y px-2'>
+                                                <div className='hidden lg:flex flex-col h-full overflow-y-auto shadow w-2/5 divide-y px-2'>
                                                     {
                                                         chatUsers.map(user => {
                                                             return (
@@ -371,12 +364,17 @@ const AdminIndex = () => {
                                                 </div>
                                                 <div className='flex flex-col gap-2 font-semibold text-purple-900 w-full'>
                                                     <div className='flex w-full shadow py-2 px-4'>
-                                                        <div className='flex gap-2 '>
-                                                            <div className='w-14 h-14 flex items-center justify-center border rounded-full shadow'>
-                                                                <span className='text-gray-600 text-2xl'><i className='fa fa-user'></i></span>
-                                                            </div>
+                                                        <ListItemButton onClick={() => closeChat()} width={2}>
+                                                            <ListItemIcon>
+                                                                <ArrowBackIcon />
+                                                            </ListItemIcon>
+                                                        </ListItemButton>
+                                                        <div className='flex gap-2 w-full justify-between'>
                                                             <div className='flex items-center justify-center text-gray-600'>
                                                                 {number.split(':')[1]}
+                                                            </div>
+                                                            <div className='w-14 h-14 flex items-center justify-center border rounded-full shadow'>
+                                                                <span className='text-gray-600 text-2xl'><i className='fa fa-user'></i></span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -387,13 +385,6 @@ const AdminIndex = () => {
                                                                 <div className='absolute w-full border top-[50%] z-20'></div>
                                                                 <span className='bg-gray-500 px-3 py-1 rounded-lg text-xs text-white z-30'>Today</span>
                                                             </div>
-                                                            <div className='flex justify-start px-2 mb-1'>
-                                                                <div className='max-w-xs text-start bg-purple-900 text-white px-2.5 py-1 rounded-2xl rounded-tl-none'>Hi ! Welcome to Ribbons...</div>
-                                                            </div>
-                                                            <div className='flex justify-start px-2 mb-1'>
-                                                                <div className='max-w-xs text-start bg-purple-900 text-white px-2.5 py-1 rounded-2xl rounded-tl-none'>Please provide your phone number.</div>
-                                                            </div>
-
                                                             {
                                                                 currentUserMessage.map(item => {
                                                                     return (item.status === 'received' ?
