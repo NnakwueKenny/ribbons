@@ -347,7 +347,7 @@ const AdminIndex = () => {
                                     height: '100vh',
                                     overflow: 'auto',
                                 }}>
-                                    <Container maxWidth="xl" className='h-full pt-24'>
+                                    <Container maxWidth="xl" className='h-full w-full pt-24'>
                                         <Grid container spacing={3} height='100%' columns={{ xs: 12}} direction='col'>
                                             <div className='flex w-full h-full shadow'>
                                                 <div className='hidden lg:flex flex-col h-full overflow-y-auto shadow w-2/5 divide-y px-2'>
