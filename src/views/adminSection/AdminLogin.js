@@ -79,7 +79,7 @@ const theme = createTheme();
           toggleMessageContent(setLoginMessage, data.error);
           setLoginStatus(false);
         } else {
-          toggleMessageContent(setLoginMessage, data.message);
+          toggleMessageContent(setLoginMessage, '');
           setLoginStatus(true);
           localStorage.setItem('adminAccessToken', JSON.stringify(data.accessToken));
           localStorage.setItem('adminUsername', JSON.stringify(username));
@@ -94,7 +94,7 @@ const theme = createTheme();
         setIsLoading(false);
     })
     .catch(err => {
-      console.log(err)
+      console.log(err);
       toggleMessageContent(setLoginMessage, 'Login failed');
       setLoginStatus(false);
       setIsLoading(false);
