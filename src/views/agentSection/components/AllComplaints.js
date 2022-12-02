@@ -17,8 +17,8 @@ const AllComplaints = ({filter}) => {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    loc: JSON.parse(localStorage.getItem('adminLocation')),
-                    username: JSON.parse(localStorage.getItem('adminUsername'))
+                    loc: JSON.parse(localStorage.getItem('agentLocation')),
+                    username: JSON.parse(localStorage.getItem('agentUsername'))
                 })
             }
         )
@@ -32,6 +32,7 @@ const AllComplaints = ({filter}) => {
             }
             setIsLoading(false)
         })
+        .catch(err => setComplaints([]))
     }
 
     useEffect(() => {
@@ -103,8 +104,8 @@ const AllComplaints = ({filter}) => {
                                         <p className='mt-auto mb-4 text-yellow-700 text-xl'>Pending</p>
                                     }
                                     <div className='px-5'>
-                                        <a  href={`${complaint.status? 'tel:'+complaint.phone: 'javascript:void(0)'}`} id={complaint.id} className={`flex w-full items-center justify-center px-3 py-3 text-lg font-semibold text-center text-white ${complaint.status? 'bg-purple-800 hover:bg-purple-900 focus:ring-4 focus:outline-none focus:ring-purple-300': 'bg-gray-500 cursor-default'} rounded-lg`}>
-                                            Call Victim
+                                        <a  href={`${!complaint.status? 'tel:'+complaint.phone: 'javascript:void(0)'}`} id={complaint.id} className={`flex w-full items-center justify-center px-3 py-3 text-lg font-semibold text-center text-white ${!complaint.status? 'bg-purple-800 hover:bg-purple-900 focus:ring-4 focus:outline-none focus:ring-purple-300': 'bg-gray-500 cursor-default'} rounded-lg`}>
+                                            {!complaint.status? 'Resolve': 'Resolved'}
                                             <svg aria-hidden="true" className="w-4 h-4 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
                                         </a>
                                     </div>

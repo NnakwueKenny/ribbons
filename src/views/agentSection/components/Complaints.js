@@ -257,7 +257,7 @@ const Complaints = () => {
                     </button>
                 </div>
                 <div className='w-full flex justify-center'>
-                    <div className={`relative flex flex-col md:flex-row lg:justify-between gap-4 md:gap-2 py-4 w-full max-w-3xl overflow-hidden ${showTopNav? '': 'h-16 lg:h-auto'}`}>
+                    <div className={`relative flex flex-col md:flex-row md:justify-between gap-4 md:gap-2 py-4 w-full max-w-3xl overflow-hidden ${showTopNav? '': 'h-16 md:h-auto'}`}>
                         <FormControl >
                             <InputLabel id="demo-simple-select-helper-label">Status</InputLabel>
                             <Select
