@@ -18,6 +18,8 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
+import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
+import SpeakerNotesIcon from '@mui/icons-material/SpeakerNotes';
 
 import { mainListItems, secondaryListItems } from './components/ListItems';
 import Chart from './components/Chart';
@@ -207,9 +209,9 @@ const AgentIndex = () => {
                                     </ListItemButton>
 
                                     <ListItemButton onClick={(e) => {setPage(pages['complaints']); setCurrentPage('complaints')}}>
-                                        <ListItemIcon>
-                                            <ShoppingCart />
-                                        </ListItemIcon>
+                                    <ListItemIcon>
+                                        <DriveFileRenameOutlineIcon />
+                                    </ListItemIcon>
                                         <ListItemText primary="Complaints" />
                                     </ListItemButton>
 

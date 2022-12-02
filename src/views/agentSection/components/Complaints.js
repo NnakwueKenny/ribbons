@@ -246,43 +246,41 @@ const Complaints = () => {
         </Modal>
         <div className='flex items-center justify-center shadow px-3 py-5 pt-20 bg-opacity-25'>
             <div className='relative w-full max-w-7xl flex gap-3 items-baseline lg:items-center justify-between bg-opacity-25'>
-                <div className={'absolute -top-4 right-2 lg:hidden'}>
+                <div className={'absolute -top-4 right-2 md:hidden'}>
                     <button onClick={() => setShowTopNav(prevValue => !prevValue)} className='text-lg'>
                         {
                             showTopNav?
-                            <span><i className='fa fa-bars'></i></span>
-                            :
                             <span><i className='fa fa-times'></i></span>
+                            :
+                            <span><i className='fa fa-bars'></i></span>
                         }
                     </button>
                 </div>
-                <div className={`relative flex flex-col lg:flex-row gap-4 md:gap-2 py-4 w-full max-w-6xl overflow-hidden ${showTopNav? 'h-16 lg:h-auto': ''}`}>
-                    <FormControl >
-                        <InputLabel id="demo-simple-select-helper-label">Status</InputLabel>
-                        <Select
-                            labelId="demo-simple-select-helper-label"
-                            id="demo-simple-select-helper"
-                            value={''}
-                            label="Status"
-                            onChange={(e) => {e.target.value === ''? alert('Nothing is happening here'): setComplaintCategory(complaintCategories[`${e.target.value}`]); setCurrentCategory(e.value)}}
-                            className='w-full lg:w-24 h-12'
-                            >
-                            <MenuItem value={''}>None</MenuItem>
-                            <MenuItem value={'open'}>Open</MenuItem>
-                            <MenuItem value={'closed'}>Closed</MenuItem>
-                        </Select>
-                    </FormControl>
-                    <button onClick={(e) => {setComplaintCategory(complaintCategories[`${e.target.textContent}`]); setCurrentCategory(e.target.textContent)}} className={`${currentCategory === 'all'? 'bg-purple-900 text-white': 'bg-white text-purple-900'} border border-purple-900 px-6 py-2 text-white rounded-lg capitalize`}>all</button>
-                    <button onClick={(e) => {setComplaintCategory(complaintCategories[`${e.target.textContent}`]); setCurrentCategory(e.target.textContent)}} className={`${currentCategory === 'health'? 'bg-green-600 text-white': 'bg-white text-green-600'} border border-green-600 px-4 py-2 text-white rounded-lg capitalize`}>health</button>
-                    <button onClick={(e) => {setComplaintCategory(complaintCategories[`${e.target.textContent}`]); setCurrentCategory(e.target.textContent)}} className={`${currentCategory === 'supplies'? 'bg-red-600 text-white': 'bg-white text-red-600'} border border-red-600 px-4 py-2 text-white rounded-lg capitalize`}>supplies</button>
-                    <button onClick={(e) => {setComplaintCategory(complaintCategories[`${e.target.textContent}`]); setCurrentCategory(e.target.textContent)}} className={`${currentCategory === 'psychosocial'? 'bg-blue-600 text-white': 'bg-white text-blue-600'} border border-blue-600 px-4 py-2 text-white rounded-lg capitalize`}>psychosocial</button>
-                    <button onClick={(e) => {setComplaintCategory(complaintCategories[`${e.target.textContent}`]); setCurrentCategory(e.target.textContent)}} className={`${currentCategory === 'wash'? 'bg-purple-600 text-white': 'bg-white text-purple-600'} border border-purple-600 px-4 py-2 text-white rounded-lg uppercase`}>wash</button>
-                    <button onClick={(e) => {setComplaintCategory(complaintCategories[`${e.target.textContent}`]); setCurrentCategory(e.target.textContent)}} className={`${currentCategory === 'legal'? 'bg-orange-600 text-white': 'bg-white text-orange-600'} border border-orange-600 px-4 py-2 text-white rounded-lg capitalize`}>legal</button>
+                <div className='w-full flex justify-center'>
+                    <div className={`relative flex flex-col md:flex-row lg:justify-between gap-4 md:gap-2 py-4 w-full max-w-3xl overflow-hidden ${showTopNav? '': 'h-16 lg:h-auto'}`}>
+                        <FormControl >
+                            <InputLabel id="demo-simple-select-helper-label">Status</InputLabel>
+                            <Select
+                                labelId="demo-simple-select-helper-label"
+                                id="demo-simple-select-helper"
+                                value={''}
+                                label="Status"
+                                onChange={(e) => {e.target.value === ''? alert('Nothing is happening here'): setComplaintCategory(complaintCategories[`${e.target.value}`]); setCurrentCategory(e.value)}}
+                                className='w-full lg:w-24 h-12'
+                                >
+                                <MenuItem value={''}>None</MenuItem>
+                                <MenuItem value={'open'}>Open</MenuItem>
+                                <MenuItem value={'closed'}>Closed</MenuItem>
+                            </Select>
+                        </FormControl>
+                        <button onClick={(e) => {setComplaintCategory(complaintCategories[`${e.target.textContent}`]); setCurrentCategory(e.target.textContent)}} className={`${currentCategory === 'all'? 'bg-purple-900 text-white': 'bg-white text-purple-900'} border border-purple-900 px-6 py-2 text-white rounded-lg capitalize`}>all</button>
+                        <button onClick={(e) => {setComplaintCategory(complaintCategories[`${e.target.textContent}`]); setCurrentCategory(e.target.textContent)}} className={`${currentCategory === 'health'? 'bg-green-600 text-white': 'bg-white text-green-600'} border border-green-600 px-4 py-2 text-white rounded-lg capitalize`}>health</button>
+                        <button onClick={(e) => {setComplaintCategory(complaintCategories[`${e.target.textContent}`]); setCurrentCategory(e.target.textContent)}} className={`${currentCategory === 'supplies'? 'bg-red-600 text-white': 'bg-white text-red-600'} border border-red-600 px-4 py-2 text-white rounded-lg capitalize`}>supplies</button>
+                        <button onClick={(e) => {setComplaintCategory(complaintCategories[`${e.target.textContent}`]); setCurrentCategory(e.target.textContent)}} className={`${currentCategory === 'psychosocial'? 'bg-blue-600 text-white': 'bg-white text-blue-600'} border border-blue-600 px-4 py-2 text-white rounded-lg capitalize`}>psychosocial</button>
+                        <button onClick={(e) => {setComplaintCategory(complaintCategories[`${e.target.textContent}`]); setCurrentCategory(e.target.textContent)}} className={`${currentCategory === 'wash'? 'bg-purple-600 text-white': 'bg-white text-purple-600'} border border-purple-600 px-4 py-2 text-white rounded-lg uppercase`}>wash</button>
+                        <button onClick={(e) => {setComplaintCategory(complaintCategories[`${e.target.textContent}`]); setCurrentCategory(e.target.textContent)}} className={`${currentCategory === 'legal'? 'bg-orange-600 text-white': 'bg-white text-orange-600'} border border-orange-600 px-4 py-2 text-white rounded-lg capitalize`}>legal</button>
+                    </div>
                 </div>
-                <button onClick={() => setShowCreateComplaint(prevValue => !prevValue)} className='shrink-0 flex items-center gap-1 md:gap-3 border-[3px] hover:text-purple-600 hover:border-purple-600 text-gray-700 px-2 md:px-4 h-12 rounded-xl'>
-                    <span className='flex items-center text-base'>New Complaint</span>
-                    <span className='flex items-center text-base'><i className='fa fa-plus'></i></span>
-                </button>
             </div>
         </div>
         <div className='w-full h-full flex overflow-auto pt-2 md:pt-6'>
