@@ -265,7 +265,7 @@ const Complaints = () => {
                 </div>
                 <div className={`relative flex flex-col lg:flex-row gap-4 md:gap-2 py-4 w-full max-w-6xl overflow-hidden ${showTopNav? 'h-16 lg:h-auto': ''}`}>
                     <FormControl >
-                        <InputLabel id="demo-simple-select-helper-label">{`${currentCategory? 'Status': currentCategory === 'closed'? currentCategory: 'Open'}`}</InputLabel>
+                        <InputLabel id="demo-simple-select-helper-label">{`${currentCategory === ''? 'Status': currentCategory === 'open'? 'Open': 'Closed'}`}</InputLabel>
                         <Select
                             labelId="demo-simple-select-helper-label"
                             id="demo-simple-select-helper"
