@@ -52,7 +52,7 @@ const LegalDraft = ({filter}) => {
         .then(response => response.json())
         .then(data =>{
             console.log(data);
-            setComplaints(data.filter(item => item.cat === 'counselling'));
+            setComplaints(data.filter(item => item.cat === 'legal'));
             setIsLoading(false)
         })
     }

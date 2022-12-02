@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Loader from '../../../components/Loader';
 
-const HealthDraft = ({filter}) => {
+const SuppliesDraft = ({filter}) => {
     const [ isLoading, setIsLoading ] = useState(false);
     const [ complaints, setComplaints ] = useState([]);
     const [ previewComplaint, setPreviewComplaint ] = useState(false);
@@ -55,7 +55,7 @@ const HealthDraft = ({filter}) => {
         .then(response => response.json())
         .then(data =>{
             console.log(data);
-            setComplaints(data.filter(item => item.cat === 'health'));
+            setComplaints(data.filter(item => item.cat === 'supplies'));
             setIsLoading(false)
         })
     }
@@ -273,4 +273,4 @@ const HealthDraft = ({filter}) => {
     )
 }
 
-export default HealthDraft;
+export default SuppliesDraft;

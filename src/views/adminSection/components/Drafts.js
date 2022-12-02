@@ -1,18 +1,20 @@
 import React, { useState } from 'react';
 import AllDrafts from '../components/AllDrafts';
 import HealthDraft from '../components/HealthDraft';
-import CounsellingDraft from '../components/CounsellingDraft';
-import WelfareDraft from '../components/WelfareDraft';
+import SuppliesDraft from '../components/SuppliesDraft';
+import WASHDraft from '../components/WASHDraft';
 import LegalDraft from '../components/LegalDraft';
+import PsychosocialDraft from '../components/PsychosocialDraft';
 import { Box, FormControl, InputLabel, MenuItem, Modal, Select, TextField, Toolbar, Typography } from '@mui/material';
 
 const Drafts = () => {
     const draftCategories = {
         all: <AllDrafts filter='all' /> ,
         health: <HealthDraft filter='health' />,
-        counselling: <CounsellingDraft filter='counselling' />,
-        welfare: <WelfareDraft filter='welfare' />,
+        supplies: <SuppliesDraft filter='supplies' />,
+        wash: <WASHDraft filter='wash' />,
         legal: <LegalDraft filter='legal' />,
+        psychosocial: <PsychosocialDraft filter='psychosocial' />,
     }
 
     const [ draftCategory, setDraftCategory ] = useState(draftCategories.all);
@@ -118,10 +120,11 @@ const Drafts = () => {
                             <MenuItem value="">
                                 <em>None</em>
                             </MenuItem>
-                            <MenuItem value={'counselling'}>Counselling</MenuItem>
+                            <MenuItem value={'supplies'}>Supplies</MenuItem>
                             <MenuItem value={'health'}>Health</MenuItem>
                             <MenuItem value={'legal'}>Legal</MenuItem>
-                            <MenuItem value={'welfare'}>Welfare</MenuItem>
+                            <MenuItem value={'wash'}>WAS</MenuItem>
+                            <MenuItem value={'psychosocial'}>Psychosocial</MenuItem>
                             </Select>
                         </FormControl>
                         <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
@@ -195,11 +198,12 @@ const Drafts = () => {
         <div className='flex items-center justify-center shadow px-3 py-5 pt-20'>
             <div className='w-full max-w-7xl flex gap-3 items-baseline lg:items-center justify-between'>
                 <div className='flex flex-col lg:flex-row gap-4 py-4 w-full max-w-6xl'>
-                    <button onClick={(e) => {setDraftCategory(draftCategories[`${e.target.textContent}`]); setCurrentCategory(e.target.textContent)}} className={`${currentCategory === 'all'? 'bg-purple-900 text-white': 'bg-white text-purple-900'} border border-purple-900 px-7 py-2 text-white rounded-lg capitalize`}>all</button>
-                    <button onClick={(e) => {setDraftCategory(draftCategories[`${e.target.textContent}`]); setCurrentCategory(e.target.textContent)}} className={`${currentCategory === 'health'? 'bg-green-600 text-white': 'bg-white text-green-600'} border border-green-600 px-7 py-2 text-white rounded-lg capitalize`}>health</button>
-                    <button onClick={(e) => {setDraftCategory(draftCategories[`${e.target.textContent}`]); setCurrentCategory(e.target.textContent)}} className={`${currentCategory === 'counselling'? 'bg-red-600 text-white': 'bg-white text-red-600'} border border-red-600 px-7 py-2 text-white rounded-lg capitalize`}>counselling</button>
-                    <button onClick={(e) => {setDraftCategory(draftCategories[`${e.target.textContent}`]); setCurrentCategory(e.target.textContent)}} className={`${currentCategory === 'welfare'? 'bg-yellow-600 text-white': 'bg-white text-yellow-600'} border border-yellow-600 px-7 py-2 text-white rounded-lg capitalize`}>welfare</button>
-                    <button onClick={(e) => {setDraftCategory(draftCategories[`${e.target.textContent}`]); setCurrentCategory(e.target.textContent)}} className={`${currentCategory === 'legal'? 'bg-purple-600 text-white': 'bg-white text-purple-600'} border border-purple-600 px-7 py-2 text-white rounded-lg capitalize`}>legal</button>
+                    <button onClick={(e) => {setDraftCategory(draftCategories[`${e.target.textContent}`]); setCurrentCategory(e.target.textContent)}} className={`${currentCategory === 'all'? 'bg-purple-900 text-white': 'bg-white text-purple-900'} border border-purple-900 px-6 py-2 text-white rounded-lg capitalize`}>all</button>
+                    <button onClick={(e) => {setDraftCategory(draftCategories[`${e.target.textContent}`]); setCurrentCategory(e.target.textContent)}} className={`${currentCategory === 'health'? 'bg-green-600 text-white': 'bg-white text-green-600'} border border-green-600 px-4 py-2 text-white rounded-lg capitalize`}>health</button>
+                    <button onClick={(e) => {setDraftCategory(draftCategories[`${e.target.textContent}`]); setCurrentCategory(e.target.textContent)}} className={`${currentCategory === 'supplies'? 'bg-red-600 text-white': 'bg-white text-red-600'} border border-red-600 px-4 py-2 text-white rounded-lg capitalize`}>supplies</button>
+                    <button onClick={(e) => {setDraftCategory(draftCategories[`${e.target.textContent}`]); setCurrentCategory(e.target.textContent)}} className={`${currentCategory === 'psychosocial'? 'bg-blue-600 text-white': 'bg-white text-blue-600'} border border-blue-600 px-4 py-2 text-white rounded-lg capitalize`}>psychosocial</button>
+                    <button onClick={(e) => {setDraftCategory(draftCategories[`${e.target.textContent}`]); setCurrentCategory(e.target.textContent)}} className={`${currentCategory === 'wash'? 'bg-purple-600 text-white': 'bg-white text-purple-600'} border border-purple-600 px-4 py-2 text-white rounded-lg uppercase`}>wash</button>
+                    <button onClick={(e) => {setDraftCategory(draftCategories[`${e.target.textContent}`]); setCurrentCategory(e.target.textContent)}} className={`${currentCategory === 'legal'? 'bg-orange-600 text-white': 'bg-white text-orange-600'} border border-orange-600 px-4 py-2 text-white rounded-lg capitalize`}>legal</button>
                 </div>
                 <button onClick={() => setShowCreateComplaint(prevValue => !prevValue)} className='shrink-0 flex items-center gap-1 md:gap-3 border-[3px] hover:text-purple-600 hover:border-purple-600 text-gray-700 px-2 md:px-4 h-12 rounded-xl'>
                     <span className='flex items-center text-base'>New Draft</span>
