@@ -100,6 +100,7 @@ const AdminLogin = () => {
             localStorage.setItem('adminAccessToken', JSON.stringify(loginData.accessToken));
             localStorage.setItem('adminUsername', JSON.stringify(username));
             localStorage.setItem('adminLocation', JSON.stringify(loginData.location));
+            localStorage.setItem('adminPhone', JSON.stringify(phone));
             setTimeout(() => {
               setShowLoader(true);
             }, 2000);

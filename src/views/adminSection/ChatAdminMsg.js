@@ -215,7 +215,7 @@ const AdminIndex = () => {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    sender: "+2348137926904",
+                    sender: JSON.parse(localStorage.getItem('adminPhone')),
                     receiver: userNumber,
                     msg: myMessage,
                     dept: "Medical",

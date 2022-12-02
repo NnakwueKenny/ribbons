@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 import Title from './Title';
@@ -10,16 +10,47 @@ function preventDefault(event) {
 
 export default function Deposits({value}) {
 
+    const [ resolvedCases, setResolvedCases ] = useState(0);
+    const [ pendingCases, setPendingCases ] = useState(0);
+    const [ resolvedEmergency, setResolvedEmergency ] = useState(0);
+    const [ pendingEmergency, setPendingEmergency ] = useState(0);
+
+    const getAllComplaints = () => {
+        console.log('Fetching all request...');
+        fetch('https://ribbons.onrender.com/complaint/get-all-complaints',
+            {
+                method: 'post',
+                headers: {
+                    accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    "loc": JSON.parse(localStorage.getItem('adminLocation')),
+                    "username": JSON.parse(localStorage.getItem('adminUsername'))
+                  })
+            }
+        )
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+
+        })
+    }
+
+    useEffect(() => {
+        getAllComplaints();
+    })
+
     const [ displayValues, setDisplayValues ] = useState({
         allCases: {
             title: 'Open/Pending',
-            resolved: '10',
-            open: '60'
+            resolved: resolvedCases,
+            open: pendingCases,
         },
         liveEmergency: {
-            title: 'Live Emergency',
-            resolved: '10',
-            open: '60'
+            title: 'Emergency Cases',
+            resolved: resolvedEmergency,
+            open: pendingEmergency,
         },
     })
     const [ currentDisplay, setCurrentDisplay ] = useState(displayValues[`${value}`]);
