@@ -100,11 +100,11 @@ const AllComplaints = ({filter}) => {
                                         <p className="font-normal text-gray-700">Medium: {complaint.medium}</p>
                                         <Typography component='div' variant='caption' className='text-green-500 pr-3 w-40 flex justify-end'>{complaint.phone}</Typography>
                                     </div>
-                                    <p className="font-normal text-gray-700">Lorem ipsu, dolor sit manet quoqem in nomine dominem Lorem ipsu, dolor sit manet quoqem in nomine dominem{complaint.desc}</p>
+                                    <p className="font-normal text-gray-700">{complaint.desc}</p>
                                     {
                                         complaint.status?
-                                        <div className='flex items-center mb-4 mt-6'>
-                                            <p className='text-green-700 text-xl w-full'>Resolved</p>
+                                        <div className='flex items-center justify-between mb-4 mt-6'>
+                                            <p className='text-green-700 text-xl'>Resolved</p>
                                             <Tooltip title="Call Victim">
                                                 <a  href={`tel:+${complaint.phone}`} id={complaint.id} className={`text-purple-800 text:bg-purple-900`}>
                                                     <IconButton color={`${complaint.status? 'secondary': 'gray'}`}>
@@ -114,7 +114,7 @@ const AllComplaints = ({filter}) => {
                                             </Tooltip>
                                         </div>
                                         :
-                                        <p className='mt-auto my-4 mt-6 text-yellow-700 text-xl flex w-full justify-center'>Pending</p>
+                                        <p className='mt-auto my-4 mt-6 text-red-500 text-xl flex w-full justify-center'>Pending</p>
                                     }
                                     <div className='flex gap-3 mt-auto'>
                                         <Button variant='outlined' color='secondary' backgroundColor = 'purple[500]' className='w-full bg-gray-500'>View Details</Button>
