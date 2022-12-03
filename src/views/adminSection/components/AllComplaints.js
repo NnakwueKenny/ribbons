@@ -42,6 +42,8 @@ const AllComplaints = ({filter}) => {
         getAllComplaints();
     }, [])
 
+    const text = 'Lorem ipsu, dolor sit manet quoqem in nomine dominem Lorem ipsu, dolor sit manet quoqem in nomine dominemLorem ipsu, dolor sit manet quoqem in nomine dominem Lorem ipsu, dolor sit manet quoqem in nomine dominem'
+
     return (
         <div className='relative w-full'>
             {/*
@@ -100,13 +102,13 @@ const AllComplaints = ({filter}) => {
                                         <p className="font-normal text-gray-700">Medium: {complaint.medium}</p>
                                         <Typography component='div' variant='caption' className='text-green-500 pr-3 w-40 flex justify-end'>{complaint.phone}</Typography>
                                     </div>
-                                    <p className="font-normal text-gray-700">{complaint.desc}</p>
+                                    <p className="font-normal text-gray-700">{complaint.desc.length >= 100? text.slice(0, 100): complaint.desc}</p>
                                     {
                                         complaint.status?
                                         <div className='flex items-center justify-between mb-4 mt-6'>
                                             <p className='text-green-700 text-xl'>Resolved</p>
                                             <Tooltip title="Call Victim">
-                                                <a  href={`tel:+${complaint.phone}`} id={complaint.id} className={`text-purple-800 text:bg-purple-900`}>
+                                                <a  href={`tel:${complaint.phone}`} id={complaint.id} className={`text-purple-800 text:bg-purple-900`}>
                                                     <IconButton color={`${complaint.status? 'secondary': 'gray'}`}>
                                                         <PhoneEnabledIcon />
                                                     </IconButton>
