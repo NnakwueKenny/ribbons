@@ -284,28 +284,30 @@ const Complaints = () => {
                 </div>
             </Box>
         </Modal>
-          <Modal
-              aria-labelledby="transition-modal-title"
-              aria-describedby="transition-modal-description"
-              open={showPreviewComplaint}
-              onClose={() => setShowPreviewComplaint(false)}
-              closeAfterTransition
-              BackdropComponent={Backdrop}
-              BackdropProps={{
-                  timeout: 500,
-              }}
-          >
-              <Fade in={showPreviewComplaint}>
-                  <Box sx={''}>
-                      <Typography id="transition-modal-title" variant="h6" component="h2">
-                          Text in a modal
-                      </Typography>
-                      <Typography id="transition-modal-description" sx={{ mt: 2 }}>
-                          Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-                      </Typography>
-                  </Box>
-              </Fade>
-          </Modal>
+        <Modal
+            className='h-full w-full flex justify-center items-center p-3'
+            aria-labelledby="transition-modal-title"
+            aria-describedby="transition-modal-description"
+            open={showPreviewComplaint}
+            onClose={() => setShowPreviewComplaint(false)}
+            closeAfterTransition
+            BackdropComponent={Backdrop}
+            BackdropProps={{
+                timeout: 500,
+            }}
+        >
+            <Fade in={showPreviewComplaint}>
+                <Box className='relative bg-white w-full max-w-xl h-auto max-h-[700px] rounded-2xl p-6'>
+                    <Typography id="transition-modal-title" variant="h6" component="h2">
+                        Text in a modal
+                        {complaintDetails.name}
+                    </Typography>
+                    <Typography id="transition-modal-description" sx={{ mt: 2 }}>
+                        Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+                    </Typography>
+                </Box>
+            </Fade>
+        </Modal>
         <div className='flex items-center justify-center shadow px-3 py-5 pt-20 bg-opacity-25'>
             <div className='relative w-full max-w-7xl flex gap-3 items-baseline lg:items-center justify-between bg-opacity-25'>
                 <div className={'absolute -top-4 right-2 lg:hidden'}>
