@@ -23,10 +23,29 @@ const Complaints = () => {
         setComplaintDetails(complaint);
         setShowPreviewComplaint(true)
     }
+    const [ agentComment, setAgentComment ] = useState('');
+    const updateCompaint = (complaint) => {
+        console.log('Hello');
+        // fetch('https://ribbons.onrender.com/complaint/update-complaint',
+        //     {
+        //         method: 'post',
+        //         headers: {
+        //             accept: 'application/json',
+        //             'Content-Type': 'application/json'
+        //         },
+        //         body: JSON.stringify({
+        //             updateStatus: "resolve",
+        //             complaintID: complaint.id,
+        //             comment: agentComment
+        //         })
+        //     }
+        // )
+    }
 
     const toggleUpdateComplaint = (complaint) => {
         setComplaintDetails(complaint);
-        setShowUpdateComplaint(true)
+        setShowUpdateComplaint(true);
+        updateCompaint(complaint);
     }
 
     const [ filter, setFilter ] = useState('');
@@ -40,6 +59,7 @@ const Complaints = () => {
     const [ complaintCategory, setComplaintCategory ] = useState(complaintCategories.all);
     const [ currentCategory, setCurrentCategory ] = useState('all');
     const [ showCreateComplaint , setShowCreateComplaint ] = useState(false);
+    const [ isResolving, setIsResolving ] = useState(false);
     
     const [ requestMessage, setRequestMessage ] = useState('');
     const [ showTopNav, setShowTopNav ] = useState(false);
@@ -77,6 +97,7 @@ const Complaints = () => {
             setFilter(e);
         }, 2000)
     }
+
     
   return (
     <div className='flex flex-col h-screen w-full'>
@@ -157,25 +178,26 @@ const Complaints = () => {
         </Modal>
         <Dialog open={showUpdateComplaint}
             onClose={() => setShowUpdateComplaint(false)}>
-            <DialogTitle>Subscribe</DialogTitle>
+            <DialogTitle>Your Comment</DialogTitle>
             <DialogContent>
-            <DialogContentText>
-                To subscribe to this website, please enter your email address here. We
-                will send updates occasionally.
-            </DialogContentText>
-            <TextField
-                autoFocus
-                margin="dense"
-                id="name"
-                label="Email Address"
-                type="email"
-                fullWidth
-                variant="standard"
-            />
+                <DialogContentText>
+                    Please, provided the necessary information needed to be sent to victim...
+                </DialogContentText>
+                <TextField
+                    autoFocus
+                    margin="dense"
+                    id="name"
+                    label="Your comment here..."
+                    type="text"
+                    fullWidth
+                    variant="standard"
+                    value={agentComment}
+                    onChange={(e) => setAgentComment(e.target.value)}
+                />
             </DialogContent>
             <DialogActions>
-            <Button onClick={() => setShowUpdateComplaint(false)}>Cancel</Button>
-            <Button onClick={() => setShowUpdateComplaint(false)}>Subscribe</Button>
+                <Button onClick={() => setShowUpdateComplaint(false)}>Cancel</Button>
+                <Button onClick={() => updateCompaint()}>Resolve</Button>
             </DialogActions>
         </Dialog>
         <div className='flex items-center justify-center shadow px-3 py-5 pt-20 bg-opacity-25'>
