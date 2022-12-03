@@ -30,11 +30,11 @@ const Complaints = () => {
     const [ filter, setFilter ] = useState('');
     const complaintCategories = {
         all: <AllComplaints value='all' filter={filter} togglePrevComplaint={togglePrevComplaint}/> ,
-        health: <HealthComplaint value='health' filter={filter} />,
-        supplies: <SuppliesComplaint value='supplies' filter={filter} />,
-        psychosocial: <PsychosocialComplaints value='psychosocial' filter={filter} />,
-        wash: <WASHComplaints value='wash' filter={filter} />,
-        legal: <LegalComplaint value='legal' filter={filter} />
+        health: <HealthComplaint value='health' filter={filter} togglePrevComplaint={togglePrevComplaint}/>,
+        supplies: <SuppliesComplaint value='supplies' filter={filter} togglePrevComplaint={togglePrevComplaint}/>,
+        psychosocial: <PsychosocialComplaints value='psychosocial' filter={filter} togglePrevComplaint={togglePrevComplaint}/>,
+        wash: <WASHComplaints value='wash' filter={filter} togglePrevComplaint={togglePrevComplaint}/>,
+        legal: <LegalComplaint value='legal' filter={filter} togglePrevComplaint={togglePrevComplaint}/>
     }
 
     const [ complaintCategory, setComplaintCategory ] = useState(complaintCategories.all);
@@ -321,11 +321,14 @@ const Complaints = () => {
                         <p className="font-normal text-gray-700">Medium: {complaintDetails.medium}</p>
                         <Typography component='div' variant='caption' className='text-green-500 pr-3 w-40 flex justify-end'>{complaintDetails.phone}</Typography>
                     </div>
+                    <div className='w-full mb-2 flex justify-between items-baseline text-gray-700 text-base'>
+                        <Typography component='div' variant='body2'>Agent: {complaintDetails.sent_to}</Typography>
+                    </div>
                     <div className='w-full mb-2 flex flex-col justify-between text-gray-700 text-base'>
                         <Typography component='div' variant='h6' className=''>
                             Complaint:
                         </Typography>
-                        <Typography component='p' className='text-green-500 text-justify'>
+                        <Typography component='p' className='text-gray-600 text-justify'>
                             {complaintDetails.desc}
                         </Typography>
                     </div>

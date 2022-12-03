@@ -1,10 +1,10 @@
-import { Box, Button, IconButton, Modal, Tooltip, Typography } from '@mui/material';
-import DeleteIcon from '@mui/icons-material/Delete';
-import PhoneEnabledIcon from '@mui/icons-material/PhoneEnabled';
-
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Loader from '../../../components/Loader';
+
+import { Box, Button, IconButton, Modal, Tooltip, Typography } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
+import PhoneEnabledIcon from '@mui/icons-material/PhoneEnabled';
 
 const AllComplaints = ({filter, togglePrevComplaint}) => {
     const [ isLoading, setIsLoading ] = useState(false);
@@ -44,28 +44,6 @@ const AllComplaints = ({filter, togglePrevComplaint}) => {
     
     return (
         <div className='relative w-full'>
-            {/*
-                previewComplaint &&
-                <Modal
-                className='h-full w-full flex justify-center items-center p-3'
-                open={setPreviewComplaint}
-                onClose={() => setPreviewComplaint(prevValue => !prevValue)}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-                >
-                <Box className='relative bg-white w-full max-w-xl h-auto max-h-[700px] rounded-2xl p-6'>
-                    <button onClick={() => setPreviewComplaint(prevValue => !prevValue)} className='absolute top-8 right-8 text-2xl'><i className='fa fa-times'></i></button>
-                    <div className='w-full flex justify-start md:justify-center text-purple-900'>
-                        <button onClick={() => setPreviewComplaint(prevValue => !prevValue)} className='absolute top-8 right-8 text-2xl'><i className='fa fa-times'></i></button>
-                        <Typography variant='h5' sx={{ mt: 1 }}>
-                            About Complaint
-                        </Typography>
-                        
-                    </div>
-                </Box>
-            </Modal>
-            */
-            }
             {
                 isLoading?
                 <div className='absolute w-full h-full flex justify-center'>
