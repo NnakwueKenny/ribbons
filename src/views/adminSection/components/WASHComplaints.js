@@ -23,7 +23,13 @@ const WASHComplaints = ({filter}) => {
         .then(response => response.json())
         .then(data =>{
             console.log(data);
-            setComplaints(data.filter(item => item.cat === 'wash'));
+            if ( filter === 'open' ) {
+                setComplaints(data.filter(item => item.status === false && item.cat === 'wash'));
+            } else if ( filter === 'closed' ) {
+                setComplaints(data.filter(item => item.status === true && item.cat === 'wash'));
+            } else {
+                setComplaints(data.filter(item => item.cat === 'wash'));
+            }
             setIsLoading(false)
         })
     }

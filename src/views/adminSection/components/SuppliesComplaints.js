@@ -24,7 +24,13 @@ const SuppliesComplaints = ({filter}) => {
         .then(response => response.json())
         .then(data =>{
             console.log(data);
-            setComplaints(data.filter(item => item.cat === 'counselling'));
+            if ( filter === 'open' ) {
+                setComplaints(data.filter(item => item.status === false && item.cat === 'supplies'));
+            } else if ( filter === 'closed' ) {
+                setComplaints(data.filter(item => item.status === true && item.cat === 'supplies'));
+            } else {
+                setComplaints(data.filter(item => item.cat === 'supplies'));
+            }
             setIsLoading(false)
         })
     }

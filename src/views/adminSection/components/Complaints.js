@@ -5,20 +5,17 @@ import SuppliesComplaint from '../components/SuppliesComplaints';
 import PsychosocialComplaints from '../components/PsychosocialComplaints';
 import WASHComplaints from '../components/WASHComplaints';
 import LegalComplaint from '../components/LegalComplaint';
-import ResolvedComplaints from './ResolvedComplaints';
-import PendingComplaints from './PendingComplaints';
 import { Box, FormControl, InputLabel, MenuItem, Modal, Select, TextField, Toolbar, Typography } from '@mui/material';
 
 const Complaints = () => {
+    const [ filter, setFilter ] = useState('');
     const complaintCategories = {
-        all: <AllComplaints filter='all' /> ,
-        health: <HealthComplaint filter='health' />,
-        supplies: <SuppliesComplaint filter='supplies' />,
-        psychosocial: <PsychosocialComplaints filter='psychosocial' />,
-        wash: <WASHComplaints filter='wash' />,
-        legal: <LegalComplaint filter='legal' />,
-        closed: <ResolvedComplaints />,
-        open: <PendingComplaints />,
+        all: <AllComplaints value='all' filter={filter}/> ,
+        health: <HealthComplaint value='health' filter={filter} />,
+        supplies: <SuppliesComplaint value='supplies' filter={filter} />,
+        psychosocial: <PsychosocialComplaints value='psychosocial' filter={filter} />,
+        wash: <WASHComplaints value='wash' filter={filter} />,
+        legal: <LegalComplaint value='legal' filter={filter} />
     }
 
     const [ complaintCategory, setComplaintCategory ] = useState(complaintCategories.all);
@@ -30,7 +27,7 @@ const Complaints = () => {
     const [ dept , setDept ] = useState('');
     const [ severity , setSeverity ] = useState('');
     const [ complainantName , setComplainantName ] = useState('');
-    const [ desc , setDesc ] = useState('');
+    const [ desc, setDesc ] = useState('');
     const [ complainantPhone , setComplainantPhone ] = useState('');
     const [ requestMessage, setRequestMessage ] = useState('');
 
@@ -257,21 +254,21 @@ const Complaints = () => {
                     <button onClick={() => setShowTopNav(prevValue => !prevValue)} className='text-lg'>
                         {
                             showTopNav?
-                            <span><i className='fa fa-bars'></i></span>
-                            :
                             <span><i className='fa fa-times'></i></span>
+                            :
+                            <span><i className='fa fa-bars'></i></span>
                         }
                     </button>
                 </div>
-                <div className={`relative flex flex-col lg:flex-row gap-4 md:gap-2 py-4 w-full max-w-6xl overflow-hidden ${showTopNav? 'h-16 lg:h-auto': ''}`}>
+                <div className={`relative flex flex-col lg:flex-row gap-4 md:gap-2 py-4 w-full max-w-6xl overflow-hidden ${!showTopNav? 'h-16 lg:h-auto': ''}`}>
                     <FormControl >
-                        <InputLabel id="demo-simple-select-helper-label">{`${currentCategory === 'open'? 'Open': currentCategory === 'closed'? 'Closed': 'Status'}`}</InputLabel>
+                        <InputLabel id="demo-simple-select-helper-label">{`${filter === 'open'? 'Open': filter === 'closed'? 'Closed': 'Status'}`}</InputLabel>
                         <Select
                             labelId="demo-simple-select-helper-label"
                             id="demo-simple-select-helper"
                             value={''}
                             label="Status"
-                            onChange={(e) => {e.target.value === ''? alert('Nothing is happening here'): setComplaintCategory(complaintCategories[`${e.target.value}`]); setCurrentCategory(e.target.value)}}
+                            onChange={(e) => {setFilter(e.target.value)}}
                             className='w-full lg:w-24 h-12'
                             >
                             <MenuItem value={''}>None</MenuItem>

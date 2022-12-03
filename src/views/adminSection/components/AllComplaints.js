@@ -25,8 +25,10 @@ const AllComplaints = ({filter}) => {
         .then(response => response.json())
         .then(data =>{
             console.log(data);
-            if (filter === 'all') {
-                setComplaints(data);
+            if ( filter === 'open' ) {
+                setComplaints(data.filter(item => item.status === false));
+            } else if ( filter === 'closed' ) {
+                setComplaints(data.filter(item => item.status === true));
             } else {
                 setComplaints(data);
             }
@@ -36,7 +38,7 @@ const AllComplaints = ({filter}) => {
 
     useEffect(() => {
         getAllComplaints();
-    }, [])
+    }, [filter])
 
     return (
         <div className='relative w-full'>

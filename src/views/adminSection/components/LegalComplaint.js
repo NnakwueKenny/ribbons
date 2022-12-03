@@ -23,7 +23,13 @@ const LegalComplaint = ({filter}) => {
         .then(response => response.json())
         .then(data =>{
             console.log(data);
-            setComplaints(data.filter(item => item.cat === 'legal'));
+            if ( filter === 'open' ) {
+                setComplaints(data.filter(item => item.status === false && item.cat === 'legal'));
+            } else if ( filter === 'closed' ) {
+                setComplaints(data.filter(item => item.status === true && item.cat === 'legal'));
+            } else {
+                setComplaints(data.filter(item => item.cat === 'legal'));
+            }
             setIsLoading(false)
         })
     }

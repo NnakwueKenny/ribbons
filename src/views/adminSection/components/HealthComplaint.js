@@ -23,7 +23,13 @@ const HealthComplaint = ({filter}) => {
         .then(response => response.json())
         .then(data =>{
             console.log(data);
-            setComplaints(data.filter(item => item.cat === 'health'));
+            if ( filter === 'open' ) {
+                setComplaints(data.filter(item => item.status === false && item.cat === 'health'));
+            } else if ( filter === 'closed' ) {
+                setComplaints(data.filter(item => item.status === true && item.cat === 'health'));
+            } else {
+                setComplaints(data.filter(item => item.cat === 'health'));
+            }
             setIsLoading(false)
         })
     }

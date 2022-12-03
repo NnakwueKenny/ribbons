@@ -24,7 +24,14 @@ const PsychosocialComplaints = ({filter}) => {
         .then(response => response.json())
         .then(data =>{
             console.log(data);
-            setComplaints(data.filter(item => item.cat === 'psychosocial'));
+            console.log(data);
+            if ( filter === 'open' ) {
+                setComplaints(data.filter(item => item.status === false && item.cat === 'psychosocial'));
+            } else if ( filter === 'closed' ) {
+                setComplaints(data.filter(item => item.status === true && item.cat === 'psychosocial'));
+            } else {
+                setComplaints(data.filter(item => item.cat === 'psychosocial'));
+            }
             setIsLoading(false)
         })
     }
