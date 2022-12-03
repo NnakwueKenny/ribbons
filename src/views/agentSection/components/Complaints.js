@@ -16,6 +16,7 @@ const Complaints = () => {
     });
 
     const [ showPreviewComplaint, setShowPreviewComplaint ] = useState(false);
+    const [ showUpdateComplaint, setShowUpdateComplaint ] = useState(false);
     const [ complaintDetails, setComplaintDetails] = useState({})
 
     const togglePrevComplaint = (complaint) => {
@@ -23,9 +24,17 @@ const Complaints = () => {
         setShowPreviewComplaint(true)
     }
 
+    const toggleUpdateComplaint = (complaint) => {
+        setComplaintDetails(complaint);
+        setShowPreviewComplaint(true)
+    }
+
     const [ filter, setFilter ] = useState('');
     const complaintCategories = {
-        all: <AllComplaints value='all' filter={filter} togglePrevComplaint={togglePrevComplaint}/> 
+        all: <AllComplaints value='all' filter={filter}
+            togglePrevComplaint={togglePrevComplaint}
+            toggleUpdateComplaint={toggleUpdateComplaint}
+        /> 
     }
     
     const [ complaintCategory, setComplaintCategory ] = useState(complaintCategories.all);

@@ -6,7 +6,7 @@ import { Box, Button, IconButton, Modal, Tooltip, Typography } from '@mui/materi
 import DeleteIcon from '@mui/icons-material/Delete';
 import PhoneEnabledIcon from '@mui/icons-material/PhoneEnabled';
 
-const AllComplaints = ({filter, togglePrevComplaint}) => {
+const AllComplaints = ({filter, togglePrevComplaint, toggleUpdateComplaint}) => {
     const [ isLoading, setIsLoading ] = useState(false);
     const [ complaints, setComplaints ] = useState([]);
 
@@ -95,10 +95,10 @@ const AllComplaints = ({filter, togglePrevComplaint}) => {
                                         <p className='mt-auto my-4 mt-6 text-red-500 text-xl flex w-full justify-center'>Pending</p>
                                     }
                                     <div className='flex gap-3 mt-auto'>
-                                        <Button onClick={() => togglePrevComplaint(complaint)} variant='outlined' color='secondary' backgroundColor = 'purple[500]' className='w-full bg-gray-500'>Resolve</Button>
+                                        <Button onClick={() => togglePrevComplaint(complaint)} variant='outlined' color='secondary' backgroundColor = 'purple[500]' className='w-full bg-gray-500'>View Details</Button>
                                         {
                                             !complaint.status &&
-                                            <Button onClick={() => togglePrevComplaint(complaint)} variant='outlined' color='secondary' backgroundColor = 'purple[500]' className='w-full bg-gray-500'>View Details</Button>
+                                            <Button onClick={() => toggleUpdateComplaint(complaint)} variant='outlined' color='secondary' backgroundColor = 'purple[500]' className='w-full bg-gray-500'>Resolve</Button>
                                         }
                                     </div>
                                 </div>
