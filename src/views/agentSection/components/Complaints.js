@@ -1,9 +1,5 @@
 import React, { useState } from 'react';
 import AllComplaints from '../components/AllComplaints';
-import HealthComplaint from '../components/HealthComplaint';
-import CounsellingComplaint from '../components/CounsellingComplaints';
-import WelfareComplaint from '../components/WelfareComplaints';
-import LegalComplaint from '../components/LegalComplaints';
 
 import {
     Box, FormControl, InputLabel, MenuItem, Modal, Select, TextField, 
@@ -29,18 +25,12 @@ const Complaints = () => {
 
     const [ filter, setFilter ] = useState('');
     const complaintCategories = {
-        all: <AllComplaints filter='all' /> ,
-        health: <HealthComplaint filter='health' />,
-        counselling: <CounsellingComplaint filter='counselling' />,
-        welfare: <WelfareComplaint filter='welfare' />,
-        legal: <LegalComplaint filter='legal' />,
+        all: <AllComplaints value='all' filter={filter} togglePrevComplaint={togglePrevComplaint}/> 
     }
     
     const [ complaintCategory, setComplaintCategory ] = useState(complaintCategories.all);
     const [ currentCategory, setCurrentCategory ] = useState('all');
     const [ showCreateComplaint , setShowCreateComplaint ] = useState(false);
-    const [ isSubmitting, setIsSubmitting ] = useState(false);
-    const [ isSaving, setIsSaving ] = useState(false);
     
     const [ requestMessage, setRequestMessage ] = useState('');
     const [ showTopNav, setShowTopNav ] = useState(false);
@@ -58,50 +48,6 @@ const Complaints = () => {
                 setTarget('');
             }, 3000)
         }
-    }
-
-    const sendComplaint = () => {
-        setIsSubmitting(true);
-        fetch('https://ribbons.onrender.com/complaint/send-complaint')
-        .then(response => response.json())
-        .then(data => {
-            console.log(data);
-            setIsSubmitting(false);
-            if (data.error) {
-                console.log(data.error);
-                toggleMessageContent(setRequestMessage, data.error, 'error');
-            } else {
-                toggleMessageContent(setRequestMessage, data);
-            }
-        })
-        .catch(err => {
-            console.log(err);
-            setIsSubmitting(false);
-            toggleMessageContent(setRequestMessage, 'An error just occurred. Please, try again!', 'error');
-        })
-
-    }
-
-    const saveComplaint = () => {
-        setIsSaving(true);
-        fetch('https://ribbons.onrender.com/draft/send-draft')
-        .then(response => response.json())
-        .then(data => {
-            console.log(data);
-            setIsSaving(false);
-            if (data.error) {
-                console.log(data.error);
-                toggleMessageContent(setRequestMessage, data.error, 'error');
-            } else {
-                toggleMessageContent(setRequestMessage, data);
-            }
-        })
-        .catch(err => {
-            console.log(err);
-            setIsSaving(false);
-            toggleMessageContent(setRequestMessage, 'An error just occurred!', 'error');
-        })
-
     }
 
     const loadCategory = (e) => {
@@ -201,7 +147,7 @@ const Complaints = () => {
             </Fade>
         </Modal>
         <div className='flex items-center justify-center shadow px-3 py-5 pt-20 bg-opacity-25'>
-            <div className='relative w-full max-w-7xl flex gap-3 items-baseline lg:items-center justify-between bg-opacity-25'>
+            <div className='relative w-full flex gap-3 justify-center items-baseline lg:items-center bg-opacity-25'>
                 <div className={'absolute -top-4 right-2 lg:hidden'}>
                     <button onClick={() => setShowTopNav(prevValue => !prevValue)} className='text-lg'>
                         {
@@ -212,7 +158,7 @@ const Complaints = () => {
                         }
                     </button>
                 </div>
-                <div className={`relative flex flex-col lg:flex-row gap-4 md:gap-2 py-4 w-full max-w-6xl overflow-hidden ${!showTopNav? 'h-16 lg:h-auto': ''}`}>
+                <div className={`relative flex flex-col lg:flex-row lg:justify-center gap-4 md:gap-2 py-2 w-full max-w-6xl overflow-hidden ${!showTopNav? 'h-16 lg:h-auto': ''}`}>
                     <FormControl >
                         <InputLabel id="demo-simple-select-helper-label">{`${filter === 'open'? 'Open': filter === 'closed'? 'Closed': 'Status'}`}</InputLabel>
                         <Select
@@ -235,10 +181,6 @@ const Complaints = () => {
                     <button onClick={(e) => loadCategory(e)} className={`${currentCategory === 'wash'? 'bg-purple-600 text-white': 'bg-white text-purple-600'} border border-purple-600 px-4 py-2 text-white rounded-lg uppercase`}>wash</button>
                     <button onClick={(e) => loadCategory(e)} className={`${currentCategory === 'legal'? 'bg-orange-600 text-white': 'bg-white text-orange-600'} border border-orange-600 px-4 py-2 text-white rounded-lg capitalize`}>legal</button>
                 </div>
-                <button onClick={() => setShowCreateComplaint(prevValue => !prevValue)} className='shrink-0 flex items-center gap-1 md:gap-3 border-[3px] hover:text-purple-600 hover:border-purple-600 text-gray-700 px-2 md:px-4 h-12 rounded-xl'>
-                    <span className='flex items-center text-base'>New Complaint</span>
-                    <span className='flex items-center text-base'><i className='fa fa-plus'></i></span>
-                </button>
             </div>
         </div>
         <div className='w-full h-full flex overflow-auto pt-2 md:pt-6'>
