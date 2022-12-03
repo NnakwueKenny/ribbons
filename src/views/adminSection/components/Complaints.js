@@ -8,9 +8,10 @@ import LegalComplaint from '../components/LegalComplaint';
 import {
     Box, FormControl, InputLabel, MenuItem, Modal, Select, TextField, 
     Typography, Slide, Dialog, DialogTitle, DialogContent, DialogContentText,
-    DialogActions, Button, Fade, Backdrop, IconButton
+    DialogActions, Button, Fade, Backdrop, IconButton, Tooltip
 } from '@mui/material';
 import Close from '@mui/icons-material/Close';
+import PhoneEnabledIcon from '@mui/icons-material/PhoneEnabled';
 
 const Complaints = () => {
 
@@ -312,7 +313,7 @@ const Complaints = () => {
                             <span className={`capitalize font-semibold ${complaintDetails.severity === 'emergency'? 'text-red-500': 'text-green-500'}`}>{complaintDetails.severity}</span>
                         </Typography>
                     </div>
-                    <div className='w-full mb-1 mt-4 flex justify-between items-baseline text-gray-700 text-base'>
+                    <div className='w-full mb-1 mt-2 flex justify-between items-baseline text-gray-700 text-base'>
                         <span className="block text-lg">{complaintDetails.name}</span>
                         <Typography component='div' variant='caption' className='text-green-500 pr-3 w-28 flex justify-end'>{complaintDetails.createdAt?.split('T')[0]}</Typography>
                     </div>
@@ -320,9 +321,40 @@ const Complaints = () => {
                         <p className="font-normal text-gray-700">Medium: {complaintDetails.medium}</p>
                         <Typography component='div' variant='caption' className='text-green-500 pr-3 w-40 flex justify-end'>{complaintDetails.phone}</Typography>
                     </div>
-                    <Typography id="transition-modal-description" sx={{ mt: 2 }}>
-                        Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-                    </Typography>
+                    <div className='w-full mb-2 flex flex-col justify-between text-gray-700 text-base'>
+                        <Typography component='div' variant='h6' className=''>
+                            Complaint:
+                        </Typography>
+                        <Typography component='p' className='text-green-500 text-justify'>
+                            {complaintDetails.desc}
+                        </Typography>
+                    </div>
+                    {
+                        complaintDetails.agentComment &&
+                        <div className='w-full mb-2 flex flex-col justify-between text-gray-700 text-base'>
+                            <Typography component='div' variant='h6' className=''>
+                                Agent's Comment:
+                            </Typography>
+                            <Typography component='p' className='text-green-500 text-justify'>
+                                {complaintDetails.agentComment}
+                            </Typography>
+                        </div>
+                    }
+                    {
+                        complaintDetails.status?
+                        <div className='flex items-center justify-between mb-4 mt-6'>
+                            <p className='text-green-700 text-xl'>Resolved</p>
+                            <Tooltip title="Call Victim">
+                                <a  href={`tel:${complaintDetails.phone}`} id={complaintDetails.id} className={`text-purple-800 text:bg-purple-900`}>
+                                    <IconButton color={`${complaintDetails.status? 'secondary': 'gray'}`}>
+                                        <PhoneEnabledIcon />
+                                    </IconButton>
+                                </a>
+                            </Tooltip>
+                        </div>
+                        :
+                        <p className='mt-auto my-4 mt-6 text-red-500 text-xl flex w-full justify-center'>Pending</p>
+                    }
                 </Box>
             </Fade>
         </Modal>
