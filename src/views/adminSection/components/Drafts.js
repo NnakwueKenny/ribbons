@@ -117,7 +117,6 @@ const Drafts = () => {
     const resaveDraft = (draftID) => {
         setIsSaving(true);
         console.log(draftID);
-        console.log(draftDetails.cat, draftDetails.severity, draftDetails.name, draftDetails.phone, draftDetails.desc);
         fetch('https://ribbons.onrender.com/draft/send-draft',
             {
                 method: 'post',
@@ -167,14 +166,14 @@ const Drafts = () => {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    cat: dept,
+                    cat: draftDetails.cat,
                     severity: severity,
-                    name: complainantName,
-                    desc: desc,
+                    name: draftDetails.name,
+                    desc: draftDetails.desc,
                     medium: 'online',
                     status: false,
                     loc: JSON.parse(localStorage.getItem('adminLocation')),
-                    phone: complainantPhone,
+                    phone: draftDetails.phone,
                     sent_by: JSON.parse(localStorage.getItem('adminUsername'))
                   })
             }
@@ -350,14 +349,13 @@ const Drafts = () => {
                     </div>
                     <div className='mb-auto flex text-purple-800 font-semibold italic text-lg'>{requestMessage}</div>
                     <div className='flex flex-col md:flex-row w-full gap-4'>
-                        <button onClick={saveDraft} type="button" disabled={isSaving? true: '' } className={`w-full max-w-sm flex justify-center text-white bg-purple-800 hover:bg-purple-900 focus:ring-4 focus:outline-none focus:ring-purple-400 font-semibold rounded-lg text-base w-full px-5 py-3 text-center`}>
+                        <Button onClick={saveDraft} variant='outlined' color='secondary' backgroundColor = 'purple[500]' className='w-full bg-gray-500'>
                             {
-                                isSaving?
-                                <span className='flex h-8 w-8 border-4 border-b-purple-300 rounded-full animate-spin'></span>
-                                :
-                                <span>Save</span>
+                                isSaving &&
+                                <span className='flex mr-2 h-5 w-5 border-4 border-b-purple-300 rounded-full animate-spin'></span>
                             }
-                        </button>
+                            Save
+                        </Button>
                     </div>
                 </div>
             </Box>
@@ -379,7 +377,7 @@ const Drafts = () => {
                 <button onClick={() => setShowPreviewDraft(false)} className='absolute top-8 right-8 text-2xl'><i className='fa fa-times'></i></button>
                 <div className='w-full flex justify-start md:justify-center text-purple-900'>
                     <Typography variant='h5' sx={{ mt: 1 }}>
-                        Create New Complaint
+                        Edit Draft
                     </Typography>
                 </div>
                 <div className='py-2 md:p-8 h-auto flex flex-col gap-3'>
@@ -479,22 +477,27 @@ const Drafts = () => {
                     </div>
                     <div className='mb-auto flex text-purple-800 font-semibold italic text-lg'>{requestMessage}</div>
                     <div className='flex flex-col md:flex-row w-full gap-4'>
-                        <button onClick={() => resaveDraft(draftDetails.id)} type="button" disabled={isSaving? true: '' } className={`w-full max-w-sm flex justify-center text-white bg-purple-800 hover:bg-purple-900 focus:ring-4 focus:outline-none focus:ring-purple-400 font-semibold rounded-lg text-base w-full px-5 py-3 text-center`}>
-                            {
-                                isSaving?
-                                <span className='flex h-8 w-8 border-4 border-b-purple-300 rounded-full animate-spin'></span>
-                                :
-                                <span>Save</span>
-                            }
-                        </button>
-                        <button onClick={sendComplaint} type="button" disabled={isSubmitting? true: '' } className={`w-full max-w-sm flex justify-center text-white bg-purple-800 hover:bg-purple-900 focus:ring-4 focus:outline-none focus:ring-purple-400 font-semibold rounded-lg text-base w-full px-5 py-3 text-center`}>
-                            {
-                                isSubmitting?
-                                <span className='flex h-8 w-8 border-4 border-b-purple-300 rounded-full animate-spin'></span>
-                                :
-                                <span>Submit</span>
-                            }
-                        </button>
+                        <Button onClick={() => resaveDraft(draftDetails.id)}
+                            variant='outlined' color='secondary'
+                            backgroundColor = 'purple[500]'
+                            className='w-full bg-gray-500'>
+                                Save
+                                {
+                                    isSaving &&
+                                    <span className='flex mx-2 h-5 w-5 border-4 border-b-purple-300 rounded-full animate-spin'></span>
+                                }
+                        </Button>
+                        <Button onClick={() => sendComplaint()}
+                            variant='outlined' color='secondary'
+                            backgroundColor = 'purple[500]'
+                            py = {2}
+                            className='w-full bg-gray-500'>
+                                Submit
+                                {
+                                    isSubmitting &&
+                                    <span className='flex mx-2 h-5 w-5 border-4 border-b-purple-300 rounded-full animate-spin'></span>
+                                }
+                        </Button>
                     </div>
                 </div>
                 </Box>
