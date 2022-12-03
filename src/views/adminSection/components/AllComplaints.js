@@ -1,4 +1,7 @@
-import { Box, Modal, Typography } from '@mui/material';
+import { Box, Button, IconButton, Modal, Tooltip, Typography } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
+import PhoneEnabledIcon from '@mui/icons-material/PhoneEnabled';
+
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Loader from '../../../components/Loader';
@@ -89,26 +92,32 @@ const AllComplaints = ({filter}) => {
                                             <span className='font-bold text-base flex text-red-500 text-lg capitalize'>{complaint.severity}</span>
                                         }
                                     </div>
-                                    <div className='w-full mb-3 flex justify-between items-baseline text-gray-700 text-base'>
+                                    <div className='w-full mb-1 flex justify-between items-baseline text-gray-700 text-base'>
                                         <span className="block text-lg">{complaint.name}</span>
                                         <Typography component='div' variant='caption' className='text-green-500 pr-3 w-28 flex justify-end'>{complaint.createdAt.split('T')[0]}</Typography>
                                     </div>
-                                    <div className='w-full mb-3 flex justify-between items-baseline text-gray-700 text-base'>
-                                        <p className="mb-2 font-normal text-gray-700">Medium: {complaint.medium}</p>
+                                    <div className='w-full mb-2 flex justify-between items-baseline text-gray-700 text-base'>
+                                        <p className="font-normal text-gray-700">Medium: {complaint.medium}</p>
                                         <Typography component='div' variant='caption' className='text-green-500 pr-3 w-40 flex justify-end'>{complaint.phone}</Typography>
                                     </div>
-                                    <p className="mb-2 font-normal text-gray-700">Lorem ipsu, dolor sit manet quoqem in nomine dominem Lorem ipsu, dolor sit manet quoqem in nomine dominem{complaint.desc}</p>
+                                    <p className="font-normal text-gray-700">Lorem ipsu, dolor sit manet quoqem in nomine dominem Lorem ipsu, dolor sit manet quoqem in nomine dominem{complaint.desc}</p>
                                     {
                                         complaint.status?
-                                        <p className='mt-auto mb-4 text-green-700 text-xl'>Resolved</p>
+                                        <div className='flex items-center mb-4 mt-6'>
+                                            <p className='text-green-700 text-xl w-full'>Resolved</p>
+                                            <Tooltip title="Call Victim">
+                                                <a  href={`tel:+${complaint.phone}`} id={complaint.id} className={`text-purple-800 text:bg-purple-900`}>
+                                                    <IconButton color={`${complaint.status? 'secondary': 'gray'}`}>
+                                                        <PhoneEnabledIcon />
+                                                    </IconButton>
+                                                </a>
+                                            </Tooltip>
+                                        </div>
                                         :
-                                        <p className='mt-auto mb-4 text-yellow-700 text-xl'>Pending</p>
+                                        <p className='mt-auto my-4 mt-6 text-yellow-700 text-xl flex w-full justify-center'>Pending</p>
                                     }
-                                    <div className='px-5'>
-                                        <a  href={`${complaint.status? 'tel:'+complaint.phone: 'javascript:void(0)'}`} id={complaint.id} className={`flex w-full items-center justify-center px-3 py-3 text-lg font-semibold text-center text-white ${complaint.status? 'bg-purple-800 hover:bg-purple-900 focus:ring-4 focus:outline-none focus:ring-purple-300': 'bg-gray-500 cursor-default'} rounded-lg`}>
-                                            Call Victim
-                                            <svg aria-hidden="true" className="w-4 h-4 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd"></path></svg>
-                                        </a>
+                                    <div className='flex gap-3 mt-auto'>
+                                        <Button variant='outlined' color='secondary' backgroundColor = 'purple[500]' className='w-full bg-gray-500'>View Details</Button>
                                     </div>
                                 </div>
                             )
