@@ -5,6 +5,7 @@ import SuppliesComplaint from '../components/SuppliesComplaints';
 import PsychosocialComplaints from '../components/PsychosocialComplaints';
 import WASHComplaints from '../components/WASHComplaints';
 import LegalComplaint from '../components/LegalComplaint';
+
 import {
     Box, FormControl, InputLabel, MenuItem, Modal, Select, TextField, 
     Typography, Slide, Dialog, DialogTitle, DialogContent, DialogContentText,
@@ -28,6 +29,7 @@ const Complaints = () => {
     }
 
     const [ filter, setFilter ] = useState('');
+    
     const complaintCategories = {
         all: <AllComplaints value='all' filter={filter} togglePrevComplaint={togglePrevComplaint}/> ,
         health: <HealthComplaint value='health' filter={filter} togglePrevComplaint={togglePrevComplaint}/>,
