@@ -41,7 +41,6 @@ export default function Deposits({value}) {
         )
         .then(response => response.json())
         .then(data => {
-            console.log(data);
             if (value === 'allCases') {
                 setDisplayValues(prevValue => {
                     return {
