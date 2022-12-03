@@ -6,7 +6,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Loader from '../../../components/Loader';
 
-const AllComplaints = ({filter}) => {
+const AllComplaints = ({filter, togglePrevComplaint}) => {
     const [ isLoading, setIsLoading ] = useState(false);
     const [ complaints, setComplaints ] = useState([]);
 
@@ -41,9 +41,7 @@ const AllComplaints = ({filter}) => {
     useEffect(() => {
         getAllComplaints();
     }, [])
-
-    const text = 'Lorem ipsu, dolor sit manet quoqem in nomine dominem Lorem ipsu, dolor sit manet quoqem in nomine dominemLorem ipsu, dolor sit manet quoqem in nomine dominem Lorem ipsu, dolor sit manet quoqem in nomine dominem'
-
+    
     return (
         <div className='relative w-full'>
             {/*
@@ -102,7 +100,7 @@ const AllComplaints = ({filter}) => {
                                         <p className="font-normal text-gray-700">Medium: {complaint.medium}</p>
                                         <Typography component='div' variant='caption' className='text-green-500 pr-3 w-40 flex justify-end'>{complaint.phone}</Typography>
                                     </div>
-                                    <p className="font-normal text-gray-700">{complaint.desc.length >= 100? text.slice(0, 100): complaint.desc}</p>
+                                    <p className="font-normal text-gray-700">{complaint.desc.length >= 100? complaint.desc.slice(0, 100): complaint.desc}</p>
                                     {
                                         complaint.status?
                                         <div className='flex items-center justify-between mb-4 mt-6'>
@@ -119,7 +117,7 @@ const AllComplaints = ({filter}) => {
                                         <p className='mt-auto my-4 mt-6 text-red-500 text-xl flex w-full justify-center'>Pending</p>
                                     }
                                     <div className='flex gap-3 mt-auto'>
-                                        <Button variant='outlined' color='secondary' backgroundColor = 'purple[500]' className='w-full bg-gray-500'>View Details</Button>
+                                        <Button onClick={togglePrevComplaint} variant='outlined' color='secondary' backgroundColor = 'purple[500]' className='w-full bg-gray-500'>View Details</Button>
                                     </div>
                                 </div>
                             )
