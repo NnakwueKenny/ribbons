@@ -34,7 +34,7 @@ import logo from '../../images/logo.png';
 import AdminDashboard from './components/AdminDashboard';
 import Complaints from './components/Complaints';
 import Drafts from './components/Drafts';
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, ListItemButton, ListItemIcon, ListItemText, Tooltip } from '@mui/material';
 import Dashboard from '@mui/icons-material/Dashboard';
 import ShoppingCart from '@mui/icons-material/ShoppingCart';
 import People from '@mui/icons-material/People';
@@ -218,13 +218,15 @@ const AdminIndex = () => {
                                     >
                                     Help Desk
                                     </Typography>
-                                    <IconButton color="inherit" size='large' onClick={() => setShowLogoutModal(true)}>
-                                        <PowerSettingsNewIcon fontSize='inherit'/>
-                                    </IconButton>
+                                    <Tooltip title="Logout">
+                                        <IconButton color="inherit" size='large' onClick={() => setShowLogoutModal(true)}>
+                                            <PowerSettingsNewIcon fontSize='inherit'/>
+                                        </IconButton>
+                                    </Tooltip>
                                     <IconButton color="inherit">
-                                    <Badge badgeContent={4} color="secondary">
-                                        <NotificationsIcon/>
-                                    </Badge>
+                                        <Badge badgeContent={4} color="secondary">
+                                            <NotificationsIcon/>
+                                        </Badge>
                                     </IconButton>
                                 </Toolbar>
                                 </AppBar>
