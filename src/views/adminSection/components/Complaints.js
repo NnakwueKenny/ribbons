@@ -23,8 +23,8 @@ const Complaints = () => {
     const [ showPreviewComplaint, setShowPreviewComplaint ] = useState(false);
     const [ complaintDetails, setComplaintDetails] = useState({})
 
-    const togglePrevComplaint = (complaintDetails) => {
-        setComplaintDetails(complaintDetails);
+    const togglePrevComplaint = (complaint) => {
+        setComplaintDetails(complaint);
         setShowPreviewComplaint(true)
     }
 
