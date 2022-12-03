@@ -8,8 +8,9 @@ import LegalComplaint from '../components/LegalComplaint';
 import {
     Box, FormControl, InputLabel, MenuItem, Modal, Select, TextField, 
     Typography, Slide, Dialog, DialogTitle, DialogContent, DialogContentText,
-    DialogActions, Button, Fade, Backdrop
+    DialogActions, Button, Fade, Backdrop, IconButton
 } from '@mui/material';
+import Close from '@mui/icons-material/Close';
 
 const Complaints = () => {
 
@@ -297,11 +298,28 @@ const Complaints = () => {
             }}
         >
             <Fade in={showPreviewComplaint}>
-                <Box className='relative bg-white w-full max-w-xl h-auto max-h-[700px] rounded-2xl p-6'>
-                    <Typography id="transition-modal-title" variant="h6" component="h2">
-                        Text in a modal
-                        {complaintDetails.name}
-                    </Typography>
+                <Box className='relative bg-white w-full max-w-2xl h-auto max-h-[700px] rounded-xl p-6 md:px-8 pt-8'>
+                    <div className='absolute top-2 right-2'>
+                        <IconButton color={'secondary'} onClick={() => setShowPreviewComplaint(false)}>
+                            <Close />
+                        </IconButton>
+                    </div>
+                    <div className='flex items-baseline justify-between'>
+                        <Typography id="transition-modal-title" variant="h5" component="h2">
+                            <span className='capitalize'>{complaintDetails.cat} support complaint</span>
+                        </Typography>
+                        <Typography id="transition-modal-title" variant="body1" component="h2">
+                            <span className={`capitalize font-semibold ${complaintDetails.severity === 'emergency'? 'text-red-500': 'text-green-500'}`}>{complaintDetails.severity}</span>
+                        </Typography>
+                    </div>
+                    <div className='w-full mb-1 mt-4 flex justify-between items-baseline text-gray-700 text-base'>
+                        <span className="block text-lg">{complaintDetails.name}</span>
+                        <Typography component='div' variant='caption' className='text-green-500 pr-3 w-28 flex justify-end'>{complaintDetails.createdAt?.split('T')[0]}</Typography>
+                    </div>
+                    <div className='w-full mb-2 flex justify-between items-baseline text-gray-700 text-base'>
+                        <p className="font-normal text-gray-700">Medium: {complaintDetails.medium}</p>
+                        <Typography component='div' variant='caption' className='text-green-500 pr-3 w-40 flex justify-end'>{complaintDetails.phone}</Typography>
+                    </div>
                     <Typography id="transition-modal-description" sx={{ mt: 2 }}>
                         Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
                     </Typography>
