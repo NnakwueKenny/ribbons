@@ -34,7 +34,7 @@ import logo from '../../images/logo.png';
 import AdminDashboard from './components/AdminDashboard';
 import Complaints from './components/Complaints';
 import Drafts from './components/Drafts';
-import { ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
 import Dashboard from '@mui/icons-material/Dashboard';
 import ShoppingCart from '@mui/icons-material/ShoppingCart';
 import People from '@mui/icons-material/People';
@@ -147,7 +147,9 @@ const AdminIndex = () => {
       setOpen(!open);
     };
 
+    const [ showLogoutModal, setShowLogoutModal ] = useState(false);
     const logout = () => {
+        setShowLogoutModal(false);
         setIsPageLoading(true);
         localStorage.removeItem('adminAccessToken');
         setTimeout(() => {
@@ -167,106 +169,131 @@ const AdminIndex = () => {
                 <Loader />
                 :
                 <>
-                <main className='h-full w-full flex flex-col overflow-y-auto'>
-                    <ThemeProvider theme={mdTheme}>
-                        <Box sx={{ display: 'flex' }}>
-                            <CssBaseline />
-                            
-                            <AppBar position="absolute" sx={{backgroundColor: 'rgb(88 28 135)'}} open={open}>
-                            <Toolbar
-                                sx={{
-                                pr: '24px', // keep right padding when drawer closed
-                                }}
-                            >
-                                <IconButton edge="start" color="inherit" aria-label="open drawer" onClick={toggleDrawer}
-                                sx={{
-                                    marginRight: '36px',
-                                    ...(open && { display: 'none' }),
-                                }}
-                                >
-                                <MenuIcon />
-                                </IconButton>
-                                <Typography component="h1" variant="h4" color="inherit" noWrap
-                                sx={{ flexGrow: 1 }}
-                                >
-                                Help Desk
-                                </Typography>
-                                <IconButton color="inherit" size='large' onClick={() => logout()}>
-                                    <PowerSettingsNewIcon fontSize='inherit'/>
-                                </IconButton>
-                                <IconButton color="inherit">
-                                <Badge badgeContent={4} color="secondary">
-                                    <NotificationsIcon/>
-                                </Badge>
-                                </IconButton>
-                            </Toolbar>
-                            </AppBar>
-
-                            <Drawer variant="permanent" open={open}>
-                                <Toolbar
+                    <main className='h-full w-full flex flex-col overflow-y-auto'>
+                        <ThemeProvider theme={mdTheme}>
+                            {
+                                <Dialog
+                                open={showLogoutModal}
+                                onClose={() => setShowLogoutModal(false)}
+                                aria-labelledby="alert-dialog-title"
+                                aria-describedby="alert-dialog-description"
+                              >
+                                <DialogTitle id="alert-dialog-title">
+                                  <span className='text-purple-900'>{"Log Out of Ribbons Help Desk"}</span>
+                                </DialogTitle>
+                                <DialogContent>
+                                  <DialogContentText id="alert-dialog-description">
+                                    Do you really want to logout?
+                                  </DialogContentText>
+                                </DialogContent>
+                                <DialogActions>
+                                  <Button onClick={() => setShowLogoutModal(false)}>
+                                    <span className='text-purple-900'>Cancel</span>
+                                  </Button>
+                                  <Button onClick={() => logout()} autoFocus>
+                                    <span className='text-red-600'>Continue</span>
+                                  </Button>
+                                </DialogActions>
+                              </Dialog>
+                            }
+                            <Box sx={{ display: 'flex' }}>
+                                <CssBaseline />
+                                
+                                <AppBar position="absolute" sx={{backgroundColor: 'rgb(88 28 135)'}} open={open}>
+                                    <Toolbar
                                     sx={{
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'flex-end',
-                                    px: [1],
+                                    pr: '24px', // keep right padding when drawer closed
                                     }}
                                 >
-                                    <div className='text-center font-semibold block w-full text-purple-900 '>
-                                        <Typography component="h1" variant="h4" color="inherit" noWrap
-                                        sx={{ flexGrow: 1 }}
-                                        >
-                                        Ribbons
-                                        </Typography>
-                                    </div>
-                                    <IconButton onClick={toggleDrawer}>
-                                    <ChevronLeftIcon />
+                                    <IconButton edge="start" color="inherit" aria-label="open drawer" onClick={toggleDrawer}
+                                    sx={{
+                                        marginRight: '36px',
+                                        ...(open && { display: 'none' }),
+                                    }}
+                                    >
+                                    <MenuIcon />
+                                    </IconButton>
+                                    <Typography component="h1" variant="h4" color="inherit" noWrap
+                                    sx={{ flexGrow: 1 }}
+                                    >
+                                    Help Desk
+                                    </Typography>
+                                    <IconButton color="inherit" size='large' onClick={() => setShowLogoutModal(true)}>
+                                        <PowerSettingsNewIcon fontSize='inherit'/>
+                                    </IconButton>
+                                    <IconButton color="inherit">
+                                    <Badge badgeContent={4} color="secondary">
+                                        <NotificationsIcon/>
+                                    </Badge>
                                     </IconButton>
                                 </Toolbar>
-                                <Divider />
-                                <List component="nav">
-                                    {
-                                    <React.Fragment>
-                                        <ListItemButton onClick={(e) => {setPage(pages['dashboard']); setCurrentPage('dashboard')}}>
-                                            <ListItemIcon>
-                                                <Dashboard />
-                                            </ListItemIcon>
-                                            <ListItemText primary="Dashboard" />
-                                        </ListItemButton>
+                                </AppBar>
 
-                                        <ListItemButton onClick={(e) => {setPage(pages['complaints']); setCurrentPage('complaints')}}>
-                                            <ListItemIcon>
-                                                <DriveFileRenameOutlineIcon />
-                                            </ListItemIcon>
-                                            <ListItemText primary="Complaints" />
-                                        </ListItemButton>
+                                <Drawer variant="permanent" open={open}>
+                                    <Toolbar
+                                        sx={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'flex-end',
+                                        px: [1],
+                                        }}
+                                    >
+                                        <div className='text-center font-semibold block w-full text-purple-900 '>
+                                            <Typography component="h1" variant="h4" color="inherit" noWrap
+                                            sx={{ flexGrow: 1 }}
+                                            >
+                                            Ribbons
+                                            </Typography>
+                                        </div>
+                                        <IconButton onClick={toggleDrawer}>
+                                        <ChevronLeftIcon />
+                                        </IconButton>
+                                    </Toolbar>
+                                    <Divider />
+                                    <List component="nav">
+                                        {
+                                        <React.Fragment>
+                                            <ListItemButton onClick={(e) => {setPage(pages['dashboard']); setCurrentPage('dashboard')}}>
+                                                <ListItemIcon>
+                                                    <Dashboard />
+                                                </ListItemIcon>
+                                                <ListItemText primary="Dashboard" />
+                                            </ListItemButton>
 
-                                        <ListItemButton onClick={(e) => {setPage(pages['drafts']); setCurrentPage('drafts')}}>
-                                            <ListItemIcon>
-                                                <DraftsIcon />
-                                            </ListItemIcon>
-                                            <ListItemText primary="Drafts" />
-                                        </ListItemButton>
+                                            <ListItemButton onClick={(e) => {setPage(pages['complaints']); setCurrentPage('complaints')}}>
+                                                <ListItemIcon>
+                                                    <DriveFileRenameOutlineIcon />
+                                                </ListItemIcon>
+                                                <ListItemText primary="Complaints" />
+                                            </ListItemButton>
 
-                                        <ListItemButton onClick={(e) => {setPage(pages['support']); setCurrentPage('support')}}>
-                                            <ListItemIcon>
-                                                <SettingsIcon />
-                                            </ListItemIcon>
-                                            <ListItemText primary="Support" />
-                                        </ListItemButton>
+                                            <ListItemButton onClick={(e) => {setPage(pages['drafts']); setCurrentPage('drafts')}}>
+                                                <ListItemIcon>
+                                                    <DraftsIcon />
+                                                </ListItemIcon>
+                                                <ListItemText primary="Drafts" />
+                                            </ListItemButton>
 
-                                        <ListItemButton  onClick={() => openChat()}>
-                                            <ListItemIcon>
-                                                <SpeakerNotesIcon />
-                                            </ListItemIcon>
-                                            <ListItemText primary="Chat" />
-                                        </ListItemButton>
-                                    </React.Fragment>}
-                                </List>
-                            </Drawer>
-                            {page}
-                        </Box>
-                    </ThemeProvider>
-                </main>
+                                            <ListItemButton onClick={(e) => {setPage(pages['support']); setCurrentPage('support')}}>
+                                                <ListItemIcon>
+                                                    <SettingsIcon />
+                                                </ListItemIcon>
+                                                <ListItemText primary="Support" />
+                                            </ListItemButton>
+
+                                            <ListItemButton  onClick={() => openChat()}>
+                                                <ListItemIcon>
+                                                    <SpeakerNotesIcon />
+                                                </ListItemIcon>
+                                                <ListItemText primary="Chat" />
+                                            </ListItemButton>
+                                        </React.Fragment>}
+                                    </List>
+                                </Drawer>
+                                {page}
+                            </Box>
+                        </ThemeProvider>
+                    </main>
                 </>
             }
         </div>
