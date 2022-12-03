@@ -26,7 +26,7 @@ const Complaints = () => {
 
     const toggleUpdateComplaint = (complaint) => {
         setComplaintDetails(complaint);
-        setShowPreviewComplaint(true)
+        setShowUpdateComplaint(true)
     }
 
     const [ filter, setFilter ] = useState('');
@@ -155,6 +155,29 @@ const Complaints = () => {
                 </Box>
             </Fade>
         </Modal>
+        <Dialog open={showUpdateComplaint}
+            onClose={() => setShowUpdateComplaint(false)}>
+            <DialogTitle>Subscribe</DialogTitle>
+            <DialogContent>
+            <DialogContentText>
+                To subscribe to this website, please enter your email address here. We
+                will send updates occasionally.
+            </DialogContentText>
+            <TextField
+                autoFocus
+                margin="dense"
+                id="name"
+                label="Email Address"
+                type="email"
+                fullWidth
+                variant="standard"
+            />
+            </DialogContent>
+            <DialogActions>
+            <Button onClick={() => setShowUpdateComplaint(false)}>Cancel</Button>
+            <Button onClick={() => setShowUpdateComplaint(false)}>Subscribe</Button>
+            </DialogActions>
+        </Dialog>
         <div className='flex items-center justify-center shadow px-3 py-5 pt-20 bg-opacity-25'>
             <div className='relative w-full flex gap-3 justify-center items-baseline lg:items-center bg-opacity-25'>
                 <div className={'absolute -top-4 right-2 lg:hidden'}>
