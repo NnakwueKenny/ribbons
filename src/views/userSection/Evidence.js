@@ -88,7 +88,7 @@ const Evidence = () => {
     useEffect(() => {
         toggleLoader();
         appendImages();
-        localStorage.removeItem('gbv-images');  // To be removed before set for production
+        // localStorage.removeItem('gbv-images');  // To be removed before set for production
     }, []);
 
   return (

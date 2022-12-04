@@ -174,10 +174,11 @@ const AdminLogin = () => {
                             label="Category"
                             onChange={(e) => setCategory(e.target.value)}
                             >
-                            <MenuItem value={'medical'}>Medical</MenuItem>
                             <MenuItem value={'health'}>Health</MenuItem>
-                            <MenuItem value={'counselling'}>Counselling</MenuItem>
-                            <MenuItem value={'welfare'}>Welfare</MenuItem>
+                            <MenuItem value={'legal'}>Legal</MenuItem>
+                            <MenuItem value={'psychosocial'}>Psychosocial</MenuItem>
+                            <MenuItem value={'supplies'}>Supplies</MenuItem>
+                            <MenuItem value={'wash'}>WASH</MenuItem>
                             </Select>
                         </FormControl>
                         <TextField
