@@ -335,13 +335,13 @@ const Complaints = () => {
                         </Typography>
                     </div>
                     {
-                        complaintDetails.agentComment &&
+                        complaintDetails.comment &&
                         <div className='w-full mb-2 flex flex-col justify-between text-gray-700 text-base'>
                             <Typography component='div' variant='h6' className=''>
                                 Agent's Comment:
                             </Typography>
                             <Typography component='p' className='text-green-500 text-justify'>
-                                {complaintDetails.agentComment}
+                                {complaintDetails.comment}
                             </Typography>
                         </div>
                     }
