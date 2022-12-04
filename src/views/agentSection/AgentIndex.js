@@ -146,7 +146,7 @@ const AdminIndex = () => {
     const logout = () => {
         setShowLogoutModal(false);
         setIsPageLoading(true);
-        localStorage.removeItem('adminAccessToken');
+        localStorage.removeItem('agentAccessToken');
         setTimeout(() => {
             setIsPageLoading(false);
             checkLogin(setIsLoggedIn, setCurrentAdmin, navigate, setIsPageLoading);
