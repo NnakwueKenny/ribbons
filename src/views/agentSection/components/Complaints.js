@@ -26,20 +26,23 @@ const Complaints = () => {
     const [ agentComment, setAgentComment ] = useState('');
     const updateCompaint = (complaint) => {
         console.log('Hello');
-        // fetch('https://ribbons.onrender.com/complaint/update-complaint',
-        //     {
-        //         method: 'post',
-        //         headers: {
-        //             accept: 'application/json',
-        //             'Content-Type': 'application/json'
-        //         },
-        //         body: JSON.stringify({
-        //             updateStatus: "resolve",
-        //             complaintID: complaint.id,
-        //             comment: agentComment
-        //         })
-        //     }
-        // )
+        fetch('https://ribbons.onrender.com/complaint/update-complaint',
+            {
+                method: 'post',
+                headers: {
+                    accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    updateStatus: "resolve",
+                    complaintID: complaint.id,
+                    comment: agentComment
+                })
+            }
+        )
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(err => console.log(err))
     }
 
     const toggleUpdateComplaint = (complaint) => {
