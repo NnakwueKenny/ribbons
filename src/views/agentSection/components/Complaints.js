@@ -18,6 +18,7 @@ const Complaints = () => {
     const [ showPreviewComplaint, setShowPreviewComplaint ] = useState(false);
     const [ showUpdateComplaint, setShowUpdateComplaint ] = useState(false);
     const [ complaintDetails, setComplaintDetails] = useState({})
+    const [ isUpdating, setIsUpdating ] = useState(false)
 
     const togglePrevComplaint = (complaint) => {
         setComplaintDetails(complaint);
@@ -26,6 +27,7 @@ const Complaints = () => {
     const [ agentComment, setAgentComment ] = useState('');
     const updateCompaint = (complaint) => {
         console.log('Hello');
+        setIsUpdating(true);
         fetch('https://ribbons.onrender.com/complaint/update-complaint',
             {
                 method: 'post',
@@ -41,14 +43,16 @@ const Complaints = () => {
             }
         )
         .then(response => response.json())
-        .then(data => console.log(data))
+        .then(data => {
+            console.log(data);
+            setIsUpdating(false);
+        })
         .catch(err => console.log(err))
     }
 
     const toggleUpdateComplaint = (complaint) => {
         setComplaintDetails(complaint);
         setShowUpdateComplaint(true);
-        updateCompaint(complaint);
     }
 
     const [ filter, setFilter ] = useState('');
@@ -200,11 +204,14 @@ const Complaints = () => {
             </DialogContent>
             <DialogActions>
                 <Button onClick={() => setShowUpdateComplaint(false)}>Cancel</Button>
-                <Button onClick={() => updateCompaint()}>Resolve</Button>
+                <Button onClick={() => updateCompaint(complaintDetails)}>Resolve</Button>
             </DialogActions>
-            <Box sx={{ display: 'flex', position: 'absolute'}} className='top-0 w-full h-full justify-center items-center'>
-                <CircularProgress />
-            </Box>
+            {
+                isUpdating &&
+                <Box sx={{ display: 'flex', position: 'absolute'}} className='top-0 w-full h-full justify-center items-center'>
+                    <CircularProgress />
+                </Box>
+            }
         </Dialog>
         <div className='flex items-center justify-center shadow px-3 py-5 pt-20 bg-opacity-25'>
             <div className='relative w-full flex gap-3 justify-center items-baseline lg:items-center bg-opacity-25'>
