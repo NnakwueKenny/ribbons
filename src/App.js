@@ -18,6 +18,8 @@ import ChatAdminMsg from './views/adminSection/ChatAdminMsg';
 import AgentIndex from './views/agentSection/AgentIndex';
 import AgentRegister from './views/agentSection/AgentRegister';
 import AgentLogin from './views/agentSection/AgentLogin';
+import ChatAgent from './views/agentSection/ChatAgent';
+import ChatAgentMsg from './views/agentSection/ChatAgentMsg';
 
 // ..
 AOS.init();
@@ -54,8 +56,8 @@ function App() {
         <Route path="/agent" element={<AgentIndex />} />
         <Route path="/agent/login" element={<AgentLogin />} />
         <Route path="/agent/register" element={<AgentRegister />} />
-        {/*<Route path="/agent/register" element={<AgentRegister />} />
-        <Route path="/agent/login" element={<AgentLogin />} /> */}
+        <Route path="/agent/chat" element={<ChatAgent />} />
+        <Route path="/agent/chat/:number" element={<ChatAgentMsg number={number} />} />
 
         {/* Evidence Route */}
         <Route path="/evidence" element={<Evidence />} />

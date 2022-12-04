@@ -20,6 +20,7 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
 import SettingsIcon from '@mui/icons-material/Settings';
 import SpeakerNotesIcon from '@mui/icons-material/SpeakerNotes';
+import Avatar from '@mui/material/Avatar';
 
 import { mainListItems, secondaryListItems } from './components/ListItems';
 import Chart from './components/Chart';
@@ -30,9 +31,9 @@ import { useNavigate } from 'react-router-dom';
 import  checkLogin from './functions/checkAgentLogin';
 import Loader from '../../components/Loader';
 import logo from '../../images/logo.png';
-import AgentDashboard from './components/AgentDashboard';
+import AdminDashboard from './components/AgentDashboard';
 import Complaints from './components/Complaints';
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, ListItemButton, ListItemIcon, ListItemText, Tooltip } from '@mui/material';
+import { ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
 import Dashboard from '@mui/icons-material/Dashboard';
 import ShoppingCart from '@mui/icons-material/ShoppingCart';
 import People from '@mui/icons-material/People';
@@ -116,7 +117,7 @@ const theme = createTheme({
     },
   });
 
-const AdminIndex = () => {
+const ChatAgent = () => {
     const navigate = useNavigate();
     const [ isLoggedIn, setIsLoggedIn ] = useState(false);
     const [ currentAdmin, setCurrentAdmin ] = useState({});
@@ -124,27 +125,25 @@ const AdminIndex = () => {
     const [ showSidebar, setShowSidebar ] = useState(false);
 
     const pages = {
-        dashboard: <AgentDashboard />,
+        dashboard: <AdminDashboard />,
         complaints: <Complaints /> ,
+        // chat: <WelfareComplaint filter='welfare' />,
     }
 
     const [ page, setPage ] = useState(pages.dashboard);
     const [ currentPage, setCurrentPage ] = useState('dashboard');
 
     useEffect(() => {
-        checkLogin(setIsLoggedIn, setCurrentAdmin, navigate, setIsPageLoading);
+        // checkLogin(setIsLoggedIn, setCurrentAdmin, navigate, setIsPageLoading);
         console.log('Hello');
     }, []);
-
-
     const [open, setOpen] = React.useState(false);
     const toggleDrawer = () => {
       setOpen(!open);
     };
 
-    const [ showLogoutModal, setShowLogoutModal ] = useState(false);
+
     const logout = () => {
-        setShowLogoutModal(false);
         setIsPageLoading(true);
         localStorage.removeItem('adminAccessToken');
         setTimeout(() => {
@@ -152,10 +151,45 @@ const AdminIndex = () => {
             checkLogin(setIsLoggedIn, setCurrentAdmin, navigate, setIsPageLoading);
         }, 2000);
     }
-
-    const openChat = () => {
-        navigate(`/agent/chat`);
+    
+    const openChat = (number) => {
+        navigate(`/admin/chat/:${number}`);
     }
+    
+    const closeChat = (number) => {
+        navigate(`/admin/chat`);
+    }
+
+    const openAdminPage = () => {
+        navigate('/admin');
+    }
+
+    const [ chatUsers, setChatUsers ] = useState([]);
+
+    const getAllChats = () => {
+        fetch('https://ribbons.onrender.com/chat/my-chats',
+            {
+                method: 'post',
+                headers: {
+                    accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    loc: JSON.parse(localStorage.getItem('adminLocation'))
+                })
+            }
+        )
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            console.log(localStorage.getItem('adminLocation'));
+            setChatUsers(data);
+        })
+    }
+    useEffect(() => {
+        getAllChats();
+        // console.log('Hello');
+    }, []);
 
     return (
         <div className='w-full h-full flex flex-col'>
@@ -166,36 +200,11 @@ const AdminIndex = () => {
                 <>
                     <main className='h-full w-full flex flex-col overflow-y-auto'>
                         <ThemeProvider theme={mdTheme}>
-                            {
-                                <Dialog
-                                open={showLogoutModal}
-                                onClose={() => setShowLogoutModal(false)}
-                                aria-labelledby="alert-dialog-title"
-                                aria-describedby="alert-dialog-description"
-                              >
-                                <DialogTitle id="alert-dialog-title">
-                                  <span className='text-purple-900'>{"Log Out of Ribbons Help Desk"}</span>
-                                </DialogTitle>
-                                <DialogContent>
-                                  <DialogContentText id="alert-dialog-description">
-                                    Do you really want to logout?
-                                  </DialogContentText>
-                                </DialogContent>
-                                <DialogActions>
-                                  <Button onClick={() => setShowLogoutModal(false)}>
-                                    <span className='text-purple-900'>Cancel</span>
-                                  </Button>
-                                  <Button onClick={() => logout()} autoFocus>
-                                    <span className='text-red-600'>Continue</span>
-                                  </Button>
-                                </DialogActions>
-                              </Dialog>
-                            }
                             <Box sx={{ display: 'flex' }}>
                                 <CssBaseline />
                                 
                                 <AppBar position="absolute" sx={{backgroundColor: 'rgb(88 28 135)'}} open={open}>
-                                    <Toolbar
+                                <Toolbar
                                     sx={{
                                     pr: '24px', // keep right padding when drawer closed
                                     }}
@@ -211,17 +220,15 @@ const AdminIndex = () => {
                                     <Typography component="h1" variant="h4" color="inherit" noWrap
                                     sx={{ flexGrow: 1 }}
                                     >
-                                    Help Desk
+                                    Agent Chat
                                     </Typography>
-                                    <Tooltip title="Logout">
-                                        <IconButton color="inherit" size='large' onClick={() => setShowLogoutModal(true)}>
-                                            <PowerSettingsNewIcon fontSize='inherit'/>
-                                        </IconButton>
-                                    </Tooltip>
+                                    <IconButton color="inherit" size='large' onClick={() => logout()}>
+                                        <PowerSettingsNewIcon fontSize='inherit'/>
+                                    </IconButton>
                                     <IconButton color="inherit">
-                                        <Badge badgeContent={4} color="secondary">
-                                            <NotificationsIcon/>
-                                        </Badge>
+                                    <Badge badgeContent={4} color="secondary">
+                                        <NotificationsIcon/>
+                                    </Badge>
                                     </IconButton>
                                 </Toolbar>
                                 </AppBar>
@@ -250,30 +257,65 @@ const AdminIndex = () => {
                                     <List component="nav">
                                         {
                                         <React.Fragment>
-                                            <ListItemButton onClick={(e) => {setPage(pages['dashboard']); setCurrentPage('dashboard')}}>
+                                            <ListItemButton onClick={() => openAdminPage()}>
                                                 <ListItemIcon>
                                                     <Dashboard />
                                                 </ListItemIcon>
                                                 <ListItemText primary="Dashboard" />
                                             </ListItemButton>
 
-                                            <ListItemButton onClick={(e) => {setPage(pages['complaints']); setCurrentPage('complaints')}}>
+                                            <ListItemButton onClick={() => openAdminPage()}>
                                                 <ListItemIcon>
                                                     <DriveFileRenameOutlineIcon />
                                                 </ListItemIcon>
                                                 <ListItemText primary="Complaints" />
                                             </ListItemButton>
 
-                                            <ListItemButton  onClick={() => openChat()}>
+                                            <ListItemButton>
                                                 <ListItemIcon>
                                                     <SpeakerNotesIcon />
                                                 </ListItemIcon>
                                                 <ListItemText primary="Chat" />
                                             </ListItemButton>
-                                        </React.Fragment>}
+                                        </React.Fragment>
+                                        }
                                     </List>
                                 </Drawer>
-                                {page}
+                                <Box
+                                    component="main"
+                                    sx={{
+                                        backgroundColor: (theme) =>
+                                        theme.palette.mode === 'light'
+                                            ? theme.palette.grey[100]
+                                            : theme.palette.grey[900],
+                                        flexGrow: 1,
+                                        height: '100vh',
+                                        overflow: 'auto',
+                                    }}>
+                                        <Container maxWidth="xl" className='h-full pt-24'>
+                                            <Grid container spacing={3} height='100%' columns={{ xs: 12}} direction='col'>
+                                                <div className='flex w-full h-full shadow'>
+                                                    <div className='h-full overflow-y-auto shadow w-full lg:w-2/5 divide-y px-5'>
+                                                        {
+                                                            chatUsers.map(user => {
+                                                                console.log(user)
+                                                                return (
+                                                                    <button onClick={() => openChat(user.user)} className='w-full flex items-center gap-2 py-3 px-2 text-base'>
+                                                                        <Avatar>U</Avatar>
+                                                                        {user.user}
+                                                                    </button>
+                                                                )
+                                                            })
+                                                        }
+                                                    </div>
+                                                    <div className='hidden lg:flex flex-col gap-2 justify-center items-center text-2xl font-semibold text-purple-900 w-full'>
+                                                        <span className='text-purple-900 text-3xl'><i className='fa fa-message'></i></span>
+                                                        <span>Chats Appear Here</span>
+                                                    </div>
+                                                </div>
+                                            </Grid>
+                                        </Container>
+                                </Box>
                             </Box>
                         </ThemeProvider>
                     </main>
@@ -283,4 +325,4 @@ const AdminIndex = () => {
     )
 }
 
-export default AdminIndex
+export default ChatAgent
