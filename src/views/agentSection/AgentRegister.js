@@ -160,7 +160,7 @@ const AdminLogin = () => {
                             required
                             fullWidth
                             id="name"
-                            label="Name (Eg. Humanitarian camp, Maharashtra, India)"
+                            label="Name (Eg. Government Medical Center, Maharashtra, India)"
                             name="name"
                             autoComplete="name"
                             autoFocus

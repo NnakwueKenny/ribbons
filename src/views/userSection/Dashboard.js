@@ -26,6 +26,7 @@ const Dashboard = () => {
 
   return (
     <div className='h-full overflow-auto w-full py-4'>
+      <div id="google_translate_element" className='w-full'></div>
       {showChatbot && <Chatbot toggleShowChatbot={toggleShowChatbot}/>}
       {
         isLoading ?
