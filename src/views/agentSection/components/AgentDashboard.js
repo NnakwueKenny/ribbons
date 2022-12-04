@@ -275,12 +275,12 @@ const AdminDashboard = () => {
                           </Title>
                           <Title>
                             <Typography sx={{color: 'gray'}} component="h3" variant="h6">
-                                Dept.
+                                Review
                             </Typography>
                           </Title>
                           <Title>
                             <Typography sx={{color: 'gray'}} component="h3" variant="h6">
-                                Status
+                              Date
                             </Typography>
                           </Title>
                         </div>
@@ -292,39 +292,17 @@ const AdminDashboard = () => {
                         <div className='w-full flex justify-between'>
                           <Title>
                             <Typography sx={{color: 'gray'}} component="h3" variant="body2">
-                                Salma50
+                              Faruq Hassa
                             </Typography>
                           </Title>
                           <Title>
                             <Typography sx={{color: 'gray'}} component="h3" variant="body2">
-                                WASH
+                                Great
                             </Typography>
                           </Title>
                           <Title>
                             <Typography sx={{color: 'gray'}} component="h3" variant="body2">
-                                Online
-                            </Typography>
-                          </Title>
-                        </div>
-                      </ListItem>
-                    </Stack>
-
-                    <Stack direction="col" spacing={2} justifyContent="between">
-                      <ListItem textAlign = 'end'>
-                        <div className='w-full flex justify-between'>
-                          <Title>
-                            <Typography sx={{color: 'gray'}} component="h3" variant="body2">
-                                Dujo38
-                            </Typography>
-                          </Title>
-                          <Title>
-                            <Typography sx={{color: 'gray'}} component="h3" variant="body2">
-                                Psychosocial
-                            </Typography>
-                          </Title>
-                          <Title>
-                            <Typography sx={{color: 'gray'}} component="h3" variant="body2">
-                            Offline
+                              1, Dec, 2022
                             </Typography>
                           </Title>
                         </div>
@@ -336,17 +314,17 @@ const AdminDashboard = () => {
                         <div className='w-full flex justify-between'>
                           <Title>
                             <Typography sx={{color: 'gray'}} component="h3" variant="body2">
-                              Kene70
+                              Alameen Magaga
                             </Typography>
                           </Title>
                           <Title>
                             <Typography sx={{color: 'gray'}} component="h3" variant="body2">
-                              Medical
+                              Excellent
                             </Typography>
                           </Title>
                           <Title>
                             <Typography sx={{color: 'gray'}} component="h3" variant="body2">
-                            Offline
+                            29 Nov, 2022
                             </Typography>
                           </Title>
                         </div>
@@ -358,17 +336,39 @@ const AdminDashboard = () => {
                         <div className='w-full flex justify-between'>
                           <Title>
                             <Typography sx={{color: 'gray'}} component="h3" variant="body2">
-                              Prince40
+                              Kene Nnakwue
                             </Typography>
                           </Title>
                           <Title>
                             <Typography sx={{color: 'gray'}} component="h3" variant="body2">
-                              Supplies
+                              Very Disappointing
                             </Typography>
                           </Title>
                           <Title>
                             <Typography sx={{color: 'gray'}} component="h3" variant="body2">
-                            Online
+                              28 Nov, 2022
+                            </Typography>
+                          </Title>
+                        </div>
+                      </ListItem>
+                    </Stack>
+
+                    <Stack direction="col" spacing={2} justifyContent="between">
+                      <ListItem textAlign = 'end'>
+                        <div className='w-full flex justify-between'>
+                          <Title>
+                            <Typography sx={{color: 'gray'}} component="h3" variant="body2">
+                              Salma Gambo
+                            </Typography>
+                          </Title>
+                          <Title>
+                            <Typography sx={{color: 'gray'}} component="h3" variant="body2">
+                              No response
+                            </Typography>
+                          </Title>
+                          <Title>
+                            <Typography sx={{color: 'gray'}} component="h3" variant="body2">
+                              25 Nov, 2022
                             </Typography>
                           </Title>
                         </div>

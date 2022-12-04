@@ -4,7 +4,7 @@ import AllComplaints from '../components/AllComplaints';
 import {
     Box, FormControl, InputLabel, MenuItem, Modal, Select, TextField, 
     Typography, Slide, Dialog, DialogTitle, DialogContent, DialogContentText,
-    DialogActions, Button, Fade, Backdrop, IconButton, Tooltip
+    DialogActions, Button, Fade, Backdrop, IconButton, Tooltip, CircularProgress
 } from '@mui/material';
 import Close from '@mui/icons-material/Close';
 import PhoneEnabledIcon from '@mui/icons-material/PhoneEnabled';
@@ -199,6 +199,9 @@ const Complaints = () => {
                 <Button onClick={() => setShowUpdateComplaint(false)}>Cancel</Button>
                 <Button onClick={() => updateCompaint()}>Resolve</Button>
             </DialogActions>
+            <Box sx={{ display: 'flex', position: 'absolute'}} className='top-0 w-full h-full justify-center items-center'>
+                <CircularProgress />
+            </Box>
         </Dialog>
         <div className='flex items-center justify-center shadow px-3 py-5 pt-20 bg-opacity-25'>
             <div className='relative w-full flex gap-3 justify-center items-baseline lg:items-center bg-opacity-25'>
