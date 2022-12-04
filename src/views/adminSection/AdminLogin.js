@@ -31,16 +31,7 @@ function Copyright(props) {
 
 const AdminLogin = () => {
   
-
-const theme = createTheme();
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-  };
+  const theme = createTheme();
   const navigate = useNavigate();
 
   const [ username, setUsername ] = useState('');
@@ -73,17 +64,17 @@ const theme = createTheme();
         }
     )
     .then(response => response.json())
-    .then(data => {
-      console.log(data)
-        if (data.error) {
-          toggleMessageContent(setLoginMessage, data.error);
+    .then(loginData => {
+        if (loginData.error) {
+          toggleMessageContent(setLoginMessage, loginData.error);
           setLoginStatus(false);
         } else {
           toggleMessageContent(setLoginMessage, '');
           setLoginStatus(true);
-          localStorage.setItem('adminAccessToken', JSON.stringify(data.accessToken));
-          localStorage.setItem('adminUsername', JSON.stringify(username));
-          localStorage.setItem('adminLocation', JSON.stringify(data.location));
+          localStorage.setItem('adminAccessToken', JSON.stringify(loginData.accessToken));
+          localStorage.setItem('adminUsername', JSON.stringify(loginData.username));
+          localStorage.setItem('adminLocation', JSON.stringify(loginData.location));
+          localStorage.setItem('adminPhone', JSON.stringify(loginData.phone));
           setTimeout(() => {
             setShowLoader(true);
           }, 2000);
@@ -94,12 +85,10 @@ const theme = createTheme();
         setIsLoading(false);
     })
     .catch(err => {
-      console.log(err);
       toggleMessageContent(setLoginMessage, 'Login failed');
       setLoginStatus(false);
       setIsLoading(false);
     })
-    // eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Imh1bWFuaXRhcmlhbnNlcnZjYW1wbWFoYXJhc2giLCJpYXQiOjE2Njk1NjEzMjAsImV4cCI6MTY3MDE2NjEyMH0.1flPPKkBNYbJHlOu4njWzzuiabA8rxhWW-rJ0MKgEqI
 }
   return (
     <div className=''>
@@ -131,17 +120,19 @@ const theme = createTheme();
               <TextField
                 onChange={(e) => setUsername(e.target.value)} 
                 margin="normal"
+                value={username}
                 required
                 fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
+                id="text"
+                label="Email or Username"
+                name="text"
+                autoComplete="text"
                 autoFocus
               />
               <TextField
                 onChange={(e) => setPassword(e.target.value)} 
                 margin="normal"
+                value={password}
                 required
                 fullWidth
                 name="password"
@@ -156,7 +147,7 @@ const theme = createTheme();
               />
               { loginMessage !== '' &&
               <div className='login-message'>
-                  <span className={`login-message-content block text-start font-semibold pb-3 italic text-${loginStatus === 'success'? 'green-500': 'purple-800'}`}>{loginMessage}</span>
+                <span className={`login-message-content block text-start font-semibold pb-3 italic text-${loginStatus === 'success'? 'green-500': 'purple-800'}`}>{loginMessage}</span>
               </div>
               }
               <Button
