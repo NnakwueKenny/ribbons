@@ -202,7 +202,7 @@ const AdminRegister = () => {
                     </Button>
                     <Grid container>
                       <Grid item>
-                        <Link to='/admin/login' variant="body2">
+                        <Link href='/admin/login' variant="body2">
                           Already have an account? Login
                         </Link>
                       </Grid>
