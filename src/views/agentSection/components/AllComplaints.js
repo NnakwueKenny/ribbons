@@ -20,8 +20,8 @@ const AllComplaints = ({filter, togglePrevComplaint, toggleUpdateComplaint}) => 
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    loc: JSON.parse(localStorage.getItem('adminLocation')),
-                    username: JSON.parse(localStorage.getItem('adminUsername'))
+                    loc: JSON.parse(localStorage.getItem('agentLocation')),
+                    username: JSON.parse(localStorage.getItem('agentUsername'))
                 })
             }
         )

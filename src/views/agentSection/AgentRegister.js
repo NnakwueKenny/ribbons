@@ -105,7 +105,7 @@ const AdminLogin = () => {
                 setRegisterStatus(true);
                 localStorage.setItem('agentAccessToken', JSON.stringify(loginData.accessToken));
                 localStorage.setItem('agentUsername', JSON.stringify(username));
-                localStorage.setItem('agentLocation', JSON.stringify(loginData.accessToken));
+                localStorage.setItem('agentLocation', JSON.stringify(loginData.loc));
                 setTimeout(() => {
                     setShowLoader(true);
                 }, 2000);
