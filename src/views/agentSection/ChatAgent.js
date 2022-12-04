@@ -153,15 +153,15 @@ const ChatAgent = () => {
     }
     
     const openChat = (number) => {
-        navigate(`/admin/chat/:${number}`);
+        navigate(`/agent/chat/:${number}`);
     }
     
     const closeChat = (number) => {
-        navigate(`/admin/chat`);
+        navigate(`/agent/chat`);
     }
 
     const openAdminPage = () => {
-        navigate('/admin');
+        navigate('/agent');
     }
 
     const [ chatUsers, setChatUsers ] = useState([]);

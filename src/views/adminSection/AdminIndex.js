@@ -34,6 +34,7 @@ import logo from '../../images/logo.png';
 import AdminDashboard from './components/AdminDashboard';
 import Complaints from './components/Complaints';
 import Drafts from './components/Drafts';
+import Support from './components/Support';
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, ListItemButton, ListItemIcon, ListItemText, Tooltip } from '@mui/material';
 import Dashboard from '@mui/icons-material/Dashboard';
 import ShoppingCart from '@mui/icons-material/ShoppingCart';
@@ -129,7 +130,7 @@ const AdminIndex = () => {
         dashboard: <AdminDashboard />,
         complaints: <Complaints /> ,
         drafts: <Drafts />,
-        support: <Drafts filter='support' />,
+        support: <Support filter='support' />,
         // chat: <WelfareComplaint filter='welfare' />,
     }
 
