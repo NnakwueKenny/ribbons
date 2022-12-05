@@ -137,7 +137,7 @@ const AdminIndex = () => {
     }, []);
 
 
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = React.useState(true);
     const toggleDrawer = () => {
       setOpen(!open);
     };
@@ -174,7 +174,7 @@ const AdminIndex = () => {
                                 aria-describedby="alert-dialog-description"
                               >
                                 <DialogTitle id="alert-dialog-title">
-                                  <span className='text-purple-900'>{"Log Out of Ribbons Help Desk"}</span>
+                                  <span className='text-purple-900'>{"Log Out of Ribbons Agent Panel"}</span>
                                 </DialogTitle>
                                 <DialogContent>
                                   <DialogContentText id="alert-dialog-description">
@@ -186,7 +186,7 @@ const AdminIndex = () => {
                                     <span className='text-purple-900'>Cancel</span>
                                   </Button>
                                   <Button onClick={() => logout()} autoFocus>
-                                    <span className='text-red-600'>Continue</span>
+                                    <span className='text-red-600'>Logout</span>
                                   </Button>
                                 </DialogActions>
                               </Dialog>
@@ -211,7 +211,7 @@ const AdminIndex = () => {
                                     <Typography component="h1" variant="h4" color="inherit" noWrap
                                     sx={{ flexGrow: 1 }}
                                     >
-                                    Help Desk
+                                        Agent Panel
                                     </Typography>
                                     <Tooltip title="Logout">
                                         <IconButton color="inherit" size='large' onClick={() => setShowLogoutModal(true)}>

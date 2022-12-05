@@ -33,7 +33,7 @@ import Loader from '../../components/Loader';
 import logo from '../../images/logo.png';
 import AdminDashboard from './components/AgentDashboard';
 import Complaints from './components/Complaints';
-import { ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, ListItemButton, ListItemIcon, ListItemText, Tooltip } from '@mui/material';
 import Dashboard from '@mui/icons-material/Dashboard';
 import ShoppingCart from '@mui/icons-material/ShoppingCart';
 import People from '@mui/icons-material/People';
@@ -142,10 +142,11 @@ const ChatAgent = () => {
       setOpen(!open);
     };
 
-
+    const [ showLogoutModal, setShowLogoutModal ] = useState(false);
     const logout = () => {
+        setShowLogoutModal(false);
         setIsPageLoading(true);
-        localStorage.removeItem('adminAccessToken');
+        localStorage.removeItem('agentAccessToken');
         setTimeout(() => {
             setIsPageLoading(false);
             checkLogin(setIsLoggedIn, setCurrentAdmin, navigate, setIsPageLoading);
@@ -200,6 +201,31 @@ const ChatAgent = () => {
                 <>
                     <main className='h-full w-full flex flex-col overflow-y-auto'>
                         <ThemeProvider theme={mdTheme}>
+                            {
+                                <Dialog
+                                open={showLogoutModal}
+                                onClose={() => setShowLogoutModal(false)}
+                                aria-labelledby="alert-dialog-title"
+                                aria-describedby="alert-dialog-description"
+                            >
+                                <DialogTitle id="alert-dialog-title">
+                                <span className='text-purple-900'>{"Log Out of Ribbons Agent Panel"}</span>
+                                </DialogTitle>
+                                <DialogContent>
+                                <DialogContentText id="alert-dialog-description">
+                                    Do you really want to logout?
+                                </DialogContentText>
+                                </DialogContent>
+                                <DialogActions>
+                                <Button onClick={() => setShowLogoutModal(false)}>
+                                    <span className='text-purple-900'>Cancel</span>
+                                </Button>
+                                <Button onClick={() => logout()} autoFocus>
+                                    <span className='text-red-600'>Logout</span>
+                                </Button>
+                                </DialogActions>
+                            </Dialog>
+                            }
                             <Box sx={{ display: 'flex' }}>
                                 <CssBaseline />
                                 
@@ -222,9 +248,11 @@ const ChatAgent = () => {
                                     >
                                     Agent Chat
                                     </Typography>
-                                    <IconButton color="inherit" size='large' onClick={() => logout()}>
-                                        <PowerSettingsNewIcon fontSize='inherit'/>
-                                    </IconButton>
+                                    <Tooltip title="Logout">
+                                        <IconButton color="inherit" size='large' onClick={() => setShowLogoutModal(true)}>
+                                            <PowerSettingsNewIcon fontSize='inherit'/>
+                                        </IconButton>
+                                    </Tooltip>
                                     <IconButton color="inherit">
                                     <Badge badgeContent={4} color="secondary">
                                         <NotificationsIcon/>

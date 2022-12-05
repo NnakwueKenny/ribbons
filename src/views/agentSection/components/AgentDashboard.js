@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import MuiDrawer from '@mui/material/Drawer';
@@ -88,10 +88,66 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
     },
   }),
 );
-
 const mdTheme = createTheme();
 
-const AdminDashboard = () => {
+const AgentDashboard = () => {
+  const [displayValues, setDisplayValues] = useState({
+    allCases: {
+      title: 'All Cases',
+      resolved: 0,
+      open: 0,
+    },
+
+    liveEmergency: {
+      title: 'Emergency Cases',
+      resolved: 0,
+      open: 0,
+    },
+  });
+
+  const getAllComplaints = () => {
+    console.log('Fetching all request...');
+    fetch('https://ribbons.onrender.com/complaint/get-all-complaints',
+      {
+        method: 'post',
+        headers: {
+          accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          "loc": JSON.parse(localStorage.getItem('agentLocation')),
+          "username": JSON.parse(localStorage.getItem('agentUsername'))
+        })
+      }
+    )
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+      setDisplayValues(prevValue => {
+        return {
+          ...prevValue,
+          allCases: {
+            title: 'All Cases',
+            resolved: data.filter(item => item.status === true).length,
+            open: data.filter(item => item.status === false).length,
+          }
+        }
+      });
+      setDisplayValues(prevValue => {
+        return {
+          ...prevValue,
+          liveEmergency: {
+            title: 'Emergency Cases',
+            resolved: data.filter(item => item.status === true && item.severity === 'emergency').length,
+            open: data.filter(item => item.status === false && item.severity === 'emergency').length,
+          }
+        }
+      });
+    })
+  }
+  useEffect(() => {
+    getAllComplaints();
+  }, []);
 
   return (
     <>
@@ -108,21 +164,25 @@ const AdminDashboard = () => {
       }}
       >
       <Toolbar />
-      <Toolbar />
+      <div className='pl-5 py-4'>
+        <Title>
+          <Typography color='rgb(88 28 135)' component='h2' variant='h5'>{JSON.parse(localStorage.getItem('agentName'))}</Typography>
+        </Title>
+      </div>
       <Container maxWidth="xl">
         <Grid container spacing={3}>
           {/* Chart */}
           {/* All Cases */}
           <Grid item xs={12} md={4} lg={4}>
             <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', height: 200, justifyContent: 'space-between'}} >
-              <DisplayComponents value={'allCases'}/>
+              <DisplayComponents  values={displayValues} compare='allCases'/>
             </Paper>
           </Grid>
 
           {/* Emergency Cases */}
           <Grid item xs={12} md={4} lg={4}>
             <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', height: 200, justifyContent: 'space-between'}} >
-              <DisplayComponents value={'liveEmergency'}/>
+              <DisplayComponents values={displayValues} compare='emergencyCases'/>
             </Paper>
           </Grid>
 
@@ -137,11 +197,11 @@ const AdminDashboard = () => {
 
           <Grid item xs={12} md={6} lg={4}>
             <Paper
-              sx={{ p: 1,  display: 'flex', flexDirection: 'column', height: 310 }}
+              sx={{ p: 1,  display: 'flex', flexDirection: 'column', height: '100%' }}
             >
               <Title>
                 <Typography sx={{color: 'gray'}} component="h2" variant="h5">
-                  Top Cases Solved
+                  Recent Updates
                 </Typography>
               </Title>
               <Grid container spacing={1}>
@@ -151,103 +211,17 @@ const AdminDashboard = () => {
                         <div className='w-full flex justify-between'>
                           <Title>
                             <Typography sx={{color: 'gray'}} component="h3" variant="h6">
-                                Department
+                                
                             </Typography>
                           </Title>
                           <Title>
                             <Typography sx={{color: 'gray'}} component="h3" variant="h6">
-                                Cases
+                                
                             </Typography>
                           </Title>
                         </div>
                       </ListItem>
                     </Stack>
-
-                    <Stack direction="col" spacing={2} justifyContent="between">
-                      <ListItem textAlign = 'end'>
-                        <div className='w-full flex justify-between'>
-                          <Title>
-                            <Typography sx={{color: 'gray'}} component="h3" variant="body2">
-                                Health
-                            </Typography>
-                          </Title>
-                          <Title>
-                            <Typography sx={{color: 'gray'}} component="h3" variant="body2">
-                                89
-                            </Typography>
-                          </Title>
-                        </div>
-                      </ListItem>
-                    </Stack>
-
-                    <Stack direction="col" spacing={2} justifyContent="between">
-                      <ListItem textAlign = 'end'>
-                        <div className='w-full flex justify-between'>
-                          <Title>
-                            <Typography sx={{color: 'gray'}} component="h3" variant="body2">
-                                Supplies
-                            </Typography>
-                          </Title>
-                          <Title>
-                            <Typography sx={{color: 'gray'}} component="h3" variant="body2">
-                              82
-                            </Typography>
-                          </Title>
-                        </div>
-                      </ListItem>
-                    </Stack>
-
-                    <Stack direction="col" spacing={2} justifyContent="between">
-                      <ListItem textAlign = 'end'>
-                        <div className='w-full flex justify-between'>
-                          <Title>
-                            <Typography sx={{color: 'gray'}} component="h3" variant="body2">
-                                WASH
-                            </Typography>
-                          </Title>
-                          <Title>
-                            <Typography sx={{color: 'gray'}} component="h3" variant="body2">
-                              80
-                            </Typography>
-                          </Title>
-                        </div>
-                      </ListItem>
-                    </Stack>
-                    
-                    <Stack direction="col" spacing={2} justifyContent="between">
-                      <ListItem textAlign = 'end'>
-                        <div className='w-full flex justify-between'>
-                          <Title>
-                            <Typography sx={{color: 'gray'}} component="h3" variant="body2">
-                                Psychosocial
-                            </Typography>
-                          </Title>
-                          <Title>
-                            <Typography sx={{color: 'gray'}} component="h3" variant="body2">
-                              80
-                            </Typography>
-                          </Title>
-                        </div>
-                      </ListItem>
-                    </Stack>
-
-                    <Stack direction="col" spacing={2} justifyContent="between">
-                      <ListItem textAlign = 'end'>
-                        <div className='w-full flex justify-between'>
-                          <Title>
-                            <Typography sx={{color: 'gray'}} component="h3" variant="body2">
-                              Legal
-                            </Typography>
-                          </Title>
-                          <Title>
-                            <Typography sx={{color: 'gray'}} component="h3" variant="body2">
-                              80
-                            </Typography>
-                          </Title>
-                        </div>
-                      </ListItem>
-                    </Stack>
-
                   </Grid>
               </Grid>
             </Paper>
@@ -256,11 +230,11 @@ const AdminDashboard = () => {
           {/* Feedback */}
           <Grid item xs={12} md={6} lg={4}>
             <Paper
-              sx={{ p: 2,  display: 'flex', flexDirection: 'column', height: 310 }}
+              sx={{ p: 2,  display: 'flex', flexDirection: 'column', height: '100%' }}
             >
               <Title>
                 <Typography sx={{color: 'gray'}} component="h2" variant="h5">
-                  Feedback
+                  Admin Feedback
                 </Typography>
               </Title>
               <Grid container spacing={1}>
@@ -296,12 +270,12 @@ const AdminDashboard = () => {
                             </Typography>
                           </Title>
                           <Title>
-                            <Typography sx={{color: 'gray'}} component="h3" variant="body2">
+                            <Typography sx={{color: 'gray'}} component="h3" variant="caption">
                                 Great
                             </Typography>
                           </Title>
                           <Title>
-                            <Typography sx={{color: 'gray'}} component="h3" variant="body2">
+                            <Typography sx={{color: 'gray'}} component="h3" variant="caption">
                               1, Dec, 2022
                             </Typography>
                           </Title>
@@ -318,12 +292,12 @@ const AdminDashboard = () => {
                             </Typography>
                           </Title>
                           <Title>
-                            <Typography sx={{color: 'gray'}} component="h3" variant="body2">
+                            <Typography sx={{color: 'gray'}} component="h3" variant="caption">
                               Excellent
                             </Typography>
                           </Title>
                           <Title>
-                            <Typography sx={{color: 'gray'}} component="h3" variant="body2">
+                            <Typography sx={{color: 'gray'}} component="h3" variant="caption">
                             29 Nov, 2022
                             </Typography>
                           </Title>
@@ -340,12 +314,12 @@ const AdminDashboard = () => {
                             </Typography>
                           </Title>
                           <Title>
-                            <Typography sx={{color: 'gray'}} component="h3" variant="body2">
-                              Very Disappointing
+                            <Typography sx={{color: 'gray'}} component="h3" variant="caption">
+                              Very Disappo...
                             </Typography>
                           </Title>
                           <Title>
-                            <Typography sx={{color: 'gray'}} component="h3" variant="body2">
+                            <Typography sx={{color: 'gray'}} component="h3" variant="caption">
                               28 Nov, 2022
                             </Typography>
                           </Title>
@@ -362,12 +336,12 @@ const AdminDashboard = () => {
                             </Typography>
                           </Title>
                           <Title>
-                            <Typography sx={{color: 'gray'}} component="h3" variant="body2">
+                            <Typography sx={{color: 'gray'}} component="h3" variant="caption">
                               No response
                             </Typography>
                           </Title>
                           <Title>
-                            <Typography sx={{color: 'gray'}} component="h3" variant="body2">
+                            <Typography sx={{color: 'gray'}} component="h3" variant="caption">
                               25 Nov, 2022
                             </Typography>
                           </Title>
@@ -379,14 +353,14 @@ const AdminDashboard = () => {
             </Paper>
           </Grid>
 
-          {/* Agent Status */}
+          {/* Live Review of Centers */}
           <Grid item xs={12} md={6} lg={4}>
             <Paper
-              sx={{ p: 1,  display: 'flex', flexDirection: 'column', height: 310 }}
+              sx={{ p: 1,  display: 'flex', flexDirection: 'column', height: '100%' }}
             >
               <Title>
                 <Typography sx={{color: 'gray'}} component="h2" variant="h5">
-                    Agent Status
+                  Live Review of Centers
                 </Typography>
               </Title>
               <Grid container spacing={1}>
@@ -396,12 +370,12 @@ const AdminDashboard = () => {
                         <div className='w-full flex justify-between'>
                           <Title>
                             <Typography sx={{color: 'gray'}} component="h3" variant="subtitle1">
-                                Name
+                              Name
                             </Typography>
                           </Title>
                           <Title>
                             <Typography sx={{color: 'gray'}} component="h3" variant="h6">
-                                Dept.
+                              Location
                             </Typography>
                           </Title>
                           <Title>
@@ -418,16 +392,16 @@ const AdminDashboard = () => {
                         <div className='w-full flex justify-between'>
                           <Title>
                             <Typography sx={{color: 'gray'}} component="h3" variant="body2">
-                                Salma50
+                              MONUSCO...
                             </Typography>
                           </Title>
                           <Title>
                             <Typography sx={{color: 'gray'}} component="h3" variant="body2">
-                                WASH
+                              Mumbai
                             </Typography>
                           </Title>
                           <Title>
-                            <Typography sx={{color: 'gray'}} component="h3" variant="body2">
+                            <Typography sx={{color: 'green'}} component="h3" variant="body2">
                                 Online
                             </Typography>
                           </Title>
@@ -440,16 +414,16 @@ const AdminDashboard = () => {
                         <div className='w-full flex justify-between'>
                           <Title>
                             <Typography sx={{color: 'gray'}} component="h3" variant="body2">
-                                Dujo38
+                                Khan & Co.
                             </Typography>
                           </Title>
                           <Title>
                             <Typography sx={{color: 'gray'}} component="h3" variant="body2">
-                                Psychosocial
+                              Bangalore
                             </Typography>
                           </Title>
                           <Title>
-                            <Typography sx={{color: 'gray'}} component="h3" variant="body2">
+                            <Typography sx={{color: 'red'}} component="h3" variant="body2">
                             Offline
                             </Typography>
                           </Title>
@@ -462,16 +436,16 @@ const AdminDashboard = () => {
                         <div className='w-full flex justify-between'>
                           <Title>
                             <Typography sx={{color: 'gray'}} component="h3" variant="body2">
-                              Kene70
+                              New Hope
                             </Typography>
                           </Title>
                           <Title>
                             <Typography sx={{color: 'gray'}} component="h3" variant="body2">
-                              Medical
+                              Maharashtra
                             </Typography>
                           </Title>
                           <Title>
-                            <Typography sx={{color: 'gray'}} component="h3" variant="body2">
+                            <Typography sx={{color: 'red'}} component="h3" variant="body2">
                             Offline
                             </Typography>
                           </Title>
@@ -484,16 +458,16 @@ const AdminDashboard = () => {
                         <div className='w-full flex justify-between'>
                           <Title>
                             <Typography sx={{color: 'gray'}} component="h3" variant="body2">
-                              Prince40
+                              Borderline
                             </Typography>
                           </Title>
                           <Title>
                             <Typography sx={{color: 'gray'}} component="h3" variant="body2">
-                              Supplies
+                              Benghali
                             </Typography>
                           </Title>
                           <Title>
-                            <Typography sx={{color: 'gray'}} component="h3" variant="body2">
+                            <Typography sx={{color: 'green'}} component="h3" variant="body2">
                             Online
                             </Typography>
                           </Title>
@@ -512,4 +486,4 @@ const AdminDashboard = () => {
   )
 }
 
-export default AdminDashboard;
+export default AgentDashboard;

@@ -100,6 +100,7 @@ const AdminRegister = () => {
           localStorage.setItem('adminUsername', JSON.stringify(loginData.username));
           localStorage.setItem('adminLocation', JSON.stringify(loginData.location));
           localStorage.setItem('adminPhone', JSON.stringify(loginData.phone));
+          localStorage.setItem('adminName', JSON.stringify(loginData.name));
           setTimeout(() => {
             setShowLoader(true);
           }, 2000);
@@ -202,7 +203,7 @@ const AdminRegister = () => {
                     </Button>
                     <Grid container>
                       <Grid item>
-                        <Link href='/admin/login' variant="body2">
+                        <Link href='/admin/login' variant="body2">  
                           Already have an account? Login
                         </Link>
                       </Grid>

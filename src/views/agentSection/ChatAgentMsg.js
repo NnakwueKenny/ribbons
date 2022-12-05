@@ -35,7 +35,7 @@ import Loader from '../../components/Loader';
 import logo from '../../images/logo.png';
 import AgentDashboard from './components/AgentDashboard';
 import Complaints from './components/Complaints';
-import { AvatarGroup, ListItemAvatar, ListItemButton, ListItemIcon, ListItemText, TextField } from '@mui/material';
+import { AvatarGroup, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, ListItemAvatar, ListItemButton, ListItemIcon, ListItemText, TextField, Tooltip } from '@mui/material';
 import Dashboard from '@mui/icons-material/Dashboard';
 import ShoppingCart from '@mui/icons-material/ShoppingCart';
 import People from '@mui/icons-material/People';
@@ -148,15 +148,17 @@ const ChatAgentMsg = () => {
       setOpen(!open);
     };
 
+    const [ showLogoutModal, setShowLogoutModal ] = useState(false);
     const logout = () => {
+        setShowLogoutModal(false);
         setIsPageLoading(true);
-        localStorage.removeItem('adminAccessToken');
+        localStorage.removeItem('agentAccessToken');
         setTimeout(() => {
             setIsPageLoading(false);
             checkLogin(setIsLoggedIn, setCurrentAdmin, navigate, setIsPageLoading);
         }, 2000);
     }
- 
+
     const openChat = (number) => {
         navigate(`/agent/chat/:${number}`);
     }
@@ -251,6 +253,31 @@ const ChatAgentMsg = () => {
                 <>
                     <main className='h-full w-full flex flex-col overflow-y-auto'>
                         <ThemeProvider theme={mdTheme}>
+                            {
+                                <Dialog
+                                open={showLogoutModal}
+                                onClose={() => setShowLogoutModal(false)}
+                                aria-labelledby="alert-dialog-title"
+                                aria-describedby="alert-dialog-description"
+                            >
+                                <DialogTitle id="alert-dialog-title">
+                                <span className='text-purple-900'>{"Log Out of Ribbons Agent Panel"}</span>
+                                </DialogTitle>
+                                <DialogContent>
+                                <DialogContentText id="alert-dialog-description">
+                                    Do you really want to logout?
+                                </DialogContentText>
+                                </DialogContent>
+                                <DialogActions>
+                                <Button onClick={() => setShowLogoutModal(false)}>
+                                    <span className='text-purple-900'>Cancel</span>
+                                </Button>
+                                <Button onClick={() => logout()} autoFocus>
+                                    <span className='text-red-600'>Logout</span>
+                                </Button>
+                                </DialogActions>
+                            </Dialog>
+                            }
                             <Box sx={{ display: 'flex' }}>
                                 <CssBaseline />
                                 
@@ -273,13 +300,15 @@ const ChatAgentMsg = () => {
                                     >
                                     Help Desk
                                     </Typography>
-                                    <IconButton color="inherit" size='large' onClick={() => logout()}>
-                                        <PowerSettingsNewIcon fontSize='inherit'/>
-                                    </IconButton>
+                                    <Tooltip title="Logout">
+                                        <IconButton color="inherit" size='large' onClick={() => setShowLogoutModal(true)}>
+                                            <PowerSettingsNewIcon fontSize='inherit'/>
+                                        </IconButton>
+                                    </Tooltip>
                                     <IconButton color="inherit">
-                                    <Badge badgeContent={4} color="secondary">
-                                        <NotificationsIcon/>
-                                    </Badge>
+                                        <Badge badgeContent={4} color="secondary">
+                                            <NotificationsIcon/>
+                                        </Badge>
                                     </IconButton>
                                 </Toolbar>
                                 </AppBar>

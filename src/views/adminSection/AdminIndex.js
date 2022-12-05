@@ -192,7 +192,7 @@ const AdminIndex = () => {
                                     <span className='text-purple-900'>Cancel</span>
                                   </Button>
                                   <Button onClick={() => logout()} autoFocus>
-                                    <span className='text-red-600'>Continue</span>
+                                    <span className='text-red-600'>Logout</span>
                                   </Button>
                                 </DialogActions>
                               </Dialog>

@@ -4,7 +4,6 @@ import Loader from '../../components/Loader';
 import logo from '../../images/logo.png';
 import Navbar from '../../components/Navbar';
 import { Link } from 'react-router-dom';
-import ChatbotBtn from '../../components/ChatbotBtn';
 
 const Dashboard = () => {
   const [ isLoading, setIsLoading ] = useState(true);

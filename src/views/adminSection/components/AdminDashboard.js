@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import MuiDrawer from '@mui/material/Drawer';
@@ -88,10 +88,66 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
     },
   }),
 );
-
 const mdTheme = createTheme();
 
 const AdminDashboard = () => {
+  const [displayValues, setDisplayValues] = useState({
+    allCases: {
+      title: 'All Cases',
+      resolved: 0,
+      open: 0,
+    },
+
+    liveEmergency: {
+      title: 'Emergency Cases',
+      resolved: 0,
+      open: 0,
+    },
+  });
+
+  const getAllComplaints = () => {
+    console.log('Fetching all request...');
+    fetch('https://ribbons.onrender.com/complaint/get-all-complaints',
+      {
+        method: 'post',
+        headers: {
+          accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          "loc": JSON.parse(localStorage.getItem('adminLocation')),
+          "username": JSON.parse(localStorage.getItem('adminUsername'))
+        })
+      }
+    )
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+      setDisplayValues(prevValue => {
+        return {
+          ...prevValue,
+          allCases: {
+            title: 'All Cases',
+            resolved: data.filter(item => item.status === true).length,
+            open: data.filter(item => item.status === false).length,
+          }
+        }
+      });
+      setDisplayValues(prevValue => {
+        return {
+          ...prevValue,
+          liveEmergency: {
+            title: 'Emergency Cases',
+            resolved: data.filter(item => item.status === true && item.severity === 'emergency').length,
+            open: data.filter(item => item.status === false && item.severity === 'emergency').length,
+          }
+        }
+      });
+    })
+  }
+  useEffect(() => {
+    getAllComplaints();
+  }, []);
 
   return (
     <>
@@ -108,21 +164,25 @@ const AdminDashboard = () => {
       }}
       >
       <Toolbar />
-      <Toolbar />
+      <div className='pl-5 py-4'>
+        <Title>
+          <Typography color='rgb(88 28 135)' component='h2' variant='h5'>{JSON.parse(localStorage.getItem('adminName'))}</Typography>
+        </Title>
+      </div>
       <Container maxWidth="xl">
         <Grid container spacing={3}>
           {/* Chart */}
           {/* All Cases */}
           <Grid item xs={12} md={4} lg={4}>
             <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', height: 200, justifyContent: 'space-between'}} >
-              <DisplayComponents value={'allCases'}/>
+              <DisplayComponents  values={displayValues} compare='allCases'/>
             </Paper>
           </Grid>
 
           {/* Emergency Cases */}
           <Grid item xs={12} md={4} lg={4}>
             <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', height: 200, justifyContent: 'space-between'}} >
-              <DisplayComponents value={'liveEmergency'}/>
+              <DisplayComponents values={displayValues} compare='emergencyCases'/>
             </Paper>
           </Grid>
 

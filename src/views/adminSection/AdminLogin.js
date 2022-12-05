@@ -65,6 +65,7 @@ const AdminLogin = () => {
     )
     .then(response => response.json())
     .then(loginData => {
+      console.log(loginData)
         if (loginData.error) {
           toggleMessageContent(setLoginMessage, loginData.error);
           setLoginStatus(false);
@@ -75,6 +76,7 @@ const AdminLogin = () => {
           localStorage.setItem('adminUsername', JSON.stringify(loginData.username));
           localStorage.setItem('adminLocation', JSON.stringify(loginData.location));
           localStorage.setItem('adminPhone', JSON.stringify(loginData.phone));
+          localStorage.setItem('adminName', JSON.stringify(loginData.name));
           setTimeout(() => {
             setShowLoader(true);
           }, 2000);
