@@ -77,7 +77,7 @@ const Support = () => {
     const saveDraft = () => {
         setIsSaving(true);
         console.log(dept, severity, complainantName, complainantPhone, desc);
-        fetch('https://ribbons.onrender.com/draft/send-draft',
+        fetch('https://ribbons.onrender.com/support/send-support',
             {
                 method: 'post',
                 headers: {
@@ -117,7 +117,7 @@ const Support = () => {
     const resaveDraft = (draftID) => {
         setIsSaving(true);
         console.log(draftID);
-        fetch('https://ribbons.onrender.com/draft/send-draft',
+        fetch('https://ribbons.onrender.com/support/send-support',
             {
                 method: 'post',
                 headers: {
@@ -186,7 +186,28 @@ const Support = () => {
                 console.log(data.error);
                 toggleMessageContent(setRequestMessage, data.error, 'error');
             } else {
-                toggleMessageContent(setRequestMessage, data);
+                fetch('https://ribbons.onrender.com/support/delete-support',
+                {
+                    method: 'post',
+                    headers: {
+                        Accept: 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        draftID: draftDetails.id
+                    })
+                }
+            )
+            .then(response => response.json())
+            .then(draftRes => {
+                console.log();
+                toggleMessageContent(setRequestMessage, `${data} and ${draftRes.message}`);
+            })
+            .catch(err => {
+                console.log(err);
+                setIsSubmitting(false);
+                toggleMessageContent(setRequestMessage, 'An error just occurred. Please, try again!', 'error');
+            })
             }
         })
         .catch(err => {
@@ -200,7 +221,7 @@ const Support = () => {
     const saveComplaint = () => {
         setIsSaving(true);
         console.log(dept, severity, complainantName, complainantPhone, desc);
-        fetch('https://ribbons.onrender.com/draft/send-draft',
+        fetch('https://ribbons.onrender.com/support/send-support',
             {
                 method: 'post',
                 headers: {
@@ -275,7 +296,7 @@ const Support = () => {
                 <button onClick={() => setShowPreviewDraft(false)} className='absolute top-8 right-8 text-2xl'><i className='fa fa-times'></i></button>
                 <div className='w-full flex justify-start md:justify-center text-purple-900'>
                     <Typography variant='h5' sx={{ mt: 1 }}>
-                        Preview Complaint
+                        Edit Draft
                     </Typography>
                 </div>
                 <div className='py-2 md:p-8 h-auto flex flex-col gap-3'>
@@ -402,8 +423,8 @@ const Support = () => {
             </Fade>
         </Modal>
         <div className='flex items-center justify-center shadow px-3 py-5 pt-20 bg-opacity-25'>
-            <div className='relative w-full max-w-3xl flex gap-3 justify-center bg-opacity-25'>
-                <div className={'absolute -top-4 right-2 md:hidden'}>
+            <div className='relative w-full max-w-7xl flex gap-3 items-baseline lg:items-center justify-between bg-opacity-25'>
+                <div className={'absolute -top-4 right-2 lg:hidden'}>
                     <button onClick={() => setShowTopNav(prevValue => !prevValue)} className='text-lg'>
                         {
                             showTopNav?
@@ -413,14 +434,33 @@ const Support = () => {
                         }
                     </button>
                 </div>
-                <div className={`relative flex flex-col md:flex-row gap-4 md:gap-2 py-4 w-full max-w-5xl overflow-hidden ${!showTopNav? 'h-16 md:h-auto': ''}`}>
-                    <button onClick={(e) => loadCategory(e)} className={`${currentCategory === 'all'? 'bg-purple-900 text-white': 'bg-white text-purple-900'} border border-purple-900 w-full px-6 py-2 text-white rounded-lg capitalize`}>all</button>
-                    <button onClick={(e) => loadCategory(e)} className={`${currentCategory === 'health'? 'bg-green-600 text-white': 'bg-white text-green-600'} border border-green-600 w-full px-4 py-2 text-white rounded-lg capitalize`}>health</button>
-                    <button onClick={(e) => loadCategory(e)} className={`${currentCategory === 'supplies'? 'bg-red-600 text-white': 'bg-white text-red-600'} border border-red-600 w-full px-4 py-2 text-white rounded-lg capitalize`}>supplies</button>
-                    <button onClick={(e) => loadCategory(e)} className={`${currentCategory === 'psychosocial'? 'bg-blue-600 text-white': 'bg-white text-blue-600'} border border-blue-600 w-full px-4 py-2 text-white rounded-lg capitalize`}>psychosocial</button>
-                    <button onClick={(e) => loadCategory(e)} className={`${currentCategory === 'wash'? 'bg-purple-600 text-white': 'bg-white text-purple-600'} border border-purple-600 w-full px-4 py-2 text-white rounded-lg uppercase`}>wash</button>
-                    <button onClick={(e) => loadCategory(e)} className={`${currentCategory === 'legal'? 'bg-orange-600 text-white': 'bg-white text-orange-600'} border border-orange-600 w-full px-4 py-2 text-white rounded-lg capitalize`}>legal</button>
+                <div className={`relative flex flex-col lg:flex-row gap-4 md:gap-2 py-4 w-full max-w-6xl overflow-hidden ${!showTopNav? 'h-16 lg:h-auto': ''}`}>
+                    <FormControl >
+                        <InputLabel id="demo-simple-select-helper-label">{`${filter === 'open'? 'Open': filter === 'closed'? 'Closed': 'Status'}`}</InputLabel>
+                        <Select
+                            labelId="demo-simple-select-helper-label"
+                            id="demo-simple-select-helper"
+                            value={''}
+                            label="Status"
+                            onChange={(e) => {setFilter(e.target.value); updateCategory(e.target.value)}}
+                            className='w-full lg:w-24 h-12'
+                            >
+                            <MenuItem value={''}>None</MenuItem>
+                            <MenuItem value={'open'}>Open</MenuItem>
+                            <MenuItem value={'closed'}>Closed</MenuItem>
+                        </Select>
+                    </FormControl>
+                    <button onClick={(e) => loadCategory(e)} className={`${currentCategory === 'all'? 'bg-purple-900 text-white': 'bg-white text-purple-900'} border border-purple-900 px-6 py-2 text-white rounded-lg capitalize`}>all</button>
+                    <button onClick={(e) => loadCategory(e)} className={`${currentCategory === 'health'? 'bg-green-600 text-white': 'bg-white text-green-600'} border border-green-600 px-4 py-2 text-white rounded-lg capitalize`}>health</button>
+                    <button onClick={(e) => loadCategory(e)} className={`${currentCategory === 'supplies'? 'bg-red-600 text-white': 'bg-white text-red-600'} border border-red-600 px-4 py-2 text-white rounded-lg capitalize`}>supplies</button>
+                    <button onClick={(e) => loadCategory(e)} className={`${currentCategory === 'psychosocial'? 'bg-blue-600 text-white': 'bg-white text-blue-600'} border border-blue-600 px-4 py-2 text-white rounded-lg capitalize`}>psychosocial</button>
+                    <button onClick={(e) => loadCategory(e)} className={`${currentCategory === 'wash'? 'bg-purple-600 text-white': 'bg-white text-purple-600'} border border-purple-600 px-4 py-2 text-white rounded-lg uppercase`}>wash</button>
+                    <button onClick={(e) => loadCategory(e)} className={`${currentCategory === 'legal'? 'bg-orange-600 text-white': 'bg-white text-orange-600'} border border-orange-600 px-4 py-2 text-white rounded-lg capitalize`}>legal</button>
                 </div>
+                <Button onClick={() => setShowCreateDraft(prevValue => !prevValue)} variant='outlined' color='secondary' backgroundColor = 'purple[500]' className='shrink-0 flex items-center gap-1 md:gap-3 border-[3px] hover:text-purple-600 hover:border-purple-600 text-gray-700 px-2 md:px-4 h-12 rounded-xl'>
+                    <span className='flex items-center text-base'>New Draft</span>
+                    <span className='flex items-center text-base'><i className='fa fa-plus'></i></span>
+                </Button>
             </div>
         </div>
         <div className='w-full h-full flex overflow-auto pt-2 md:pt-6'>

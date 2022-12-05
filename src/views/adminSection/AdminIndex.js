@@ -165,6 +165,7 @@ const AdminIndex = () => {
 
     return (
         <div className='w-full h-full flex flex-col'>
+          <div id="google_translate_element" className='w-full'></div>
             {
                 isPageLoading?
                 <Loader />

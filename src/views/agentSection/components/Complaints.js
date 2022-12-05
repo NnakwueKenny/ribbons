@@ -225,6 +225,7 @@ const Complaints = () => {
                     autoFocus
                     margin="dense"
                     id="name"
+                    multiline
                     label="Your comment here..."
                     type="text"
                     fullWidth
