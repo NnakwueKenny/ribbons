@@ -81,8 +81,10 @@ const AgentLogin = () => {
             toggleMessageContent(setLoginMessage, data.message);
             setLoginStatus(true);
             localStorage.setItem('agentAccessToken', JSON.stringify(data.accessToken));
-            localStorage.setItem('agentUsername', JSON.stringify(username));
+            localStorage.setItem('agentUsername', JSON.stringify(data.username));
             localStorage.setItem('agentLocation', JSON.stringify(data.location));
+            localStorage.setItem('agentPhone', JSON.stringify(data.phone));
+            localStorage.setItem('agentName', JSON.stringify(data.name));
             setTimeout(() => {
                 setShowLoader(true);
             }, 2000);
