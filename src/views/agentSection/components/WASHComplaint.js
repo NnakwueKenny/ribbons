@@ -6,7 +6,7 @@ import { Box, Button, IconButton, Modal, Tooltip, Typography } from '@mui/materi
 import DeleteIcon from '@mui/icons-material/Delete';
 import PhoneEnabledIcon from '@mui/icons-material/PhoneEnabled';
 
-const HealthComplaint = ({filter, togglePrevComplaint, toggleUpdateComplaint}) => {
+const WASHComplaint = ({filter, togglePrevComplaint, toggleUpdateComplaint}) => {
     const [ isLoading, setIsLoading ] = useState(false);
     const [ complaints, setComplaints ] = useState([]);
 
@@ -30,11 +30,11 @@ const HealthComplaint = ({filter, togglePrevComplaint, toggleUpdateComplaint}) =
             console.log(data);
             console.log(data);
             if ( filter === 'open' ) {
-                setComplaints(data.filter(item => item.status === false && item.cat === 'health'));
+                setComplaints(data.filter(item => item.status === false && item.cat === 'wash'));
             } else if ( filter === 'closed' ) {
-                setComplaints(data.filter(item => item.status === true && item.cat === 'health'));
+                setComplaints(data.filter(item => item.status === true && item.cat === 'wash'));
             } else {
-                setComplaints(data.filter(item => item.cat === 'health'));
+                setComplaints(data.filter(item => item.cat === 'wash'));
             }
             setIsLoading(false)
         })
@@ -114,4 +114,4 @@ const HealthComplaint = ({filter, togglePrevComplaint, toggleUpdateComplaint}) =
     )
 }
 
-export default HealthComplaint;
+export default WASHComplaint;

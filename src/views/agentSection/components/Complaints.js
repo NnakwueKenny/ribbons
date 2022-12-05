@@ -1,5 +1,10 @@
 import React, { useState } from 'react';
-import AllComplaints from '../components/AllComplaints';
+import AllComplaints from './AllComplaints';
+import HealthComplaint from './HealthComplaint';
+import LegalComplaint from './LegalComplaint';
+import PsychosocialComplaint from './PsychosocialComplaint';
+import SuppliesComplaint from './SuppliesComplaint';
+import WASHComplaint from './WASHComplaint';
 
 import {
     Box, FormControl, InputLabel, MenuItem, Modal, Select, TextField, 
@@ -18,7 +23,10 @@ const Complaints = () => {
     const [ showPreviewComplaint, setShowPreviewComplaint ] = useState(false);
     const [ showUpdateComplaint, setShowUpdateComplaint ] = useState(false);
     const [ complaintDetails, setComplaintDetails] = useState({})
-    const [ isUpdating, setIsUpdating ] = useState(false)
+    const [ isUpdating, setIsUpdating ] = useState(false);
+    const [ isUpdateSuccess, setIsUpdateSuccess ] = useState(false);
+    const [ isUpdateError, setIsUpdateError ] = useState(false);
+    const [ updateSuccessMsg, setUpdateSuccessMsg ] = useState('');
 
     const togglePrevComplaint = (complaint) => {
         setComplaintDetails(complaint);
@@ -26,7 +34,8 @@ const Complaints = () => {
     }
     const [ agentComment, setAgentComment ] = useState('');
     const updateCompaint = (complaint) => {
-        console.log('Hello');
+        console.log(agentComment);
+        console.log(complaint.id)
         setIsUpdating(true);
         fetch('https://ribbons.onrender.com/complaint/update-complaint',
             {
@@ -46,8 +55,29 @@ const Complaints = () => {
         .then(data => {
             console.log(data);
             setIsUpdating(false);
+            if (data.err) {
+                setIsUpdateSuccess(true);
+                setUpdateSuccessMsg(data.err);
+            } else {
+                setIsUpdateError(true);
+                setUpdateSuccessMsg(data.message);
+            }
+            setTimeout(() => {
+                setAgentComment('')
+                setShowUpdateComplaint(false);
+                setIsUpdateSuccess(false);
+                setIsUpdateError(false);
+            }, 2000)
         })
-        .catch(err => console.log(err))
+        .catch(err => {
+            console.log(err);
+            setTimeout(() => {
+                setUpdateSuccessMsg('Unable to complete at the moment; please try again later');
+                setShowUpdateComplaint(false);
+                setIsUpdateSuccess(false);
+                setIsUpdateError(false);
+            }, 2000)
+        })
     }
 
     const toggleUpdateComplaint = (complaint) => {
@@ -60,31 +90,32 @@ const Complaints = () => {
         all: <AllComplaints value='all' filter={filter}
             togglePrevComplaint={togglePrevComplaint}
             toggleUpdateComplaint={toggleUpdateComplaint}
-        /> 
+        />,
+        health: <HealthComplaint value='health' filter={filter}
+            togglePrevComplaint={togglePrevComplaint}
+            toggleUpdateComplaint={toggleUpdateComplaint}
+        />,
+        legal: <LegalComplaint value='legal' filter={filter}
+            togglePrevComplaint={togglePrevComplaint}
+            toggleUpdateComplaint={toggleUpdateComplaint}
+        />,
+        psychosocial: <PsychosocialComplaint value='psychosocial' filter={filter}
+            togglePrevComplaint={togglePrevComplaint}
+            toggleUpdateComplaint={toggleUpdateComplaint}
+        />,
+        supplies: <SuppliesComplaint value='supplies' filter={filter}
+            togglePrevComplaint={togglePrevComplaint}
+            toggleUpdateComplaint={toggleUpdateComplaint}
+        />,
+        wash: <WASHComplaint value='wash' filter={filter}
+            togglePrevComplaint={togglePrevComplaint}
+            toggleUpdateComplaint={toggleUpdateComplaint}
+        />,
     }
     
     const [ complaintCategory, setComplaintCategory ] = useState(complaintCategories.all);
     const [ currentCategory, setCurrentCategory ] = useState('all');
-    const [ showCreateComplaint , setShowCreateComplaint ] = useState(false);
-    const [ isResolving, setIsResolving ] = useState(false);
-    
-    const [ requestMessage, setRequestMessage ] = useState('');
     const [ showTopNav, setShowTopNav ] = useState(false);
-
-    const toggleMessageContent = (setTarget, message, err) => {
-        if (err !== undefined) {
-            setTarget(message); 
-            setTimeout(() => {
-                setTarget('');
-                setShowCreateComplaint(false);
-            }, 3000)
-        } else {
-            setTarget(message);
-            setTimeout(() => {
-                setTarget('');
-            }, 3000)
-        }
-    }
 
     const loadCategory = (e) => {
         if (e.target) {
@@ -155,13 +186,13 @@ const Complaints = () => {
                         </Typography>
                     </div>
                     {
-                        complaintDetails.agentComment &&
+                        complaintDetails.comment &&
                         <div className='w-full mb-2 flex flex-col justify-between text-gray-700 text-base'>
                             <Typography component='div' variant='h6' className=''>
                                 Agent's Comment:
                             </Typography>
                             <Typography component='p' className='text-green-500 text-justify'>
-                                {complaintDetails.agentComment}
+                                {complaintDetails.comment}
                             </Typography>
                         </div>
                     }
@@ -208,8 +239,14 @@ const Complaints = () => {
             </DialogActions>
             {
                 isUpdating &&
-                <Box sx={{ display: 'flex', position: 'absolute'}} className='top-0 w-full h-full justify-center items-center'>
+                <Box sx={{ display: 'flex', position: 'absolute'}} className='top-0 w-full h-full justify-center items-center bg-white'>
                     <CircularProgress />
+                </Box>
+            }
+            {
+                (isUpdateSuccess || isUpdateError) &&
+                <Box sx={{ display: 'flex', position: 'absolute'}} className={` ${!isUpdateSuccess? 'text-green-500': 'text-red-500'} top-0 w-full h-full justify-center items-center bg-white`}>
+                    {updateSuccessMsg}
                 </Box>
             }
         </Dialog>
