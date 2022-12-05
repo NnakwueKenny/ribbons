@@ -446,7 +446,7 @@ const AdminDashboard = () => {
             >
               <Title>
                 <Typography sx={{color: 'gray'}} component="h2" variant="h5">
-                    Agent Status
+                  Agent Status
                 </Typography>
               </Title>
               <Grid container spacing={1}>
@@ -456,12 +456,12 @@ const AdminDashboard = () => {
                         <div className='w-full flex justify-between'>
                           <Title>
                             <Typography sx={{color: 'gray'}} component="h3" variant="subtitle1">
-                                Name
+                              Name
                             </Typography>
                           </Title>
                           <Title>
                             <Typography sx={{color: 'gray'}} component="h3" variant="h6">
-                                Dept.
+                              Dept.
                             </Typography>
                           </Title>
                           <Title>

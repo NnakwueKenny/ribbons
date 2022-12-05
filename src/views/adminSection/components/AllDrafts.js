@@ -20,7 +20,6 @@ const AllDrafts = ({filter, toggleEditDraft}) => {
     const [ complainantPhone , setComplainantPhone ] = useState('');
     const [ requestMessage, setRequestMessage ] = useState('');
 
-
     const toggleMessageContent = (setTarget, message, err) => {
         if (!err) {
             setTarget(message);
@@ -43,7 +42,7 @@ const AllDrafts = ({filter, toggleEditDraft}) => {
 
     const getAllComplaints = () => {
         setIsLoading(true);
-        fetch('https://ribbons.onrender.com/draft/get-drafts',
+        fetch('https://ribbons.onrender.com/support/get-support',
             {
                 method: 'post',
                 headers: {

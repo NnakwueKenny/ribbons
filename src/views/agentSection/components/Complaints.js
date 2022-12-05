@@ -229,6 +229,8 @@ const Complaints = () => {
                     label="Your comment here..."
                     type="text"
                     fullWidth
+                    rows={3}
+                    p={'2'}
                     variant="standard"
                     value={agentComment}
                     onChange={(e) => setAgentComment(e.target.value)}

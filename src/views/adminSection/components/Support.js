@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import AllDrafts from '../components/AllDrafts';
+import AllSupport from '../components/AllSupport';
 import HealthDraft from '../components/HealthDraft';
 import SuppliesDraft from '../components/SuppliesDraft';
 import WASHDraft from '../components/WASHDraft';
@@ -14,7 +15,7 @@ import {
 import Close from '@mui/icons-material/Close';
 import PhoneEnabledIcon from '@mui/icons-material/PhoneEnabled';
 
-const Support = () => {
+const Drafts = () => {
     
     const Transition = React.forwardRef(function Transition(props, ref) {
         return <Slide direction="down" ref={ref} {...props} />;
@@ -281,6 +282,108 @@ const Support = () => {
     <div className='flex flex-col h-screen w-full'>
         <Modal
             className='h-full w-full flex justify-center items-center p-3'
+            open={showCreateDraft}
+            onClose={() => setShowCreateDraft(prevValue => !prevValue)}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+            >
+            <Box className='relative bg-white w-full max-w-3xl h-auto max-h-[700px] rounded-2xl p-6'>
+                <button onClick={() => setShowCreateDraft(prevValue => !prevValue)} className='absolute top-8 right-8 text-2xl'><i className='fa fa-times'></i></button>
+                <div className='w-full flex justify-start md:justify-center text-purple-900'>
+                    <Typography variant='h5' sx={{ mt: 1 }}>
+                        Create New Draft
+                    </Typography>
+                </div>
+                <div className='py-2 md:p-8 h-auto flex flex-col gap-3'>
+                    <div className='grid md:grid-cols-2 gap-2 md:gap-6 py-2 '>
+                        <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+                            <InputLabel id="dept-label">Department</InputLabel>
+                            <Select
+                            labelId="dept-label"
+                            id="dept"
+                            value={dept}
+                            onChange={(e) => setDept(e.target.value)}
+                            label="Department"
+                            >
+                            <MenuItem value="">
+                                <em>None</em>
+                            </MenuItem>
+                            <MenuItem value={'supplies'}>Supplies</MenuItem>
+                            <MenuItem value={'health'}>Health</MenuItem>
+                            <MenuItem value={'wash'}>WASH</MenuItem>
+                            <MenuItem value={'psychosocial'}>Psychosocial</MenuItem>
+                            <MenuItem value={'legal'}>Legal</MenuItem>
+                            </Select>
+                        </FormControl>
+                        <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+                            <InputLabel id="severity-label">Severity</InputLabel>
+                            <Select
+                            labelId="severity-label"
+                            id="severity"
+                            value={severity}
+                            onChange={(e) => setSeverity(e.target.value)}
+                            label="Severity"
+                            >
+                            <MenuItem value="">
+                                <em>None</em>
+                            </MenuItem>
+                            <MenuItem value={'emergency'}>Emergency</MenuItem>
+                            <MenuItem value={'normal'}>Normal</MenuItem>
+                            </Select>
+                        </FormControl>
+                    </div>
+                    <div className="mb-2 w-full px-2">
+                        <TextField
+                            id="complainant-name"
+                            label="Complainant Name"
+                            type="text"
+                            autoComplete="complainant-name"
+                            variant="standard"
+                            value={complainantName}
+                            className='w-full focus:outline-none'
+                            onChange={(e) => setComplainantName(e.target.value)}
+                        />
+                    </div>
+                    <div className="mb-2 w-full px-2">
+                        <TextField
+                            id="complainant-phone"
+                            label="Complainant Phone (Eg. +2348137926904)"
+                            type="text"
+                            autoComplete="complainant-phone"
+                            variant="standard"
+                            value={complainantPhone}
+                            className='w-full focus:outline-none'
+                            onChange={(e) => setComplainantPhone(e.target.value)}
+                        />
+                    </div>
+                    <div className="mb-2 w-full px-2 flex flex-col">
+                        <label htmlFor='desc' className='text-gray-600 text-xl mb-1'>Description</label>
+                        <TextField
+                            id="filled-multiline-flexible"
+                            multiline
+                            rows={3}
+                            p={2}
+                            value={desc}
+                            onChange={(e) => setDesc(e.target.value)}
+                            variant="standard"
+                        /> 
+        
+                    </div>
+                    <div className='mb-auto flex text-purple-800 font-semibold italic text-lg'>{requestMessage}</div>
+                    <div className='flex flex-col md:flex-row w-full gap-4'>
+                        <Button onClick={saveDraft} variant='outlined' color='secondary' backgroundColor = 'purple[500]' className='w-full bg-gray-500'>
+                            {
+                                isSaving &&
+                                <span className='flex mr-2 h-5 w-5 border-4 border-b-purple-300 rounded-full animate-spin'></span>
+                            }
+                            Save
+                        </Button>
+                    </div>
+                </div>
+            </Box>
+        </Modal>
+        <Modal
+            className='h-full w-full flex justify-center items-center p-3'
             aria-labelledby="transition-modal-title"
             aria-describedby="transition-modal-description"
             open={showPreviewDraft}
@@ -470,4 +573,4 @@ const Support = () => {
   )
 }
 
-export default Support;
+export default Drafts;
