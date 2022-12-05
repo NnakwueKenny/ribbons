@@ -187,18 +187,19 @@ const Complaints = () => {
             <Box className='relative bg-white w-full max-w-3xl h-auto max-h-[700px] rounded-2xl p-6'>
                 <button onClick={() => setShowCreateComplaint(prevValue => !prevValue)} className='absolute top-8 right-8 text-2xl'><i className='fa fa-times'></i></button>
                 <div className='w-full flex justify-start md:justify-center text-purple-900'>
-                    <Typography variant='h5' sx={{ mt: 1 }}>
+                    <Typography variant='h5' sx={{ mt: 1 }} color='secondary'>
                         Create New Complaint
                     </Typography>
                 </div>
                 <div className='py-2 md:p-8 h-auto flex flex-col gap-3'>
                     <div className='grid md:grid-cols-2 gap-2 md:gap-6 py-2 '>
                         <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
-                            <InputLabel id="dept-label">Department</InputLabel>
+                            <InputLabel id="dept-label" color='secondary'>Department</InputLabel>
                             <Select
                             labelId="dept-label"
                             id="dept"
                             value={dept}
+                            color='secondary'
                             onChange={(e) => setDept(e.target.value)}
                             label="Department"
                             >
@@ -213,11 +214,12 @@ const Complaints = () => {
                             </Select>
                         </FormControl>
                         <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
-                            <InputLabel id="severity-label">Severity</InputLabel>
+                            <InputLabel id="severity-label" color='secondary'>Severity</InputLabel>
                             <Select
                             labelId="severity-label"
                             id="severity"
                             value={severity}
+                            color='secondary'
                             onChange={(e) => setSeverity(e.target.value)}
                             label="Severity"
                             >
@@ -237,6 +239,7 @@ const Complaints = () => {
                             autoComplete="complainant-name"
                             variant="standard"
                             value={complainantName}
+                            color='secondary'
                             className='w-full focus:outline-none'
                             onChange={(e) => setComplainantName(e.target.value)}
                         />
@@ -249,41 +252,43 @@ const Complaints = () => {
                             autoComplete="complainant-phone"
                             variant="standard"
                             value={complainantPhone}
+                            color='secondary'
                             className='w-full focus:outline-none'
                             onChange={(e) => setComplainantPhone(e.target.value)}
                         />
                     </div>
                     <div className="mb-2 w-full px-2 flex flex-col">
-                        <label htmlFor='desc' className='text-gray-600 text-xl mb-1'>Description</label>
+                        <InputLabel htmlFor='desc' color='secondary' className='text-xl mb-1'>Description</InputLabel>
                         <TextField
                             id="filled-multiline-flexible"
                             multiline
                             rows={3}
                             p={2}
                             value={desc}
+                            color='secondary'
                             onChange={(e) => setDesc(e.target.value)}
                             variant="standard"
                         /> 
         
                     </div>
-                    <div className='mb-auto flex text-purple-800 font-semibold italic text-lg'>{requestMessage}</div>
+                    <Typography className='mb-auto flex text-purple-800 font-semibold italic text-lg'>{requestMessage}</Typography>
                     <div className='flex flex-col md:flex-row w-full gap-4'>
-                        <button onClick={saveComplaint} type="button" disabled={isSaving? true: '' } className={`w-full max-w-sm flex justify-center text-white bg-purple-800 hover:bg-purple-900 focus:ring-4 focus:outline-none focus:ring-purple-400 font-semibold rounded-lg text-base w-full px-5 py-3 text-center`}>
+                        <Button onClick={saveComplaint} type="button" disabled={isSaving? true: '' } variant='outlined' color='secondary' backgroundColor = 'purple[500]' className={`w-full max-w-sm flex justify-center text-white bg-purple-800 hover:bg-purple-900 focus:ring-4 focus:outline-none focus:ring-purple-400 font-semibold rounded-lg text-base w-full px-5 py-3 text-center`}>
                             {
                                 isSaving?
                                 <span className='flex h-8 w-8 border-4 border-b-purple-300 rounded-full animate-spin'></span>
                                 :
                                 <span>Save</span>
                             }
-                        </button>
-                        <button onClick={sendComplaint} type="button" disabled={isSubmitting? true: '' } className={`w-full max-w-sm flex justify-center text-white bg-purple-800 hover:bg-purple-900 focus:ring-4 focus:outline-none focus:ring-purple-400 font-semibold rounded-lg text-base w-full px-5 py-3 text-center`}>
+                        </Button>
+                        <Button onClick={sendComplaint} type="button" disabled={isSubmitting? true: '' } variant='outlined' color='secondary' backgroundColor = 'purple[500]' className={`w-full max-w-sm flex justify-center text-white bg-purple-800 hover:bg-purple-900 focus:ring-4 focus:outline-none focus:ring-purple-400 font-semibold rounded-lg text-base w-full px-5 py-3 text-center`}>
                             {
                                 isSubmitting?
                                 <span className='flex h-8 w-8 border-4 border-b-purple-300 rounded-full animate-spin'></span>
                                 :
                                 <span>Submit</span>
                             }
-                        </button>
+                        </Button>
                     </div>
                 </div>
             </Box>
@@ -358,7 +363,16 @@ const Complaints = () => {
                             </Tooltip>
                         </div>
                         :
-                        <p className='mt-auto my-4 mt-6 text-red-500 text-xl flex w-full justify-center'>Pending</p>
+                        <div className='flex items-center justify-between mb-4 mt-6'>
+                        <p className='text-red-500 text-xl'>Pending</p>
+                            <Tooltip title="Call Agent">
+                                <a  href={`tel:${complaintDetails.agent_phone}`} id={complaintDetails.id} className={`text-purple-800 text:bg-purple-900`}>
+                                    <IconButton color={`${complaintDetails.status? 'secondary': 'gray'}`}>
+                                        <PhoneEnabledIcon />
+                                    </IconButton>
+                                </a>
+                            </Tooltip>
+                        </div>
                     }
                 </Box>
             </Fade>
@@ -398,10 +412,10 @@ const Complaints = () => {
                     <button onClick={(e) => loadCategory(e)} className={`${currentCategory === 'wash'? 'bg-purple-600 text-white': 'bg-white text-purple-600'} border border-purple-600 px-4 py-2 text-white rounded-lg uppercase`}>wash</button>
                     <button onClick={(e) => loadCategory(e)} className={`${currentCategory === 'legal'? 'bg-orange-600 text-white': 'bg-white text-orange-600'} border border-orange-600 px-4 py-2 text-white rounded-lg capitalize`}>legal</button>
                 </div>
-                <button onClick={() => setShowCreateComplaint(prevValue => !prevValue)} className='shrink-0 flex items-center gap-1 md:gap-3 border-[3px] hover:text-purple-600 hover:border-purple-600 text-gray-700 px-2 md:px-4 h-12 rounded-xl'>
+                <Button onClick={() => setShowCreateComplaint(prevValue => !prevValue)} variant='outlined' color='secondary' backgroundColor = 'purple[500]' className='shrink-0 flex items-center gap-1 md:gap-3 border-[3px] hover:text-purple-600 hover:border-purple-600 text-gray-700 px-2 md:px-4 h-12 rounded-xl'>
                     <span className='flex items-center text-base'>New Complaint</span>
                     <span className='flex items-center text-base'><i className='fa fa-plus'></i></span>
-                </button>
+                </Button>
             </div>
         </div>
         <div className='w-full h-full flex overflow-auto pt-2 md:pt-6'>

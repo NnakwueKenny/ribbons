@@ -27,6 +27,7 @@ const AllComplaints = ({filter, togglePrevComplaint, toggleUpdateComplaint}) => 
         )
         .then(response => response.json())
         .then(data =>{
+            console.log(data)
             if ( filter === 'open' ) {
                 setComplaints(data.filter(item => item.status === false));
             } else if ( filter === 'closed' ) {
@@ -81,10 +82,10 @@ const AllComplaints = ({filter, togglePrevComplaint, toggleUpdateComplaint}) => 
                                     <p className="font-normal text-gray-700">{complaint.desc.length >= 100? complaint.desc.slice(0, 100): complaint.desc}</p>
                                     {
                                         complaint.status?
-                                        <div className='flex items-center justify-between mb-4 mt-6'>
+                                        <div className='flex items-center justify-between mt-auto py-3'>
                                             <p className='text-green-700 text-xl'>Resolved</p>
-                                            <Tooltip title="Call Victim">
-                                                <a  href={`tel:${complaint.phone}`} id={complaint.id} className={`text-purple-800 text:bg-purple-900`}>
+                                            <Tooltip title="Call Help Desk">
+                                                <a  href={`tel:${complaint.admin_phone}`} id={complaint.id} className={`text-purple-800 text:bg-purple-900`}>
                                                     <IconButton color={`${complaint.status? 'secondary': 'gray'}`}>
                                                         <PhoneEnabledIcon />
                                                     </IconButton>
@@ -92,9 +93,9 @@ const AllComplaints = ({filter, togglePrevComplaint, toggleUpdateComplaint}) => 
                                             </Tooltip>
                                         </div>
                                         :
-                                        <p className='mt-auto my-4 mt-6 text-red-500 text-xl flex w-full justify-center'>Pending</p>
+                                        <p className='mt-auto py-3 mt-auto text-red-500 text-xl flex w-full justify-center'>Pending</p>
                                     }
-                                    <div className='flex gap-3 mt-auto'>
+                                    <div className='flex gap-3'>
                                         <Button onClick={() => togglePrevComplaint(complaint)} variant='outlined' color='secondary' backgroundColor = 'purple[500]' className='w-full bg-gray-500'>View Details</Button>
                                         {
                                             !complaint.status &&

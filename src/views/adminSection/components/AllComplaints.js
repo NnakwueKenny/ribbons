@@ -81,7 +81,7 @@ const AllComplaints = ({filter, togglePrevComplaint}) => {
                                     <p className="font-normal text-gray-700">{complaint.desc.length >= 100? complaint.desc.slice(0, 100): complaint.desc}</p>
                                     {
                                         complaint.status?
-                                        <div className='flex items-center justify-between mb-4 mt-6'>
+                                        <div className='flex items-center justify-between py-3 mt-auto'>
                                             <p className='text-green-700 text-xl'>Resolved</p>
                                             <Tooltip title="Call Victim">
                                                 <a  href={`tel:${complaint.phone}`} id={complaint.id} className={`text-purple-800 text:bg-purple-900`}>
@@ -92,9 +92,9 @@ const AllComplaints = ({filter, togglePrevComplaint}) => {
                                             </Tooltip>
                                         </div>
                                         :
-                                        <p className='mt-auto my-4 mt-6 text-red-500 text-xl flex w-full justify-center'>Pending</p>
+                                        <p className='py-3 mt-auto text-red-500 text-xl flex w-full justify-center'>Pending</p>
                                     }
-                                    <div className='flex gap-3 mt-auto'>
+                                    <div className='flex gap-3'>
                                         <Button onClick={() => togglePrevComplaint(complaint)} variant='outlined' color='secondary' backgroundColor = 'purple[500]' className='w-full bg-gray-500'>View Details</Button>
                                     </div>
                                 </div>

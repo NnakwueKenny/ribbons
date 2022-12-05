@@ -174,21 +174,21 @@ const AdminDashboard = () => {
           {/* Chart */}
           {/* All Cases */}
           <Grid item xs={12} md={4} lg={4}>
-            <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', height: 200, justifyContent: 'space-between'}} >
+            <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', height: '100%', justifyContent: 'space-between'}} >
               <DisplayComponents  values={displayValues} compare='allCases'/>
             </Paper>
           </Grid>
 
           {/* Emergency Cases */}
           <Grid item xs={12} md={4} lg={4}>
-            <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', height: 200, justifyContent: 'space-between'}} >
+            <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', height: '100%', justifyContent: 'space-between'}} >
               <DisplayComponents values={displayValues} compare='emergencyCases'/>
             </Paper>
           </Grid>
 
           {/* Chart */}
           <Grid item xs={12} md={4} lg={4}>
-            <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', height: 200, justifyContent: 'space-between'}} >
+            <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', height: '100%', justifyContent: 'space-between'}} >
               <Chart />
             </Paper>
           </Grid>
@@ -197,7 +197,7 @@ const AdminDashboard = () => {
 
           <Grid item xs={12} md={6} lg={4}>
             <Paper
-              sx={{ p: 1,  display: 'flex', flexDirection: 'column', height: 310 }}
+              sx={{ p: 2,  display: 'flex', flexDirection: 'column', height: '100%' }}
             >
               <Title>
                 <Typography sx={{color: 'gray'}} component="h2" variant="h5">
@@ -316,7 +316,7 @@ const AdminDashboard = () => {
           {/* Feedback */}
           <Grid item xs={12} md={6} lg={4}>
             <Paper
-              sx={{ p: 2,  display: 'flex', flexDirection: 'column', height: 310 }}
+              sx={{ p: 2,  display: 'flex', flexDirection: 'column', height: '100%' }}
             >
               <Title>
                 <Typography sx={{color: 'gray'}} component="h2" variant="h5">
@@ -442,7 +442,7 @@ const AdminDashboard = () => {
           {/* Agent Status */}
           <Grid item xs={12} md={6} lg={4}>
             <Paper
-              sx={{ p: 1,  display: 'flex', flexDirection: 'column', height: 310 }}
+              sx={{ p: 2,  display: 'flex', flexDirection: 'column', height: '100%' }}
             >
               <Title>
                 <Typography sx={{color: 'gray'}} component="h2" variant="h5">

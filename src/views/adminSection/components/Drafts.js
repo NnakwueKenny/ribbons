@@ -538,10 +538,10 @@ const Drafts = () => {
                     <button onClick={(e) => loadCategory(e)} className={`${currentCategory === 'wash'? 'bg-purple-600 text-white': 'bg-white text-purple-600'} border border-purple-600 px-4 py-2 text-white rounded-lg uppercase`}>wash</button>
                     <button onClick={(e) => loadCategory(e)} className={`${currentCategory === 'legal'? 'bg-orange-600 text-white': 'bg-white text-orange-600'} border border-orange-600 px-4 py-2 text-white rounded-lg capitalize`}>legal</button>
                 </div>
-                <button onClick={() => setShowCreateDraft(prevValue => !prevValue)} className='shrink-0 flex items-center gap-1 md:gap-3 border-[3px] hover:text-purple-600 hover:border-purple-600 text-gray-700 px-2 md:px-4 h-12 rounded-xl'>
+                <Button onClick={() => setShowCreateDraft(prevValue => !prevValue)} variant='outlined' color='secondary' backgroundColor = 'purple[500]' className='shrink-0 flex items-center gap-1 md:gap-3 border-[3px] hover:text-purple-600 hover:border-purple-600 text-gray-700 px-2 md:px-4 h-12 rounded-xl'>
                     <span className='flex items-center text-base'>New Draft</span>
                     <span className='flex items-center text-base'><i className='fa fa-plus'></i></span>
-                </button>
+                </Button>
             </div>
         </div>
         <div className='w-full h-full flex overflow-auto pt-2 md:pt-6'>
