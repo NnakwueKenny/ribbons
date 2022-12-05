@@ -186,7 +186,28 @@ const Drafts = () => {
                 console.log(data.error);
                 toggleMessageContent(setRequestMessage, data.error, 'error');
             } else {
-                toggleMessageContent(setRequestMessage, data);
+                fetch('https://ribbons.onrender.com/draft/delete-draft',
+                {
+                    method: 'post',
+                    headers: {
+                        Accept: 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        draftID: draftDetails.id
+                    })
+                }
+            )
+            .then(response => response.json())
+            .then(draftRes => {
+                console.log();
+                toggleMessageContent(setRequestMessage, `${data} and ${draftRes.message}`);
+            })
+            .catch(err => {
+                console.log(err);
+                setIsSubmitting(false);
+                toggleMessageContent(setRequestMessage, 'An error just occurred. Please, try again!', 'error');
+            })
             }
         })
         .catch(err => {
