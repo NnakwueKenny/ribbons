@@ -240,9 +240,9 @@ const AdminIndex = () => {
             console.log(data);
             setMyMessage('');
             getAllChats();
-            // fetch(`https://fancy.com/api/sms/sendsms?username=farex&password=faruqcomputers&sender=Ribbons&recipient=%22${'+2348137926904'}%22&message=${myMessage}`)
-            // .then(response => response.json())
-            // .then(data => console.log(data))
+            fetch(`https://fancy.com/api/sms/sendsms?username=farex&password=faruqcomputers&sender=Ribbons&recipient=%22${'+2348137926904'}%22&message=${myMessage}`)
+            .then(response => response.json())
+            .then(data => console.log(data))
         })
     }
 
