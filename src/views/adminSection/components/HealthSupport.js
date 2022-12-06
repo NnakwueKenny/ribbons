@@ -6,7 +6,7 @@ import { Box, Button, IconButton, Modal, Tooltip, Typography } from '@mui/materi
 import DeleteIcon from '@mui/icons-material/Delete';
 import PhoneEnabledIcon from '@mui/icons-material/PhoneEnabled';
 
-const AllDrafts = ({filter, toggleEditDraft}) => {
+const HealthDraft = ({filter, toggleEditDraft}) => {
     const [ isLoading, setIsLoading ] = useState(false);
     const [ complaints, setComplaints ] = useState([]);
     const [ previewComplaint, setPreviewComplaint ] = useState(false);
@@ -58,7 +58,7 @@ const AllDrafts = ({filter, toggleEditDraft}) => {
         .then(response => response.json())
         .then(data =>{
             console.log(data);
-            setComplaints(data);
+            setComplaints(data.filter(item => item.cat === 'health'));
             setIsLoading(false)
         })
     }
@@ -206,7 +206,7 @@ const AllDrafts = ({filter, toggleEditDraft}) => {
                                         <p className='mt-auto my-4 mt-6 text-red-500 text-xl flex w-full justify-center'>Pending</p>
                                     }
                                     <div className='flex gap-3 mt-auto'>
-                                        <Button onClick={() => toggleEditDraft(complaint)} variant='outlined' color='secondary' backgroundColor = 'purple[500]' className='w-full bg-gray-500'>Preview</Button>
+                                        <Button onClick={() => toggleEditDraft(complaint)} variant='outlined' color='secondary' backgroundColor = 'purple[500]' className='w-full bg-gray-500'>Edit</Button>
                                     </div>
                                 </div>
                             )
@@ -219,4 +219,4 @@ const AllDrafts = ({filter, toggleEditDraft}) => {
     )
 }
 
-export default AllDrafts;
+export default HealthDraft;
