@@ -6,6 +6,7 @@ import SuppliesDraft from '../components/SuppliesDraft';
 import WASHDraft from '../components/WASHDraft';
 import LegalDraft from '../components/LegalDraft';
 import PsychosocialDraft from '../components/PsychosocialDraft';
+import PsychosocialSupport from '../components/PsychosocialSupport';
 
 import {
     Box, FormControl, InputLabel, MenuItem, Modal, Select, TextField, 
@@ -37,7 +38,7 @@ const Support = () => {
         supplies: <SuppliesDraft value='all' filter={filter} toggleEditDraft={toggleEditDraft}/>,
         wash: <WASHDraft value='all' filter={filter} toggleEditDraft={toggleEditDraft} />,
         legal: <LegalDraft value='all' filter={filter} toggleEditDraft={toggleEditDraft} />,
-        psychosocial: <PsychosocialDraft value='all' filter={filter} toggleEditDraft={toggleEditDraft} />,
+        psychosocial: <PsychosocialSupport value='all' filter={filter} toggleEditDraft={toggleEditDraft} />,
     }
 
     const [ draftCategory, setDraftCategory ] = useState(draftCategories.all);
