@@ -32,7 +32,7 @@ const Suuport = () => {
     const [ filter, setFilter ] = useState('');
 
     const draftCategories = {
-        all: <AllDrafts value='all' filter={filter} toggleEditDraft={toggleEditDraft}/> ,
+        all: <AllSupport value='all' filter={filter} toggleEditDraft={toggleEditDraft}/> ,
         health: <HealthDraft value='all' filter={filter} toggleEditDraft={toggleEditDraft}/>,
         supplies: <SuppliesDraft value='all' filter={filter} toggleEditDraft={toggleEditDraft}/>,
         wash: <WASHDraft value='all' filter={filter} toggleEditDraft={toggleEditDraft} />,
