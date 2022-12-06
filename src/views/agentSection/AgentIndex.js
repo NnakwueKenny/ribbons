@@ -266,7 +266,7 @@ const AdminIndex = () => {
                                                     <ListItemText primary="Complaints" />
                                                 </ListItemButton>
 
-                                                <ListItemButton  onClick={() => openChat()}>
+                                                <ListItemButton onClick={(e) => {setPage(pages['complaints']); setCurrentPage('complaints')}}>
                                                     <ListItemIcon>
                                                         <SpeakerNotesIcon />
                                                     </ListItemIcon>
