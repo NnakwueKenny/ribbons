@@ -1,18 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import Loader from '../../../components/Loader';
 
 import { Box, Button, IconButton, Modal, Tooltip, Typography } from '@mui/material';
-import DeleteIcon from '@mui/icons-material/Delete';
 import PhoneEnabledIcon from '@mui/icons-material/PhoneEnabled';
 
-const WASHDraft = ({filter, toggleEditDraft}) => {
+const SuppliesSupport = ({filter, toggleEditDraft}) => {
     const [ isLoading, setIsLoading ] = useState(false);
     const [ complaints, setComplaints ] = useState([]);
 
     const getAllComplaints = () => {
         setIsLoading(true);
-        fetch('https://ribbons.onrender.com/draft/get-drafts',
+        fetch('https://ribbons.onrender.com/support/get-all-support',
             {
                 method: 'post',
                 headers: {
@@ -27,11 +25,11 @@ const WASHDraft = ({filter, toggleEditDraft}) => {
         .then(response => response.json())
         .then(data =>{
             console.log(data);
-            setComplaints(data.filter(item => item.cat === 'wash'));
+            setComplaints(data.filter(item => item.cat === 'supplies'));
             setIsLoading(false)
         })
     }
-
+    
     useEffect(() => {
         getAllComplaints();
     }, [])
@@ -89,7 +87,7 @@ const WASHDraft = ({filter, toggleEditDraft}) => {
                                         <p className='mt-auto my-4 mt-6 text-red-500 text-xl flex w-full justify-center'>Pending</p>
                                     }
                                     <div className='flex gap-3 mt-auto'>
-                                        <Button onClick={() => toggleEditDraft(complaint)} variant='outlined' color='secondary' backgroundColor = 'purple[500]' className='w-full bg-gray-500'>Edit</Button>
+                                        <Button onClick={() => toggleEditDraft(complaint)} variant='outlined' color='secondary' backgroundColor = 'purple[500]' className='w-full bg-gray-500'>Preview</Button>
                                     </div>
                                 </div>
                             )
@@ -102,4 +100,4 @@ const WASHDraft = ({filter, toggleEditDraft}) => {
     )
 }
 
-export default WASHDraft;
+export default SuppliesSupport;

@@ -218,46 +218,6 @@ const Drafts = () => {
 
     }
     
-    const saveComplaint = () => {
-        setIsSaving(true);
-        console.log(dept, severity, complainantName, complainantPhone, desc);
-        fetch('https://ribbons.onrender.com/draft/send-draft',
-            {
-                method: 'post',
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    cat: dept,
-                    name: complainantName,
-                    desc: desc,
-                    medium: 'online',
-                    status: false,
-                    loc: JSON.parse(localStorage.getItem('adminLocation')),
-                    phone: complainantPhone,
-                  })
-            }
-        )
-        .then(response => response.json())
-        .then(data => {
-            console.log(data);
-            setIsSaving(false);
-            if (data.error) {
-                console.log(data.error);
-                toggleMessageContent(setRequestMessage, data.error, 'error');
-            } else {
-                toggleMessageContent(setRequestMessage, data);
-            }
-        })
-        .catch(err => {
-            console.log(err);
-            setIsSaving(false);
-            toggleMessageContent(setRequestMessage, 'An error just occurred!', 'error');
-        })
-
-    }
-    
     const loadCategory = (e) => {
         if (e.target) {
             setDraftCategory(draftCategories[`${e.target.textContent}`]);

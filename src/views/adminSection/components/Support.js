@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import AllDrafts from '../components/AllDrafts';
 import AllSupport from '../components/AllSupport';
-import HealthDraft from '../components/HealthDraft';
-import SuppliesDraft from '../components/SuppliesDraft';
+import HealthSupport from '../components/HealthSupport';
+import SuppliesSupport from '../components/SuppliesSupport';
 import WASHDraft from '../components/WASHDraft';
 import LegalDraft from '../components/LegalDraft';
 import PsychosocialDraft from '../components/PsychosocialDraft';
@@ -34,8 +33,8 @@ const Support = () => {
 
     const draftCategories = {
         all: <AllSupport value='all' filter={filter} toggleEditDraft={toggleEditDraft}/> ,
-        health: <HealthDraft value='all' filter={filter} toggleEditDraft={toggleEditDraft}/>,
-        supplies: <SuppliesDraft value='all' filter={filter} toggleEditDraft={toggleEditDraft}/>,
+        health: <HealthSupport value='all' filter={filter} toggleEditDraft={toggleEditDraft}/>,
+        supplies: <SuppliesSupport value='all' filter={filter} toggleEditDraft={toggleEditDraft}/>,
         wash: <WASHDraft value='all' filter={filter} toggleEditDraft={toggleEditDraft} />,
         legal: <LegalDraft value='all' filter={filter} toggleEditDraft={toggleEditDraft} />,
         psychosocial: <PsychosocialSupport value='all' filter={filter} toggleEditDraft={toggleEditDraft} />,
@@ -216,46 +215,6 @@ const Support = () => {
             console.log(err);
             setIsSubmitting(false);
             toggleMessageContent(setRequestMessage, 'An error just occurred. Please, try again!', 'error');
-        })
-
-    }
-    
-    const saveComplaint = () => {
-        setIsSaving(true);
-        console.log(dept, severity, complainantName, complainantPhone, desc);
-        fetch('https://ribbons.onrender.com/support/send-support',
-            {
-                method: 'post',
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    cat: dept,
-                    name: complainantName,
-                    desc: desc,
-                    medium: 'online',
-                    status: false,
-                    loc: JSON.parse(localStorage.getItem('adminLocation')),
-                    phone: complainantPhone,
-                  })
-            }
-        )
-        .then(response => response.json())
-        .then(data => {
-            console.log(data);
-            setIsSaving(false);
-            if (data.error) {
-                console.log(data.error);
-                toggleMessageContent(setRequestMessage, data.error, 'error');
-            } else {
-                toggleMessageContent(setRequestMessage, data);
-            }
-        })
-        .catch(err => {
-            console.log(err);
-            setIsSaving(false);
-            toggleMessageContent(setRequestMessage, 'An error just occurred!', 'error');
         })
 
     }

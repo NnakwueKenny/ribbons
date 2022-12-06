@@ -9,37 +9,6 @@ import PhoneEnabledIcon from '@mui/icons-material/PhoneEnabled';
 const LegalDraft = ({filter, toggleEditDraft}) => {
     const [ isLoading, setIsLoading ] = useState(false);
     const [ complaints, setComplaints ] = useState([]);
-    const [ previewComplaint, setPreviewComplaint ] = useState(false);
-    const [ isSubmitting, setIsSubmitting ] = useState(false);
-    const [ isSaving, setIsSaving ] = useState(false);
-    
-    const [ dept , setDept ] = useState('');
-    const [ severity , setSeverity ] = useState('');
-    const [ complainantName , setComplainantName ] = useState('');
-    const [ desc, setDesc ] = useState('');
-    const [ complainantPhone , setComplainantPhone ] = useState('');
-    const [ requestMessage, setRequestMessage ] = useState('');
-
-
-    const toggleMessageContent = (setTarget, message, err) => {
-        if (!err) {
-            setTarget(message);
-            setDept('');
-            setDesc('');
-            setSeverity('');
-            setComplainantName('');
-            setComplainantPhone('');
-            setTimeout(() => {
-                setTarget('');
-                setPreviewComplaint(false);
-            }, 3000)
-        } else {
-            setTarget(message);
-            setTimeout(() => {
-                setTarget('');
-            }, 3000)
-        }
-    }
 
     const getAllComplaints = () => {
         setIsLoading(true);
@@ -63,92 +32,6 @@ const LegalDraft = ({filter, toggleEditDraft}) => {
         })
     }
 
-    const updateComplaint = () => {
-        console.Console.log('Hello');
-    }
-
-    const sendComplaint = () => {
-        setIsSubmitting(true);
-        console.log(dept, severity, complainantName, complainantPhone, desc);
-        fetch('http://localhost:3500/complaint/send-complaint',
-            {
-                method: 'post',
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    cat: dept,
-                    severity: severity,
-                    name: complainantName,
-                    desc: desc,
-                    medium: 'online',
-                    status: false,
-                    loc: JSON.parse(localStorage.getItem('adminLocation')),
-                    phone: complainantPhone,
-                    sent_by: JSON.parse(localStorage.getItem('adminUsername'))
-                  })
-            }
-        )
-        .then(response => response.json())
-        .then(data => {
-            console.log(data);
-            setIsSubmitting(false);
-            if (data.errors) {
-                console.log(data.errors);
-                toggleMessageContent(setRequestMessage, 'Please fill all fields!', 'error');
-            } else {
-                toggleMessageContent(setRequestMessage, data);
-            }
-        })
-        .catch(err => {
-            console.log(err);
-            setIsSubmitting(false);
-            toggleMessageContent(setRequestMessage, err.message, err);
-        })
-
-    }
-
-    const saveComplaint = () => {
-        setIsSaving(true);
-        console.log(dept, severity, complainantName, complainantPhone, desc);
-        fetch('http://localhost:3500/draft/send-draft',
-            {
-                method: 'post',
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    cat: dept,
-                    name: complainantName,
-                    desc: desc,
-                    medium: 'online',
-                    status: false,
-                    loc: JSON.parse(localStorage.getItem('adminLocation')),
-                    phone: complainantPhone,
-                  })
-            }
-        )
-        .then(response => response.json())
-        .then(data => {
-            console.log(data);
-            setIsSaving(false);
-            if (data.errors) {
-                console.log(data.errors);
-                toggleMessageContent(setRequestMessage, 'Please fill all fields!', 'error');
-            } else {
-                toggleMessageContent(setRequestMessage, data);
-            }
-        })
-        .catch(err => {
-            console.log(err);
-            setIsSaving(false);
-            toggleMessageContent(setRequestMessage, err.message, err);
-        })
-
-    }
-    
     useEffect(() => {
         getAllComplaints();
     }, [])

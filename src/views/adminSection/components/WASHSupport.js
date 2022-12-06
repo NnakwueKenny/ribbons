@@ -1,18 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import Loader from '../../../components/Loader';
 
 import { Box, Button, IconButton, Modal, Tooltip, Typography } from '@mui/material';
-import DeleteIcon from '@mui/icons-material/Delete';
 import PhoneEnabledIcon from '@mui/icons-material/PhoneEnabled';
 
-const WASHDraft = ({filter, toggleEditDraft}) => {
+const WASHSupport = ({filter, toggleEditDraft}) => {
     const [ isLoading, setIsLoading ] = useState(false);
     const [ complaints, setComplaints ] = useState([]);
 
     const getAllComplaints = () => {
         setIsLoading(true);
-        fetch('https://ribbons.onrender.com/draft/get-drafts',
+        fetch('https://ribbons.onrender.com/support/get-all-support',
             {
                 method: 'post',
                 headers: {
@@ -31,7 +29,7 @@ const WASHDraft = ({filter, toggleEditDraft}) => {
             setIsLoading(false)
         })
     }
-
+    
     useEffect(() => {
         getAllComplaints();
     }, [])
@@ -102,4 +100,4 @@ const WASHDraft = ({filter, toggleEditDraft}) => {
     )
 }
 
-export default WASHDraft;
+export default WASHSupport;
