@@ -15,7 +15,7 @@ import {
 import Close from '@mui/icons-material/Close';
 import PhoneEnabledIcon from '@mui/icons-material/PhoneEnabled';
 
-const Drafts = () => {
+const Suuport = () => {
     
     const Transition = React.forwardRef(function Transition(props, ref) {
         return <Slide direction="down" ref={ref} {...props} />;
@@ -573,4 +573,4 @@ const Drafts = () => {
   )
 }
 
-export default Drafts;
+export default Support;

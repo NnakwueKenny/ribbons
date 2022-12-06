@@ -283,7 +283,7 @@ const AdminIndex = () => {
                                                     <ListItemIcon>
                                                         <SettingsIcon />
                                                     </ListItemIcon>
-                                                    <ListItemText primary="Support" />
+                                                    <ListItemText primary="USSD Complaint" />
                                                 </ListItemButton>
 
                                                 <ListItemButton  onClick={() => openChat()}>
