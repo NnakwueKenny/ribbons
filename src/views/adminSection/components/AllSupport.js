@@ -112,7 +112,7 @@ const AllDrafts = ({filter, toggleEditDraft}) => {
     const saveComplaint = () => {
         setIsSaving(true);
         console.log(dept, severity, complainantName, complainantPhone, desc);
-        fetch('http://localhost:3500/draft/send-draft',
+        fetch('http://localhost:3500/support/send-support',
             {
                 method: 'post',
                 headers: {
