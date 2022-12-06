@@ -178,7 +178,7 @@ const Chatbot = ({toggleShowChatbot}) => {
     }
 
     const getMessages = (sessionStatus) => {
-        fetch(`https://ribbons.onrener.com/all-chats/current-chat`,
+        fetch(`https://ribbons.onrender.com/all-chats/current-chat`,
             {
                 method: 'post',
                 headers: {
@@ -201,7 +201,7 @@ const Chatbot = ({toggleShowChatbot}) => {
 
     const sendMessage = (message) => {
         console.log(phoneNumber)
-        fetch('https://ribbons.onrener.com/user/chat/', {
+        fetch('https://ribbons.onrender.com/user/chat/', {
             method: 'post',
             headers: {
                 accept: 'application/json',
