@@ -6,7 +6,7 @@ import { Box, Button, IconButton, Modal, Tooltip, Typography } from '@mui/materi
 import DeleteIcon from '@mui/icons-material/Delete';
 import PhoneEnabledIcon from '@mui/icons-material/PhoneEnabled';
 
-const HealthDraft = ({filter, toggleEditDraft}) => {
+const PsychosocialSupport = ({filter, toggleEditDraft}) => {
     const [ isLoading, setIsLoading ] = useState(false);
     const [ complaints, setComplaints ] = useState([]);
     const [ previewComplaint, setPreviewComplaint ] = useState(false);
@@ -219,4 +219,4 @@ const HealthDraft = ({filter, toggleEditDraft}) => {
     )
 }
 
-export default HealthDraft;
+export default PsychosocialSupport;
