@@ -24,13 +24,13 @@ const Dashboard = () => {
   }, [])
 
   return (
-    <div className='h-full overflow-auto w-full py-4'>
-      <div id="google_translate_element" className='w-full'></div>
+    <div className='h-full overflow-auto w-full flex justify-center py-4'>
+      <div id="google_translate_element" className='w-full absolute'></div>
       {showChatbot && <Chatbot toggleShowChatbot={toggleShowChatbot}/>}
       {
         isLoading ?
         <Loader />:
-        <div className='flex flex-col gap-4 w-full items-center px-3'>
+        <div className='flex flex-col gap-4 w-full max-w-2xl items-center px-3'>
           {/* Navbar starts here */}
             <Navbar />
           {/* Navbar ends here */}
